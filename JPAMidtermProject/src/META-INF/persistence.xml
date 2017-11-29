@@ -9,9 +9,9 @@
         <class>entities.User</class> -->
 
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sdvid" />
-            <property name="javax.persistence.jdbc.user" value="student" />
-            <property name="javax.persistence.jdbc.password" value="student" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/swapmeetdb" />
+            <property name="javax.persistence.jdbc.user" value="blossom" />
+            <property name="javax.persistence.jdbc.password" value="blossom" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 
             <property name="hibernate.connection.zeroDateTimeBehavior" value="convertToNull"></property>
