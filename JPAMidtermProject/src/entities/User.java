@@ -7,8 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,8 +29,7 @@ public class User {
 	private String password;
 
 	private boolean admin;
-	@ManyToOne
-	@JoinColumn(name="user_id")
+	@OneToMany(mappedBy="user")
 	private List<Item> itemsPosted; 
 	
 	public String getFirstName() {

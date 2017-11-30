@@ -18,7 +18,8 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; 
-	@OneToMany
+	@ManyToOne
+	@JoinColumn(name="user_id")
 	private User user; 
 	private String content; 
 	@Column(name="post_time")
@@ -26,10 +27,10 @@ public class Item {
 	private Category category; 
 	private Double price; 
 	private String title; 
-	@OneToMany(mappedBy="itemsPosted")
-	private Community community; 
 	@ManyToOne
-	@JoinColumn(name="item_id")
+	@JoinColumn(name="community_id")
+	private Community community; 
+	@OneToMany(mappedBy="item")
 	private List<Post> posts;
 	
 	public Item() {
