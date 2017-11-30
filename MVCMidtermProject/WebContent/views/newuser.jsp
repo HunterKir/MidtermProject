@@ -48,8 +48,6 @@
 
                          </div>
                     </div>
-                    <%-- <div class="left-text form-group">
-                    </div> --%>
                     <div class="row">
                          <div class="col">
 
