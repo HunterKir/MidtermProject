@@ -29,7 +29,7 @@
                          <input type="password" name="" class="form-control" value="" placeholder="Password">
                     </div>
                     <div class="col-auto form-group">
-                         <input type="submit" name="" value="Log In">
+                         <input type="submit" class="btn btn-primary" name="" value="Log In">
                     </div>
                </form>
                <div class="">
@@ -37,7 +37,7 @@
                          Don't have an account? Register now for free!
                     </div>
                     <form class="form-group" action="newuser.do" method="post">
-                         <input type="submit" name="" value="Create an Account">
+                         <input type="submit" class="btn btn-primary" name="" value="Create an Account">
                     </form>
                </div>
           </div>
