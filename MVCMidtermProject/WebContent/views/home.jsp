@@ -5,9 +5,14 @@
      <head>
      <title>Swap Meet</title>
 <%@ include file="SharedViews/Layout_CssFiles.jsp"%>
+<link rel="styleSheet" href="css/home.css"/>
+
 </head>
 <body>
 <%@ include file="SharedViews/Layout_Navbar.jsp" %>
+    <div class="container-fluid" id="home-headImage">
+    
+    </div>
      <h1>Hello, world!</h1>
      <form class="" action="login.do" method="get">
           <input type="submit" name="" value="login page">
