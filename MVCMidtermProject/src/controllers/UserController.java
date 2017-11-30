@@ -37,4 +37,24 @@ public class UserController {
 		mv.addObject("user", u);
 		return mv;
 	}
+	
+	@RequestMapping(path="newuser.do", method=RequestMethod.GET)
+	public ModelAndView goToNewUserPage() {
+		ModelAndView mv = new ModelAndView();
+		User u = new User();
+		mv.setViewName("views/newuser.jsp");
+		mv.addObject("newuser", u);
+		return mv;
+	}
+	
+	@RequestMapping(path="newuser.do", method=RequestMethod.POST)
+	public ModelAndView createNewUser(@Valid User user, Errors errors) {
+		ModelAndView mv = new ModelAndView();
+		if (errors.getErrorCount() != 0) {
+			mv.setViewName("views/newuser.jsp");
+			return mv;
+		}
+		mv.setViewName("views/grouphome.jsp");
+		return mv;
+	}
 }
