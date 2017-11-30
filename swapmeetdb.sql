@@ -242,3 +242,12 @@ INSERT INTO `item` (`id`, `user_id`, `content`, `post_time`, `category_id`, `pri
 INSERT INTO `item` (`id`, `user_id`, `content`, `post_time`, `category_id`, `price`, `title`, `community_id`) VALUES (6, 2, 'Coffee Beans', '2017-12-01', 2, NULL, 'Free Coffee', 2);
 
 COMMIT;
+-- -----------------------------------------------------
+-- Data for table `user_community`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `SwapMeetDB`;
+INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (1, 1);
+INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (2, 2);
+
+COMMIT;
