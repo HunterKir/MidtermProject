@@ -11,42 +11,76 @@
 
          <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-     <link rel="stylesheet" href="css/master.css">
-     <link rel="stylesheet" href="css/login.css">
+     <link rel="stylesheet" href="views/css/master.css">
+     <link rel="stylesheet" href="views/css/login.css">
 </head>
 <body class="full-height">
      <div class="row third-height">
 
      </div>
      <div class="row align-items-center justify-content-center third-height">
-          <div class="col-10 form-control center-text align-self-center transparency-white">
+          <div class="col-8 form-control center-text align-self-center transparency-white">
                <h1>Create Your Account</h1>
-               <form:form class="form-group" action="createUser.do" method="get" modelAttribute="user">
-                    <div class="left-text form-group">
-                         First Name:
-                         <form:input class="form-control" path="firstName"/>
-                         <form:errors path="firstName"/>
+               <form:form class="form-group" action="newuser.do" method="post" modelAttribute="newuser">
+                    <div class="row">
+                         <div class="col">
+
+                         </div>
+                         <div class="left-text form-group col-8">
+                              First Name:
+                              <form:input class="form-control" path="firstName"/>
+                              <form:errors path="firstName"/>
+                         </div>
+                         <div class="col">
+
+                         </div>
                     </div>
-                    <div class="left-text form-group">
-                         Last Name:
-                         <form:input class="form-control" path="lastName"/>
-                         <form:errors path="lastName"/>
+                    <div class="row">
+                         <div class="col">
+
+                         </div>
+                         <div class="left-text form-group col-8">
+                              Last Name:
+                              <form:input class="form-control" path="lastName"/>
+                              <form:errors path="lastName"/>
+                         </div>
+                         <div class="col">
+
+                         </div>
                     </div>
-                    <div class="left-text form-group">
-                         Username:
-                         <form:input class="form-control" path="username"/>
-                         <form:errors path="username"/>
+                    <%-- <div class="left-text form-group">
+                    </div> --%>
+                    <div class="row">
+                         <div class="col">
+
+                         </div>
+                         <div class="left-text form-group col-8">
+                              Username:
+                              <form:input class="form-control" path="username"/>
+                              <form:errors path="username"/>
+                         </div>
+                         <div class="col">
+
+                         </div>
                     </div>
-                    <div class="left-text form-group">
-                         Password:
-                         <form:password class="form-control" path="password"/>
-                         <form:errors path="password"/>
+                    <div class="row">
+                         <div class="col">
+
+                         </div>
+                         <div class="left-text form-group col-8">
+                              Password:
+                              <form:password class="form-control" path="password"/>
+                              <form:errors path="password"/>
+                         </div>
+                         <div class="col">
+
+                         </div>
                     </div>
-                    <div class="left-text form-group">
+                    <%-- <div class="left-text form-group">
                          Confirm Password:
                          <form:input class="form-control" path="passwordConfirm"/>
                          <form:errors path="passwordConfirm"/>
-                    </div>
+                    </div> --%>
                     <div class="form-group">
                          <input type="submit" name="" class="btn btn-primary" value="Finish">
                     </div>
