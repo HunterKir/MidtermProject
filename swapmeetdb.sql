@@ -249,5 +249,6 @@ START TRANSACTION;
 USE `SwapMeetDB`;
 INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (1, 1);
 INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (2, 2);
+INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (2, 1);
 
 COMMIT;
