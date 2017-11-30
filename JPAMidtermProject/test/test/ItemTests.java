@@ -5,6 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -45,6 +48,14 @@ public class ItemTests {
 		this.emf.close();
 		dao = null; 
 	}
+	
+	@Test
+	public void PriceFilterTest() {
+	List<Item> items = new ArrayList<>();
+	assertEquals
+		
+	}
+	
 /*CRUD test are commented out because they make changes to DB*/
 //	@Test
 //	public void test_createItem() {
@@ -80,4 +91,6 @@ public class ItemTests {
 //		assertNotNull(deletedItem);
 //	}
 	
+	
+
 }
