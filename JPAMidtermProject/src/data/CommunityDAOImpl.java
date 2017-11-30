@@ -1,4 +1,14 @@
 package data;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -7,9 +17,12 @@ import javax.persistence.Persistence;
 import entities.Community;
 import entities.User;
 
+@Repository
+@Transactional
 public class CommunityDAOImpl implements CommunityDAO{
 
 	@Override
+<<<<<<< HEAD
 	public Community getCommunity(int id) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
@@ -23,6 +36,14 @@ public class CommunityDAOImpl implements CommunityDAO{
 		    }
 		    
 		return community;
+=======
+	public Community getCommunitybyId( int id) {
+		Community c = new Community();
+		
+		c=em.
+		
+		return null;
+>>>>>>> e7691e9417bbffce1acfd583233344b32dc8fb73
 	}
 
 	@Override
