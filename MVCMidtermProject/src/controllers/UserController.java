@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,7 +44,7 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		User u = new User();
 		mv.setViewName("views/newuser.jsp");
-		mv.addObject("newuser", u);
+		mv.addObject("user", u);
 		return mv;
 	}
 	

@@ -57,7 +57,7 @@
                     <div class="form-group">
                          Don't have an account? Register now for free!
                     </div>
-                    <form class="form-group" action="newuser.do" method="get">
+                    <form class="form-group" action="newuser.do" method="GET">
                          <input type="submit" class="btn btn-primary" name="" value="Create an Account">
                     </form>
                </div>
