@@ -1,20 +1,12 @@
 package data;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import entities.Community;
-import entities.Item;
-import entities.User;
 
 @Repository
 @Transactional
@@ -37,16 +29,23 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public Community createCommunity(Community community) {
-		em.persist(community);
-		em.flush();
+		try {
+			em.persist(community);
+			em.flush();	
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null; 
+		}
 		return community;
 
 	}
 
 	@Override
-	public Community updateCommunityName(int id, String name) {
+	public Community updateCommunityName(int id, Community community) {
 		Community managed = em.find(Community.class, id);
-		managed.setName(name);
+		managed.setName(community.getName());
+		managed.setOwner(community.getOwner());
 		return managed;
 	}
 
@@ -57,9 +56,11 @@ public class CommunityDAOImpl implements CommunityDAO {
 		if (em.find(Community.class, id) == null) {
 			System.out.println("true");
 			return managed;
-		} else
+		} 
+		else {
 			System.out.println("false");
 		return null;
+		}
 	}
 
 }

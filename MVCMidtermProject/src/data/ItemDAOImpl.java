@@ -1,65 +1,99 @@
 package data;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
-import entities.Community;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import entities.Item;
-import entities.User;
 
+@Repository
+@Transactional
 public class ItemDAOImpl implements ItemDAO {
-	
-	public static void main(String[] args) {
-		ItemDAO dao = new ItemDAOImpl();
-		UserDAO uDAO = new UserDAOImpl(); 
-		CommunityDAO cDAO = new CommunityDAOImpl(); 
-		
-		Item x = new Item();
-		User user = uDAO.getUser(1);
-		Community com = cDAO.getCommunity(1); 
-		
-		x.setTitle("Test");
-		x.setCommunity(com);
-		x.setContent("test");
-		x.setPostTime(LocalDateTime.now());
-		
-		dao.postItem(x);
-	}
+	@PersistenceContext
+	private EntityManager em;
 
 	@Override
-	public Item postItem(Item item) {
-		EntityManagerFactory emf = 
-		        Persistence.createEntityManagerFactory("MidtermProject");
-		    EntityManager em = emf.createEntityManager();
-		    
-		    em.getTransaction().begin();
-		    em.persist(item);
-		    em.flush();
-		    em.getTransaction().commit();
-		    em.close();
-		    emf.close();
-		    return null;
+	public Item createItem(Item item) {
+		em.persist(item);
+		em.flush();
+		return item;
 	}
 
 	@Override
 	public Item getItem(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Item item = null;
+		item = em.find(Item.class, id);
+		return item;
 	}
 
 	@Override
 	public Item deleteItem(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Item item = em.find(Item.class, id);
+
+		if (item != null) {
+			em.remove(item);
+		}
+
+		return item;
 	}
 
 	@Override
-	public Item updateItem(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Item updateItem(int id, Item item) {
+
+		Item itemToUpdate = em.find(Item.class, id);
+
+		itemToUpdate.setUser(item.getUser());
+		itemToUpdate.setCategory(item.getCategory());
+		itemToUpdate.setCommunity(item.getCommunity());
+		itemToUpdate.setContent(item.getContent());
+		itemToUpdate.setPostTime(item.getPostTime());
+		itemToUpdate.setPrice(item.getPrice());
+		itemToUpdate.setTitle(item.getTitle());
+
+		return itemToUpdate;
 	}
 
+	@Override
+	public List<Item> getItembyCatID(int id) {
+		List<Item> items = new ArrayList<>();
+		try {
+			String q = "SELECT ii from Item ii WHERE ii.category.id =:cid";
+			items = em.createQuery(q, Item.class).setParameter("cid", id).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return items;
+	}
+
+	@Override
+	public List<Item> getItembyPrice(double min, double max) {
+
+		List<Item> items = new ArrayList<>();
+		try {
+			String q = "SELECT ii from Item ii WHERE ii.price BETWEEN :min AND :max";
+			items = em.createQuery(q, Item.class).setParameter("min", min).setParameter("max", max).getResultList();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return items;
+	}
+
+	@Override
+	public List<Item> getItembyDescription(String descrip) {
+		List<Item> items = new ArrayList<>();
+		try {
+			String q = "SELECT ii from Item ii WHERE ii.content LIKE :text";
+			items = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%").getResultList();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return items;
+	}
 }

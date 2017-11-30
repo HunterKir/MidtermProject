@@ -1,24 +1,69 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CommunityTests {
+import data.CommunityDAO;
+import data.CommunityDAOImpl;
+import data.UserDAO;
+import data.UserDAOImpl;
+import entities.Community;
 
+public class CommunityTests {
+	EntityManagerFactory emf; 
+	EntityManager em; 
+	CommunityDAO dao; 
+	UserDAO uDao; 
 	@Before
 	public void setUp() throws Exception {
+		 this.emf = Persistence.createEntityManagerFactory("MidtermProject");
+		 this.em = emf.createEntityManager();
+		 dao = new CommunityDAOImpl();
+		 uDao = new UserDAOImpl(); 
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		em.close();
+		emf.close();
+		dao = null;
+		uDao = null; 
 	}
-
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
+	/*CRUD test are commented out because they make changes to DB*/
+//	@Test
+//	public void test_createCommunity() {
+//		Community com = new Community(); 
+//		com.setName("Java crew");
+//		com.setOwner(uDao.getUser(1));
+//		Community createdCommunity = dao.createCommunity(com); 
+//		
+//		assertEquals(createdCommunity.getName(), "Java crew"); 
+//	}
+//	@Test
+//	public void test_updateCommunity() {
+//		Community com = dao.getCommunity(2); 
+//		com.setName("SQL crew" );
+//		Community updatedCommunity = dao.updateCommunity(com.getId(), com); 
+//		
+//		assertEquals(updatedCommunity.getName(), "SQL crew"); 
+//	}
+//	@Test
+//	public void test_getCommunity() {
+//		Community com = dao.getCommunity(1); 
+//		assertEquals(com.getName(), "Lunar Blossoms");
+//	}
+//	@Test 
+//	public void test_deleteCommunity() {
+//		Community deletedCommunity = dao.deleteCommunity(2); 
+//		
+//		assertEquals(deletedCommunity.getName(), "SQL crew"); 
+//	}
 
 }

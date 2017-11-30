@@ -36,18 +36,43 @@ public class CommunityDAOImpl implements CommunityDAO{
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
 		
-		em.persist(community);
-		em.flush();
-		return null;
+		try {
+			em.getTransaction().begin();
+			em.persist(community);
+			em.flush();
+			em.getTransaction().commit();
+			return community; 
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null; 
+		}
+		finally {
+			em.close();
+			emf.close();
+		}
 	}
 
 	@Override
-	public Community updateCommunity(int id) {
+	public Community updateCommunity(int id, Community community) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
-		
-		
-		return null;
+		try {
+			em.getTransaction().begin(); 
+			Community managed = em.find(Community.class, id);
+			managed.setName(community.getName());
+			managed.setOwner(community.getOwner());
+			em.getTransaction().commit();
+			return managed; 
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null; 
+		}
+		finally {
+			em.close();
+			emf.close(); 
+		}
 	}
 
 	@Override
