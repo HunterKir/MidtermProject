@@ -25,7 +25,6 @@ public class ItemDAOImpl implements ItemDAO {
 		    emf.close();
 		    return null;
 	}
-
 	@Override
 	public Item getItem(int id) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
@@ -34,7 +33,6 @@ public class ItemDAOImpl implements ItemDAO {
 		item = em.find(Item.class, id);   
 		return item;
 	}
-
 	@Override
 	public Item deleteItem(int id) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");

@@ -39,20 +39,35 @@ public class CommunityDAOImpl implements CommunityDAO{
 
 	@Override
 	public Community createCommunity(Community community) {
-		// TODO Auto-generated method stub
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		
+		em.persist(community);
+		em.flush();
 		return null;
 	}
 
 	@Override
 	public Community updateCommunity(int id) {
-		// TODO Auto-generated method stub
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		
+		
 		return null;
 	}
 
 	@Override
 	public Community deleteCommunity(int id) {
-		// TODO Auto-generated method stub
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		
+		Community managed = em.find(Community.class,id);
+		em.remove(managed);
+		if(em.find(Community.class,id) == null) {
+			System.out.println("true");
+			return managed;
+		} else
+		System.out.println("false");
 		return null;
 	}
-	
 }
