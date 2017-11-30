@@ -1,0 +1,9 @@
+body {
+     background-image: url(images/loginbackgroundfinal.jpg);
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+}
+h1 {
+     color: black;
+}
