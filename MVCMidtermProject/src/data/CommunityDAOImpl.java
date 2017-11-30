@@ -62,38 +62,4 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return null;
 	}
 
-	public List<Item> getItembyCatID(int id) {
-		List<Item> items = new ArrayList<>();
-		try {
-			String q = "SELECT ii from Item ii WHERE ii.category.id =:cid";
-			items = em.createQuery(q, Item.class).setParameter("cid", id).getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return items;
-	}
-
-	public List<Item> getItembyPrice(double min, double max) {
-		List<Item> items = new ArrayList<>();
-		try {
-			String q = "SELECT ii from Item ii WHERE ii.price BETWEEN :min AND < :max";
-			items = em.createQuery(q, Item.class).setParameter("min", min).setParameter("max", max).getResultList();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return items;
-	}
-
-	public List<Item> getItembyDescription(String descrip) {
-		List<Item> items = new ArrayList<>();
-		try {
-			String q = "SELECT ii from Item ii WHERE ii.content LIKE :text";
-			items = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%").getResultList();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return items;
-	}
 }
