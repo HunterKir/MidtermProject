@@ -22,7 +22,7 @@ public class UserController {
 	public ModelAndView userLogIn(@Valid User user, Errors errors) {
 		ModelAndView mv = new ModelAndView();
 		if (errors.getErrorCount() != 0) {
-			mv.setViewName("login.jsp");
+			mv.setViewName("views/login.jsp");
 			return mv;
 		}
 		mv.setViewName("home.jsp");
@@ -33,7 +33,7 @@ public class UserController {
 	public ModelAndView goToLoginPage() {
 		ModelAndView mv = new ModelAndView();
 		User u = new User();
-		mv.setViewName("login.jsp");
+		mv.setViewName("views/login.jsp");
 		mv.addObject("user", u);
 		return mv;
 	}
