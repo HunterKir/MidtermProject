@@ -22,16 +22,32 @@
           </div>
      </div>
      <div class="row align-items-center justify-content-center third-height">
-          <div class="col-6 form-control center-text align-self-center transparency-white">
+          <div class="col-10 col-sm-6 form-control center-text align-self-center transparency-white">
                <h1>Log In</h1>
                <form:form class="" action="login.do" method="POST" modelAttribute="user">
-                    <div class="form-group align-items-center">
-                         <form:input class="form-control" path="username" placeholder="Username"/>
-                         <form:errors path="username"/>
+                    <div class="row align-items-center justify-content-center">
+                         <div class="col">
+
+                         </div>
+                         <div class="form-group align-items-center col-sm-8">
+                              <form:input class="form-control" path="username" placeholder="Username"/>
+                              <form:errors path="username"/>
+                         </div>
+                         <div class="col">
+
+                         </div>
                     </div>
-                    <div class="form-group align-items-center">
-                         <form:password class="form-control" path="password" placeholder="Password"/>
-                         <form:errors path="password"/>
+                    <div class="row align-items-center justify-content-center">
+                         <div class="col">
+
+                         </div>
+                         <div class="form-group align-items-center col-sm-8">
+                              <form:password class="form-control" path="password" placeholder="Password"/>
+                              <form:errors path="password"/>
+                         </div>
+                         <div class="col">
+
+                         </div>
                     </div>
                     <div class="col-auto form-group">
                          <input type="submit" class="btn btn-primary" name="" value="Log In">
