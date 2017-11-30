@@ -12,5 +12,4 @@ public interface ItemDAO {
 	public List<Item> getItembyCatID(int id);
 	public List<Item> getItembyPrice(double min, double max);
 	public List<Item> getItembyDescription(String descrip);
-	public List<Item> getItembyUserId(int uid);
 }

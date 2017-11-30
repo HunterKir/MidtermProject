@@ -124,20 +124,4 @@ public class ItemDAOImpl implements ItemDAO {
 		return items;
 	}
 
-	public List<Item> getItembyUserId(int uid) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
-		EntityManager em = emf.createEntityManager();
-		List<Item> items = new ArrayList<>();
-		try {
-			String q = "SELECT ii from Item ii where ii.user.id=:uid";
-			items = em.createQuery(q, Item.class).setParameter("uid", uid).getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			em.close();
-			emf.close();
-		}
-		return items;
-
-	}
 }
