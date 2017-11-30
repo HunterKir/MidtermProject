@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "user")
@@ -17,15 +20,27 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
+	@Min(2)
+	@Max(45)
+	@Pattern(regexp="^[a-zA-Z]+$")
 	@Column(name = "first_name")
 	private String firstName;
 
+	@Min(2)
+	@Max(45)
+	@Pattern(regexp="^[a-zA-Z]+$")
 	@Column(name = "last_name")
 	private String lastName;
 
+	@Min(5)
+	@Max(45)
+	@Pattern(regexp="^[a-zA-Z0-9]+$")
 	private String username;
 
+	@Min(5)
+	@Max(45)
+	@Pattern(regexp="^[a-zA-Z0-9]+$")
 	private String password;
 
 	private boolean admin;
