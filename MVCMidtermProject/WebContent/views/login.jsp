@@ -21,7 +21,28 @@
      <div class="row align-items-center justify-content-center third-height">
           <div class="col-6 form-control center-text align-self-center transparency-white">
                <h1>Log In</h1>
-               <form class="" action="login.do" method="get">
+               <form:form class="" action="login.do" method="GET" modelAttribute="user">
+                    <div class="form-group align-items-center">
+                         <form:input class="form-control" path="username"/>
+                         <form:errors path="username"/>
+                    </div>
+                    <div class="form-group align-items-center">
+                         <form:password class="form-control" path="password"/>
+                         <form:errors path="password"/>
+                    </div>
+                    <div class="col-auto form-group">
+                         <input type="submit" class="btn btn-primary" name="" value="Log In">
+                    </div>
+               </form:form>
+               <div class="">
+                    <div class="form-group">
+                         Don't have an account? Register now for free!
+                    </div>
+                    <form class="form-group" action="newuser.do" method="post">
+                         <input type="submit" class="btn btn-primary" name="" value="Create an Account">
+                    </form>
+               </div>
+               <%-- <form class="" action="login.do" method="get">
                     <div class="form-group align-items-center">
                          <input type="text" name="" class="form-control" value="" placeholder="Username">
                     </div>
@@ -39,7 +60,7 @@
                     <form class="form-group" action="newuser.do" method="post">
                          <input type="submit" class="btn btn-primary" name="" value="Create an Account">
                     </form>
-               </div>
+               </div> --%>
           </div>
      </div>
      <div class="row third-height">
