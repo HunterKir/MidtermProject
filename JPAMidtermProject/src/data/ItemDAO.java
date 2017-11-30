@@ -3,8 +3,8 @@ package data;
 import entities.Item;
 
 public interface ItemDAO {
-	public Item postItem(); 
-	public Item getItem();
-	public Item deleteItem(); 
-	public Item updateItem(); 
+	public Item postItem(Item item); 
+	public Item getItem(int id);
+	public Item deleteItem(int id); 
+	public Item updateItem(int id); 
 }

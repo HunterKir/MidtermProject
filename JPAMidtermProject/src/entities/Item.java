@@ -2,8 +2,6 @@ package entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale.Category;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
