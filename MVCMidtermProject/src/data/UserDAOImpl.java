@@ -1,45 +1,64 @@
 package data;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import entities.User;
-
+@Repository
+@Transactional
 public class UserDAOImpl implements UserDAO {
-
+	@PersistenceContext
+	private EntityManager em;
+	
 	@Override
 	public User getUser(int id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
-		EntityManager em = emf.createEntityManager();
-		User user = null; 
-		    try {
-		    	 user = em.find(User.class, id);
-		    	
-		    }
-		    catch(Exception e) {
-		    		e.printStackTrace();
-		    }
-		    
+		User user = null;
+		try {
+			user = em.find(User.class, id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return user;
 	}
 
 	@Override
 	public User createUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+
+		em.persist(user);
+		em.flush();
+		return user;
 	}
 
 	@Override
-	public User updateUser(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public User updateUser(int id, User user) {
+
+		User userToUpdate = em.find(User.class, id);
+
+		userToUpdate.setAdmin(user.isAdmin());
+		userToUpdate.setFirstName(user.getFirstName());
+		userToUpdate.setLastName(user.getLastName());
+		userToUpdate.setItemPosts(user.getItemPosts());
+		userToUpdate.setPassword(user.getPassword());
+		userToUpdate.setUsername(user.getUsername());
+
+		return userToUpdate;
 	}
 
 	@Override
 	public User deleteUser(int id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		User user = em.find(User.class, id);
+
+		if (user != null) {
+			em.remove(user);
+			return user;
+		} else {
+			return null;
+		}
 	}
 
 }
