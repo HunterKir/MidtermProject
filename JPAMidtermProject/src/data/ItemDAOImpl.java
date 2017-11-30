@@ -112,7 +112,7 @@ public class ItemDAOImpl implements ItemDAO {
 		EntityManager em = emf.createEntityManager();
 		List<Item> items = new ArrayList<>();
 		try {
-			String q = "SELECT ii from Item ii WHERE ii.content LIKE :text";
+			String q = "SELECT ii from Item ii WHERE ii.content LIKE :text OR ii.title LIKE :text";
 			items = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%").getResultList();
 
 		} catch (Exception e) {

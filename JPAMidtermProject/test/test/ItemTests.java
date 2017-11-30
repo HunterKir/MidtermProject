@@ -65,7 +65,7 @@ public class ItemTests {
 //
 	@Test
 	public void descTest() {
-		assertEquals(1, dao.getItembyDescription("all").size());
+		assertEquals(3, dao.getItembyDescription("air").size());
 
 	}
 
