@@ -87,5 +87,27 @@ public class UserDAOImpl implements UserDAO {
 		
 		return posts;
 	}
+
+	@Override
+	public User getUserByUserName(String username) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		String query = "SELECT u from User u WHERE username LIKE :username";
+		User user = null; 
+		try {
+			user = em.createQuery(query, User.class )
+					.setParameter("username", username)
+					.getResultList().get(0); 
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			em.close();
+			emf.close();
+		}
+		return user;
+	}
 	
 }

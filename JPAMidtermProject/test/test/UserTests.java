@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import data.UserDAO;
 import data.UserDAOImpl;
-import entities.Community;
 import entities.User;
 
 public class UserTests {
@@ -74,11 +73,15 @@ public class UserTests {
 //		assertEquals(3,dao.getPostHistorybyUid(2).size());
 //		
 //	}
-	 
 	@Test
-	public void User_to_CommunityMap() {
-		
-		assertEquals(1,em.find(User.class,2).getCommunities().size());
+	public void test_getUserByUserName() {
+		User user = dao.getUserByUserName("HunterK");
+		assertEquals(user.getFirstName(), "Hunter"); 
 	}
+//	@Test
+//	public void User_to_CommunityMap() {
+//		
+//		assertEquals(1,em.find(User.class,2).getCommunities().size());
+//	}
 	
 }

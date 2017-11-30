@@ -60,5 +60,20 @@ public class UserDAOImpl implements UserDAO {
 			return null;
 		}
 	}
+	@Override
+	public User getUserByUserName(String username) {
+		String query = "SELECT u from User u WHERE username LIKE :username";
+		User user = null; 
+		try {
+			user = em.createQuery(query, User.class )
+					.setParameter("username", username)
+					.getResultList().get(0); 
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 
 }

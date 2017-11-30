@@ -1,9 +1,11 @@
 package controllers;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,22 +41,38 @@ public class UserController {
 	}
 	
 	@RequestMapping(path="newuser.do", method=RequestMethod.GET)
-	public ModelAndView goToNewUserPage() {
+	public ModelAndView goToNewUserPage(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("activeUser"); 
 		ModelAndView mv = new ModelAndView();
+		
+		//If user exist send them away to their home page
+		if(user != null) {
+			mv.setViewName("redirect: views/userHome.jsp");
+			return mv; 
+		}
+		
 		User u = new User();
 		mv.setViewName("views/newuser.jsp");
-		mv.addObject("newuser", u);
+		model.addAttribute("user", u);
 		return mv;
 	}
 	
 	@RequestMapping(path="newuser.do", method=RequestMethod.POST)
-	public ModelAndView createNewUser(@Valid User user, Errors errors) {
+	public ModelAndView createNewUser(@Valid User user, Errors errors, Model model, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		if (errors.getErrorCount() != 0) {
+		if (errors.hasErrors()) {
 			mv.setViewName("views/newuser.jsp");
 			return mv;
 		}
-		mv.setViewName("views/grouphome.jsp");
+		else if(dao.getUserByUserName(user.getUsername()) != null){
+			mv.setViewName("views/newuser.jsp");
+			mv.addObject("userExist", "Username already exists pick a new username");
+			return mv;	
+		}
+		if(dao.createUser(user) != null) {
+			session.setAttribute("activeUser", user);
+		}
+		mv.setViewName("views/userHome.jsp");
 		return mv;
 	}
 }
