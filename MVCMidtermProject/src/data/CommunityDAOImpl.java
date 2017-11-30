@@ -3,16 +3,22 @@ package data;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import entities.Community;
 import entities.User;
-
+@Repository
+@Transactional
 public class CommunityDAOImpl implements CommunityDAO{
-
+	@PersistenceContext
+	private EntityManager em;
+	
+	
 	@Override
 	public Community getCommunity(int id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
-		EntityManager em = emf.createEntityManager();
 		Community community = null; 
 		    try {
 		    	 community = em.find(Community.class, id);
@@ -27,14 +33,17 @@ public class CommunityDAOImpl implements CommunityDAO{
 
 	@Override
 	public Community createCommunity(Community community) {
-		// TODO Auto-generated method stub
-		return null;
+		em.persist(community);
+		em.flush();
+		return community;
+	
 	}
 
 	@Override
-	public Community updateCommunity(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Community updateCommunityName(int id, String name) {
+		Community managed = em.find(Community.class,id);
+		managed.setName(name);
+		return managed;
 	}
 
 	@Override
@@ -42,5 +51,9 @@ public class CommunityDAOImpl implements CommunityDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	
 	
 }
