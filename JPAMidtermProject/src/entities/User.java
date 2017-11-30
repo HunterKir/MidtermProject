@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -17,15 +21,23 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
+	@Size(min = 1, max = 45, message = "First name must contain 1 to 45 characters.")
+	@Pattern(regexp="^[a-zA-Z]+$", message = "First name must not contain numbers or symbols.")
 	@Column(name = "first_name")
 	private String firstName;
 
+	@Size(min = 1, max = 45, message = "Last name must contain 1 to 45 characters.")
+	@Pattern(regexp="^[a-zA-Z]+$", message = "Last name must not contain numbers or symbols.")
 	@Column(name = "last_name")
 	private String lastName;
 
+	@Size(min = 5, max = 45, message = "Username must contain 5 to 45 characters.")
+	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Username must not contain symbols.")
 	private String username;
 
+	@Size(min = 5, max = 45, message = "Password must be 5 to 45 characters long.")
+	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Password must not contain symbols.")
 	private String password;
 
 	private boolean admin;
