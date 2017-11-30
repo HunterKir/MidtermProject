@@ -47,9 +47,16 @@ public class CommunityDAOImpl implements CommunityDAO{
 	}
 
 	@Override
-	public Community deleteCommunity(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean deleteCommunity(int id) {
+			Community managed = em.find(Community.class,id);
+			em.remove(managed);
+			if(em.find(Community.class,id) == null) {
+				System.out.println("true");
+				return true;
+			} else
+			System.out.println("false");
+			return false;
+		}
 	}
 
 
