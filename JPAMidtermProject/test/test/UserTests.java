@@ -66,4 +66,12 @@ public class UserTests {
 //		
 //		assertEquals("Allen", deletedUser.getFirstName());
 //	}
+	
+
+	@Test
+	public void getPostHistTest() {
+		assertEquals(3,dao.getPostHistorybyUid(2).size());
+		
+	}
+	 
 }

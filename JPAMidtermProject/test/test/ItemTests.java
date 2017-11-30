@@ -48,6 +48,7 @@ public class ItemTests {
 		this.em.close();
 		this.emf.close();
 		dao = null;
+		uDao = null;
 	}
 
 //	@Test
@@ -110,10 +111,4 @@ public class ItemTests {
 //		 
 //	 }
 	
-	@Test
-	public void getItemsByUID() {
-		assertEquals(2,dao.getItembyUserId(2).size());
-		
-	}
-	 
 }
