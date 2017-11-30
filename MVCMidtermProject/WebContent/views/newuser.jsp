@@ -21,7 +21,9 @@
      <div class="row align-items-center justify-content-center third-height">
           <div class="col-8 form-control center-text align-self-center transparency-white">
                <h1>Create Your Account</h1>
+
                <form:form class="form-group" action="newuser.do" method="POST" modelAttribute="user">
+
                     <div class="row">
                          <div class="col">
 
@@ -82,33 +84,8 @@
                     <div class="form-group">
                          <input type="submit" name="" class="btn btn-primary" value="Finish">
                     </div>
+                    <p style="color:black;">${userExist}</p>
                </form:form>
-               <%-- <h1>Create Your Account</h1>
-               <form class="form-group" action="createUser.do" method="post">
-                    <div class="left-text form-group">
-                         First Name
-                         <input type="text" name="firstName" class="form-control" value="" placeholder="First Name">
-                    </div>
-                    <div class="left-text form-group">
-                         Last Name
-                         <input type="text" name="lastName" class="form-control" value="" placeholder="Last Name">
-                    </div>
-                    <div class="left-text form-group">
-                         Username
-                         <input type="text" name="username" class="form-control" value="" placeholder="Username">
-                    </div>
-                    <div class="left-text form-group">
-                         Password
-                         <input type="password" name="password" class="form-control" value="" placeholder="Password">
-                    </div>
-                    <div class="left-text form-group">
-                         Confirm Password
-                         <input type="password" name="confirmPassword" class="form-control" value="" placeholder="Confirm Password">
-                    </div>
-                    <div class="form-group">
-                         <input type="submit" name="" class="btn btn-primary" value="Finish">
-                    </div>
-               </form> --%>
           </div>
      </div>
      <div class="row third-height">
