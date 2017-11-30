@@ -89,4 +89,19 @@ public class CommunityDAOImpl implements CommunityDAO{
 		System.out.println("false");
 		return null;
 	}
+
+	@Override
+	public List<Community> getCommunitybyDesc(String desc) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		List<Community> c = new ArrayList<>();
+		try{
+			String q="SELECT c from Community c WHERE c.name LIKE :desc";
+			c = em.createQuery(q,Community.class).setParameter("desc", "%"+desc+"%")
+					.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return c;
+	}
 }

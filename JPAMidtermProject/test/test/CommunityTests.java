@@ -2,6 +2,9 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -36,6 +39,14 @@ public class CommunityTests {
 		dao = null;
 		uDao = null; 
 	}
+	
+	@Test
+	public void CommunitybyDescTest(){
+		List<Community> communities = new ArrayList<>();
+		communities = dao.getCommunitybyDesc("bot");
+		assertEquals(1,communities.size());
+		
+	}
 	/*CRUD test are commented out because they make changes to DB*/
 //	@Test
 //	public void test_createCommunity() {
@@ -66,4 +77,5 @@ public class CommunityTests {
 //		assertEquals(deletedCommunity.getName(), "SQL crew"); 
 //	}
 
+	
 }

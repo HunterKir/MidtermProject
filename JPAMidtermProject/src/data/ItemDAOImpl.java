@@ -15,17 +15,16 @@ import entities.User;
 public class ItemDAOImpl implements ItemDAO {
 	@Override
 	public Item createItem(Item item) {
-		EntityManagerFactory emf = 
-		        Persistence.createEntityManagerFactory("MidtermProject");
-		    EntityManager em = emf.createEntityManager();
-		    
-		    em.getTransaction().begin();
-		    em.persist(item);
-		    em.flush();
-		    em.getTransaction().commit();
-		    em.close();
-		    emf.close();
-		    return item;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+		em.persist(item);
+		em.flush();
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+		return item;
 	}
 
 	@Override
@@ -56,23 +55,23 @@ public class ItemDAOImpl implements ItemDAO {
 	public Item updateItem(int id, Item item) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
-		
-		   Item itemToUpdate  = em.find(Item.class, id);
-		   em.getTransaction().begin();
-		   
-		   itemToUpdate.setUser(item.getUser());
-		   itemToUpdate.setCategory(item.getCategory());
-		   itemToUpdate.setCommunity(item.getCommunity());
-		   itemToUpdate.setContent(item.getContent());
-		   itemToUpdate.setPostTime(item.getPostTime());
-		   itemToUpdate.setPrice(item.getPrice());
-		   itemToUpdate.setTitle(item.getTitle());	
-   
-		   em.getTransaction().commit();
-	    em.close();
-	    emf.close();
-	    
-		return itemToUpdate;	
+
+		Item itemToUpdate = em.find(Item.class, id);
+		em.getTransaction().begin();
+
+		itemToUpdate.setUser(item.getUser());
+		itemToUpdate.setCategory(item.getCategory());
+		itemToUpdate.setCommunity(item.getCommunity());
+		itemToUpdate.setContent(item.getContent());
+		itemToUpdate.setPostTime(item.getPostTime());
+		itemToUpdate.setPrice(item.getPrice());
+		itemToUpdate.setTitle(item.getTitle());
+
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+
+		return itemToUpdate;
 	}
 
 	public List<Item> getItembyCatID(int id) {
@@ -123,5 +122,22 @@ public class ItemDAOImpl implements ItemDAO {
 			emf.close();
 		}
 		return items;
+	}
+
+	public List<Item> getItembyUserId(int uid) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		List<Item> items = new ArrayList<>();
+		try {
+			String q = "SELECT ii from Item ii where ii.user.id=:uid";
+			items = em.createQuery(q, Item.class).setParameter("uid", uid).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+			emf.close();
+		}
+		return items;
+
 	}
 }

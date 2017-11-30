@@ -50,21 +50,21 @@ public class ItemTests {
 		dao = null;
 	}
 
-	@Test
-	public void CatTest() {
-		assertEquals(2, dao.getItembyCatID(2).size());
-
-	}
+//	@Test
+//	public void CatTest() {
+//		assertEquals(2, dao.getItembyCatID(2).size());
 //
-	@Test
-	public void PriceFilterTest() {
-		assertEquals(2, dao.getItembyPrice(2, 3).size());
-
-	}
+//	}
+////
+//	@Test
+//	public void PriceFilterTest() {
+//		assertEquals(2, dao.getItembyPrice(2, 3).size());
+//
+//	}
 //
 	@Test
 	public void descTest() {
-		assertEquals(2, dao.getItembyDescription("hair").size());
+		assertEquals(1, dao.getItembyDescription("all").size());
 
 	}
 
@@ -103,11 +103,17 @@ public class ItemTests {
 	// assertNotNull(deletedItem);
 	// }
 
-	 @Test
-	 public void getTitle(){
-		 Item i = em.find(Item.class,1);
-		 assertEquals("Chair",i.getTitle());
-		 
-	 }
+//	 @Test
+//	 public void getTitle(){
+//		 Item i = em.find(Item.class,1);
+//		 assertEquals("Chair",i.getTitle());
+//		 
+//	 }
+	
+	@Test
+	public void getItemsByUID() {
+		assertEquals(2,dao.getItembyUserId(2).size());
+		
+	}
 	 
 }
