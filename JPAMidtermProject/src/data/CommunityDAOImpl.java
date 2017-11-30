@@ -22,7 +22,6 @@ import entities.User;
 public class CommunityDAOImpl implements CommunityDAO{
 
 	@Override
-<<<<<<< HEAD
 	public Community getCommunity(int id) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
@@ -36,14 +35,6 @@ public class CommunityDAOImpl implements CommunityDAO{
 		    }
 		    
 		return community;
-=======
-	public Community getCommunitybyId( int id) {
-		Community c = new Community();
-		
-		c=em.
-		
-		return null;
->>>>>>> e7691e9417bbffce1acfd583233344b32dc8fb73
 	}
 
 	@Override
