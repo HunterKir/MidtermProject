@@ -21,6 +21,37 @@
      <div class="row align-items-center justify-content-center third-height">
           <div class="col-10 form-control center-text align-self-center transparency-white">
                <h1>Create Your Account</h1>
+               <form:form class="form-group" action="createUser.do" method="get" modelAttribute="user">
+                    <div class="left-text form-group">
+                         First Name:
+                         <form:input class="form-control" path="firstName"/>
+                         <form:errors path="firstName"/>
+                    </div>
+                    <div class="left-text form-group">
+                         Last Name:
+                         <form:input class="form-control" path="lastName"/>
+                         <form:errors path="lastName"/>
+                    </div>
+                    <div class="left-text form-group">
+                         Username:
+                         <form:input class="form-control" path="username"/>
+                         <form:errors path="username"/>
+                    </div>
+                    <div class="left-text form-group">
+                         Password:
+                         <form:password class="form-control" path="password"/>
+                         <form:errors path="password"/>
+                    </div>
+                    <div class="left-text form-group">
+                         Confirm Password:
+                         <form:input class="form-control" path="passwordConfirm"/>
+                         <form:errors path="passwordConfirm"/>
+                    </div>
+                    <div class="form-group">
+                         <input type="submit" name="" class="btn btn-primary" value="Finish">
+                    </div>
+               </form:form>
+               <%-- <h1>Create Your Account</h1>
                <form class="form-group" action="createUser.do" method="post">
                     <div class="left-text form-group">
                          First Name
@@ -45,7 +76,7 @@
                     <div class="form-group">
                          <input type="submit" name="" class="btn btn-primary" value="Finish">
                     </div>
-               </form>
+               </form> --%>
           </div>
      </div>
      <div class="row third-height">
