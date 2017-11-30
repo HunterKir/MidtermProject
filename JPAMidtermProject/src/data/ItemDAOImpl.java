@@ -12,7 +12,7 @@ import entities.User;
 
 public class ItemDAOImpl implements ItemDAO {
 	@Override
-	public Item postItem(Item item) {
+	public Item createItem(Item item) {
 		EntityManagerFactory emf = 
 		        Persistence.createEntityManagerFactory("MidtermProject");
 		    EntityManager em = emf.createEntityManager();
@@ -23,7 +23,7 @@ public class ItemDAOImpl implements ItemDAO {
 		    em.getTransaction().commit();
 		    em.close();
 		    emf.close();
-		    return null;
+		    return item;
 	}
 	@Override
 	public Item getItem(int id) {
@@ -50,7 +50,7 @@ public class ItemDAOImpl implements ItemDAO {
 
 	@Override
 	public Item updateItem(int id, Item item) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("VideoStore");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
 		
 		   Item itemToUpdate  = em.find(Item.class, id);
@@ -60,10 +60,10 @@ public class ItemDAOImpl implements ItemDAO {
 		   itemToUpdate.setCategory(item.getCategory());
 		   itemToUpdate.setCommunity(item.getCommunity());
 		   itemToUpdate.setContent(item.getContent());
-		   itemToUpdate.setPosts(item.getPosts());
 		   itemToUpdate.setPostTime(item.getPostTime());
 		   itemToUpdate.setPrice(item.getPrice());
-		   itemToUpdate.setTitle(item.getTitle());		   
+		   itemToUpdate.setTitle(item.getTitle());	
+   
 		   em.getTransaction().commit();
 	    em.close();
 	    emf.close();
