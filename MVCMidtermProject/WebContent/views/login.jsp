@@ -21,7 +21,7 @@
      <div class="row align-items-center justify-content-center third-height">
           <div class="col-6 form-control center-text align-self-center transparency-white">
                <h1>Log In</h1>
-               <form:form class="" action="login.do" method="GET" modelAttribute="user">
+               <form:form class="" action="login.do" method="POST" modelAttribute="user">
                     <div class="form-group align-items-center">
                          <form:input class="form-control" path="username"/>
                          <form:errors path="username"/>

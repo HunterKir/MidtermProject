@@ -3,15 +3,22 @@ package data;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import entities.User;
 
+@Repository
+@Transactional
 public class UserDAOImpl implements UserDAO {
+	
+	@PersistenceContext
+	private EntityManager em;
 
 	@Override
 	public User getUser(int id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
-		EntityManager em = emf.createEntityManager();
 		User user = null; 
 		    try {
 		    	 user = em.find(User.class, id);
