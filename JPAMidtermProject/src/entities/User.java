@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -21,26 +22,22 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Min(2)
-	@Max(45)
-	@Pattern(regexp="^[a-zA-Z]+$")
+	@Size(min = 1, max = 45, message = "First name must contain 1 to 45 characters.")
+	@Pattern(regexp="^[a-zA-Z]+$", message = "First name must not contain numbers or symbols.")
 	@Column(name = "first_name")
 	private String firstName;
 
-	@Min(2)
-	@Max(45)
-	@Pattern(regexp="^[a-zA-Z]+$")
+	@Size(min = 1, max = 45, message = "Last name must contain 1 to 45 characters.")
+	@Pattern(regexp="^[a-zA-Z]+$", message = "Last name must not contain numbers or symbols.")
 	@Column(name = "last_name")
 	private String lastName;
 
-	@Min(5)
-	@Max(45)
-	@Pattern(regexp="^[a-zA-Z0-9]+$")
+	@Size(min = 5, max = 45, message = "Username must contain 5 to 45 characters.")
+	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Username must not contain symbols.")
 	private String username;
 
-	@Min(5)
-	@Max(45)
-	@Pattern(regexp="^[a-zA-Z0-9]+$")
+	@Size(min = 5, max = 45, message = "Password must be 5 to 45 characters long.")
+	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Password must not contain symbols.")
 	private String password;
 
 	private boolean admin;
