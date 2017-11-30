@@ -76,12 +76,11 @@ public class UserTests {
 //		assertEquals(3,dao.getPostHistorybyUid(2).size());
 //		
 //	}
-<<<<<<< HEAD
 	@Test
 	public void test_getUserByUserName() {
 		User user = dao.getUserByUserName("HunterK");
 		assertEquals(user.getFirstName(), "Hunter"); 
-=======
+	}
 	 
 //	@Test
 //	public void User_to_CommunityMap() {
@@ -95,7 +94,6 @@ public class UserTests {
 		users = dao.getUserbyFirstOrLastName("ames","smit");
 		assertEquals(3,users.size());
 		
->>>>>>> f6622a1196b998dd63a1bface931fa8e009595c8
 	}
 //	@Test
 //	public void User_to_CommunityMap() {

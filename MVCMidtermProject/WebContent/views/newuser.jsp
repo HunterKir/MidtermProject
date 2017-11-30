@@ -21,11 +21,9 @@
      <div class="row align-items-center justify-content-center third-height">
           <div class="col-8 form-control center-text align-self-center transparency-white">
                <h1>Create Your Account</h1>
-<<<<<<< HEAD
-               <form:form class="form-group" action="newuser.do" method="post" modelAttribute="user">
-=======
+
                <form:form class="form-group" action="newuser.do" method="POST" modelAttribute="user">
->>>>>>> f6622a1196b998dd63a1bface931fa8e009595c8
+
                     <div class="row">
                          <div class="col">
 

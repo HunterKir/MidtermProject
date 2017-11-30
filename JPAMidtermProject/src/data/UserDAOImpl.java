@@ -89,7 +89,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public User getUserByUserName(String username) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
@@ -109,7 +108,7 @@ public class UserDAOImpl implements UserDAO {
 			emf.close();
 		}
 		return user;
-=======
+	}
 	public List<User> getUserbyFirstOrLastName(String first, String last) {
 		List<User> users = new ArrayList<>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
@@ -124,8 +123,6 @@ public class UserDAOImpl implements UserDAO {
 		emf.close();
 		em.close();
 		return users;
-
->>>>>>> f6622a1196b998dd63a1bface931fa8e009595c8
 	}
 	
 }

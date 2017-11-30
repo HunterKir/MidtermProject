@@ -54,11 +54,7 @@ public class UserController {
 		
 		User u = new User();
 		mv.setViewName("views/newuser.jsp");
-<<<<<<< HEAD
-		model.addAttribute("user", u);
-=======
 		mv.addObject("user", u);
->>>>>>> f6622a1196b998dd63a1bface931fa8e009595c8
 		return mv;
 	}
 	
