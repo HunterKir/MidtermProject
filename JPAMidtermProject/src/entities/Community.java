@@ -1,12 +1,14 @@
 package entities;
 
-import javax.persistence.Column;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +24,9 @@ public class Community {
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
 	private User owner;
+	
+	@OneToMany(mappedBy="community")
+	private List<Item> items;
 
 	public String getName() {
 		return name;
@@ -41,6 +46,15 @@ public class Community {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 	@Override
