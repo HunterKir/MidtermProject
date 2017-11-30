@@ -80,6 +80,6 @@ public class CommunityTests {
 	@Test
 	public void Community_to_MemberMap() {
 		
-		assertEquals(2,em.find(Community.class,2).getMembers().size());
+		assertEquals(2,em.find(Community.class,1).getMembers().size());
 	}
 }

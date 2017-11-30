@@ -87,5 +87,23 @@ public class UserDAOImpl implements UserDAO {
 		
 		return posts;
 	}
+
+	@Override
+	public List<User> getUserbyFirstOrLastName(String first, String last) {
+		List<User> users = new ArrayList<>();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		try{String q = "SELECT u from User u Where u.firstName LIKE :first OR u.lastName LIKE :last";
+		users = em.createQuery(q,User.class).setParameter("first", "%"+first+"%").setParameter("last","%"+last+"%").
+		getResultList();
+		return users;
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+		emf.close();
+		em.close();
+		return users;
+
+	}
 	
 }
