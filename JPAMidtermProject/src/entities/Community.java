@@ -22,7 +22,7 @@ public class Community {
 	private String name;
 
 	@ManyToOne
-	@JoinColumn(name = "owner_id")
+	@JoinColumn(name="owner_id")
 	private User owner;
 	
 	@OneToMany(mappedBy="community")
