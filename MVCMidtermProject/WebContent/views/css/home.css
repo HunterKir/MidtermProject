@@ -1,4 +1,13 @@
 @charset "UTF-8";
 #home-headImage{
-	
+    background-image: url("images/gift-brown-shopping-market.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:600px;
+    width:100%;
+}
+img{
+	width: 400px;
+	height:400px;
+	border-radius:5px;
 }
