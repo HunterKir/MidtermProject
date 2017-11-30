@@ -4,9 +4,19 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="home.do">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="login.do">Log in</a>
-    </div>
+    <ul class="navbar-nav">
+         <li class="nav-item active">
+              <a class="nav-link" href="home.do">Home <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
+              <a class="nav-link" href="login.do">Log in</a>
+         </li>
+         <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                   <a href="createGroup.do" class="dropdown-item">New Group</a>
+              </div>
+         </li>
+     </ul>
   </div>
  </nav>

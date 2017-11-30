@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import data.UserDAO;
 import data.UserDAOImpl;
+import entities.Community;
 import entities.User;
 
 public class UserTests {
@@ -66,4 +67,18 @@ public class UserTests {
 //		
 //		assertEquals("Allen", deletedUser.getFirstName());
 //	}
+	
+
+//	@Test
+//	public void getPostHistTest() {
+//		assertEquals(3,dao.getPostHistorybyUid(2).size());
+//		
+//	}
+	 
+	@Test
+	public void User_to_CommunityMap() {
+		
+		assertEquals(1,em.find(User.class,2).getCommunities().size());
+	}
+	
 }

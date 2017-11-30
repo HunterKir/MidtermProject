@@ -1,9 +1,13 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import entities.Post;
 import entities.User;
 
 public class UserDAOImpl implements UserDAO {
@@ -71,6 +75,17 @@ public class UserDAOImpl implements UserDAO {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<Post> getPostHistorybyUid(int uid) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		List<Post> posts = new ArrayList<>();
+		String q = "SELECT p from Post p WHERE p.user.id=:uid";
+		posts = em.createQuery(q,Post.class).setParameter("uid",uid).getResultList();
+		
+		return posts;
 	}
 	
 }

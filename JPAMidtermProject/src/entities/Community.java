@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,6 +28,18 @@ public class Community {
 	
 	@OneToMany(mappedBy="community")
 	private List<Item> items;
+	
+	@ManyToMany(mappedBy="communities")
+	private List<User>members;
+	
+	
+	public List<User> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<User> members) {
+		this.members = members;
+	}
 
 	public String getName() {
 		return name;

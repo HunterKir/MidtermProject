@@ -7,11 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -45,6 +45,13 @@ public class User {
 	
 	@OneToMany(mappedBy="user")
 	private List<Item> itemsPosted; 
+	
+	@ManyToMany
+	@JoinTable(name="user_community",
+    joinColumns=@JoinColumn(name="user_id"),
+    inverseJoinColumns=@JoinColumn(name="community_id")
+  )
+	private List<Community> communities;
 	
 	public String getFirstName() {
 		return firstName;
@@ -96,6 +103,24 @@ public class User {
 
 	public void setItemPosts(List<Item> itemPosts) {
 		this.itemsPosted = itemPosts;
+	}
+
+	
+	
+	public List<Item> getItemsPosted() {
+		return itemsPosted;
+	}
+
+	public void setItemsPosted(List<Item> itemsPosted) {
+		this.itemsPosted = itemsPosted;
+	}
+
+	public List<Community> getCommunities() {
+		return communities;
+	}
+
+	public void setCommunities(List<Community> communities) {
+		this.communities = communities;
 	}
 
 	@Override

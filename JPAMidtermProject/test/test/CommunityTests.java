@@ -77,5 +77,9 @@ public class CommunityTests {
 //		assertEquals(deletedCommunity.getName(), "SQL crew"); 
 //	}
 
-	
+	@Test
+	public void Community_to_MemberMap() {
+		
+		assertEquals(2,em.find(Community.class,2).getMembers().size());
+	}
 }
