@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,7 +54,11 @@ public class UserController {
 		
 		User u = new User();
 		mv.setViewName("views/newuser.jsp");
+<<<<<<< HEAD
 		model.addAttribute("user", u);
+=======
+		mv.addObject("user", u);
+>>>>>>> f6622a1196b998dd63a1bface931fa8e009595c8
 		return mv;
 	}
 	

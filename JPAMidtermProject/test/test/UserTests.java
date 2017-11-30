@@ -2,6 +2,9 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -73,10 +76,26 @@ public class UserTests {
 //		assertEquals(3,dao.getPostHistorybyUid(2).size());
 //		
 //	}
+<<<<<<< HEAD
 	@Test
 	public void test_getUserByUserName() {
 		User user = dao.getUserByUserName("HunterK");
 		assertEquals(user.getFirstName(), "Hunter"); 
+=======
+	 
+//	@Test
+//	public void User_to_CommunityMap() {
+//		
+//		assertEquals(1,em.find(User.class,2).getCommunities().size());
+//	}
+	
+	@Test
+	public void FirstOrLastNameTest() {
+		List<User> users = new ArrayList<>();
+		users = dao.getUserbyFirstOrLastName("ames","smit");
+		assertEquals(3,users.size());
+		
+>>>>>>> f6622a1196b998dd63a1bface931fa8e009595c8
 	}
 //	@Test
 //	public void User_to_CommunityMap() {

@@ -11,6 +11,10 @@ public interface UserDAO {
 	public User updateUser(int id, User user); 
 	public User deleteUser(int id);
 	public List<Post> getPostHistorybyUid(int uid); 
+<<<<<<< HEAD
 	public User getUserByUserName(String username); 
 
+=======
+	public List<User> getUserbyFirstOrLastName (String first, String last);
+>>>>>>> f6622a1196b998dd63a1bface931fa8e009595c8
 }

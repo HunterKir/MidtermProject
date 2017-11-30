@@ -89,6 +89,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public User getUserByUserName(String username) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
@@ -108,6 +109,23 @@ public class UserDAOImpl implements UserDAO {
 			emf.close();
 		}
 		return user;
+=======
+	public List<User> getUserbyFirstOrLastName(String first, String last) {
+		List<User> users = new ArrayList<>();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		try{String q = "SELECT u from User u Where u.firstName LIKE :first OR u.lastName LIKE :last";
+		users = em.createQuery(q,User.class).setParameter("first", "%"+first+"%").setParameter("last","%"+last+"%").
+		getResultList();
+		return users;
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+		emf.close();
+		em.close();
+		return users;
+
+>>>>>>> f6622a1196b998dd63a1bface931fa8e009595c8
 	}
 	
 }
