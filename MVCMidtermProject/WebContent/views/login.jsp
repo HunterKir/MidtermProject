@@ -15,12 +15,13 @@
      <link rel="stylesheet" href="views/css/login.css">
 </head>
 <body class="full-height">
-<%@ include file="SharedViews/Layout_Navbar.jsp" %>
 
-     <div class="row third-height">
-
+     <div class="row third-height align-items-top">
+          <div class="container-fluid">
+               <%@ include file="SharedViews/Layout_Navbar.jsp" %>
+          </div>
      </div>
-     <div class="row align-items-center justify-content-center third-height mt-5">
+     <div class="row align-items-center justify-content-center third-height">
           <div class="col-6 form-control center-text align-self-center transparency-white">
                <h1>Log In</h1>
                <form:form class="" action="login.do" method="POST" modelAttribute="user">
