@@ -14,7 +14,6 @@ import entities.User;
 
 public class ItemDAOImpl implements ItemDAO {
 	@Override
-<<<<<<< HEAD
 	public Item createItem(Item item) {
 		EntityManagerFactory emf = 
 		        Persistence.createEntityManagerFactory("MidtermProject");
@@ -27,19 +26,6 @@ public class ItemDAOImpl implements ItemDAO {
 		    em.close();
 		    emf.close();
 		    return item;
-=======
-	public Item postItem(Item item) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
-		EntityManager em = emf.createEntityManager();
-
-		em.getTransaction().begin();
-		em.persist(item);
-		em.flush();
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
-		return null;
->>>>>>> 554269ac4d17579a00b75f43fb516af570e9e61a
 	}
 
 	@Override
@@ -70,7 +56,6 @@ public class ItemDAOImpl implements ItemDAO {
 	public Item updateItem(int id, Item item) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
-<<<<<<< HEAD
 		
 		   Item itemToUpdate  = em.find(Item.class, id);
 		   em.getTransaction().begin();
@@ -88,24 +73,6 @@ public class ItemDAOImpl implements ItemDAO {
 	    emf.close();
 	    
 		return itemToUpdate;	
-=======
-
-		Item itemToUpdate = em.find(Item.class, id);
-		em.getTransaction().begin();
-
-		itemToUpdate.setUser(item.getUser());
-		itemToUpdate.setCategory(item.getCategory());
-		itemToUpdate.setCommunity(item.getCommunity());
-		itemToUpdate.setContent(item.getContent());
-		itemToUpdate.setPosts(item.getPosts());
-		itemToUpdate.setPostTime(item.getPostTime());
-		itemToUpdate.setPrice(item.getPrice());
-		itemToUpdate.setTitle(item.getTitle());
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
-
-		return itemToUpdate;
 	}
 
 	public List<Item> getItembyCatID(int id) {
@@ -156,6 +123,5 @@ public class ItemDAOImpl implements ItemDAO {
 			emf.close();
 		}
 		return items;
->>>>>>> 554269ac4d17579a00b75f43fb516af570e9e61a
 	}
 }
