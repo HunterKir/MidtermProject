@@ -29,6 +29,8 @@ public class Item {
 	@Column(name="post_time")
 	private LocalDateTime postTime; 
 	
+	@ManyToOne
+	@JoinColumn(name="category_id")
 	private Category category; 
 	
 	private Double price; 
