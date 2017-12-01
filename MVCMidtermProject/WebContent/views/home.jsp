@@ -21,7 +21,7 @@
             <span class="col align-self-end"><img src="views/css/images/signup.jpg" />
             </span>
         </div>
-        <div class="row justify-content-center p-2" style="background-color:#EE9129">
+        <div class="row justify-content-center p-2">
             <span class="col align-self-start"><img src="views/css/images/groupImage.jpg" /></span>
             <h4 class="col align-self-end">Step 2: Join or create a group</h4>
         </div>

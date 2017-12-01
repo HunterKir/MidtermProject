@@ -8,4 +8,5 @@ public interface UserDAO {
 	public User updateUser(int id, User user); 
 	public User deleteUser(int id); 
 	public User getUserByUserName(String username); 
+	public User getLoadedUser(String username); 
 }

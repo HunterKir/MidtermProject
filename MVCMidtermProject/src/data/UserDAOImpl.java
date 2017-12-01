@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import entities.Community;
 import entities.User;
 @Repository
 @Transactional
@@ -73,6 +74,27 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		}
 		return user;
+	}
+	@Override
+	public User getLoadedUser(String username) {
+		//Needs to be Optimized totally ineffecient
+		String query = "SELECT u from User u WHERE username = :username"; 
+		User user = null; 
+		User managedUser = null; 
+		try {
+			user = em.createQuery(query, User.class )
+					.setParameter("username", username)
+					.getResultList().get(0); 
+			managedUser = em.find(User.class, user.getId());
+			
+			for (Community c : managedUser.getCommunities()) {
+				c.getItems().size(); 
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return managedUser;
 	}
 
 }

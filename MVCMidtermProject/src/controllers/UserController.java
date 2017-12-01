@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -7,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +33,7 @@ public class UserController {
 		}
 		else {
 			//Verify Log-in
-			User retrievedUser = dao.getUserByUserName(user.getUsername());
+			User retrievedUser = dao.getLoadedUser(user.getUsername()); 
 			if(retrievedUser != null && retrievedUser.getPassword().equals(user.getPassword())) {
 				session.setAttribute("activeUser", retrievedUser);
 				mv.setViewName("views/userHome.jsp");

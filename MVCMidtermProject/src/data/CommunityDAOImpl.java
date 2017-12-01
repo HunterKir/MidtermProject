@@ -1,5 +1,7 @@
 package data;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import entities.Community;
+import entities.Item;
 
 @Repository
 @Transactional
@@ -62,5 +65,14 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return null;
 		}
 	}
+	@Override
+	public List<Item> getItems(int id){
+		String query = "SELECT i from Item I WHERE i.Community = :communityId "; 
+		List<Item> items = em.createQuery(query, Item.class)
+			.setParameter("communityId", id)
+			.getResultList();
+		return items;
+	}
+	
 
 }

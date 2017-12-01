@@ -14,10 +14,8 @@
     <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-sm-3  rounded fixed">
-                    <a href="newGroup.do" class="btn btn-danger col">
-                        Want to create a group?
-                        Go!
-                    </a>
+                <a href="newGroup.do" class="btn btn-danger col">
+                    Want to create a group? Go! </a>
             </div>
             <div class="col-sm bg-white">
                 <form class="form-inline my-2 my-lg-0">
@@ -47,10 +45,12 @@
                                 aria-labelledby="headingOne"
                                 data-parent="#accordion">
                                 <div class="card-body">
-                                    <%--        <c:forEach var="item"
+                                <ul class="list-group">
+                                    <c:forEach var="item"
                                         items="${group.items}">
-                                    ${item}
-                                </c:forEach> --%>
+                                    <li class="list-group-item"><a href="getPosts.do?id=${item.id}">${item.title}</a></li>
+                                </c:forEach>
+                                </ul>     
                                 </div>
                             </div>
                         </div>
