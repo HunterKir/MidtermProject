@@ -43,17 +43,14 @@ public class User {
 
 	private Boolean admin;
 
-	@OneToMany(mappedBy="user",cascade={CascadeType.PERSIST, CascadeType.REMOVE},fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="user",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Item> itemsPosted;
 
 
 	@OneToMany(mappedBy="owner",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Community> ownedCommunities;
 
-
-
 	@ManyToMany(	cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
-
 	@JoinTable(name="user_community",
     joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name="community_id"))
