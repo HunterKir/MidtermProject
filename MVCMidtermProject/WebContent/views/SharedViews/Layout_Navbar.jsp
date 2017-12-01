@@ -22,6 +22,7 @@
         </c:if>
         <c:if test="${activeUser != null }">
              <li><a class="nav-link" href="login.do">${activeUser.username}</a></li>
+             <li><a class="nav-link" href="logout.do">Log-out</a></li>
         </c:if>
          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</a>

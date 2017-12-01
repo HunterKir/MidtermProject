@@ -11,18 +11,23 @@
 </head>
 <body class="bg-light">
     <%@ include file="SharedViews/Layout_Navbar.jsp"%>
-    <div class="container-fluid">
+    <div class="container-fluid mt-4">
         <div class="row">
-            <div class="col-sm-3  rounded mt-2 p-2 fixed">
-                <form action="newGroup.do" method="GET">
-                    <Button type="submit" class="btn btn-primary">
-                        <h4>Want to create a group?</h4>
-                        <h3>Go!</h3>
-                    </Button>
+            <div class="col-sm-3  rounded fixed">
+                    <a href="newGroup.do" class="btn btn-danger col">
+                        Want to create a group?
+                        Go!
+                    </a>
+            </div>
+            <div class="col-sm bg-white">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control col" type="search"
+                        placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-danger my-2 my-sm-0"
+                        type="submit">Search</button>
                 </form>
             </div>
-            <div class="col-sm">Search area</div>
-            <div class="col-sm mt-2  fixed">
+            <div class="col-sm fixed">
                 <div id="accordion" role="tablist">
                     <c:forEach var="group"
                         items="${activeUser.communities}">
@@ -37,12 +42,12 @@
                                         ${group.name} </a>
                                 </h5>
                             </div>
-                            <div id="${group.id }" class="collapse show"
+                            <div id="${group.id }" class="collapse"
                                 role="tabpanel"
                                 aria-labelledby="headingOne"
                                 data-parent="#accordion">
                                 <div class="card-body">
-                             <%--        <c:forEach var="item"
+                                    <%--        <c:forEach var="item"
                                         items="${group.items}">
                                     ${item}
                                 </c:forEach> --%>

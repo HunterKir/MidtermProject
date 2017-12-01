@@ -60,6 +60,11 @@ public class UserController {
 		mv.addObject("user", u);
 		return mv;
 	}
+	@RequestMapping(path="logout.do", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.setAttribute("activeUser", null);
+		return "home.do";
+	}
 	
 	@RequestMapping(path="newuser.do", method=RequestMethod.GET)
 	public ModelAndView goToNewUserPage(Model model, HttpSession session) {
