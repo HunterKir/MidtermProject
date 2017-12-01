@@ -33,6 +33,14 @@
                          </div>
                          <div class="col"></div>
                      </div>
+                     <div class="row">
+                         <div class="col"></div>
+                         <div class="left-text form-group col-8">
+                             Group Description:
+                             <form:textarea class="form-control" rows="4" path="description" />
+                         </div>
+                         <div class="col"></div>
+                     </div>
                      <div class="form-group">
                          <input type="submit" name="" class="btn btn-primary"
                              value="Finish">
