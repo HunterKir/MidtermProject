@@ -12,13 +12,11 @@
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body class="full-height">
+     <%@ include file="SharedViews/Layout_Navbar.jsp" %>
      <ul>
-          <c:forEach var="item" items="${community.items}">
+          <c:forEach var="item" items="${group.items}">
                <li>
-                    <div class="form-group form-inline">
-                         <form:form class="" action="goToPosts.do" method="get" modelAttribute="">
-                         </form:form>
-                    </div>
+                    <a href="getPosts.do?id=${item.id}">${item.postTime} ${item.price} ${item.title}</a>
                </li>
           </c:forEach>
      </ul>

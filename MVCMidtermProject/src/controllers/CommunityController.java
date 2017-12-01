@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.CommunityDAO;
+import data.ItemDAO;
 import entities.Community;
+import entities.Item;
 import entities.Post;
 
 @Controller
 public class CommunityController {
 	@Autowired
-	CommunityDAO dao; 
+	CommunityDAO comDAO; 
+	
+	@Autowired
+	ItemDAO itemDAO;
 	
 	@RequestMapping(path="newGroup.do", method=RequestMethod.GET)
 	public ModelAndView goToNewGroup() {
@@ -40,11 +45,13 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(path="getPosts.do", method=RequestMethod.GET)
-	public ModelAndView goToPostPage() {
+	public ModelAndView goToPostPage(int id) {
 		ModelAndView mv = new ModelAndView();
-		Post post = new Post();
+		Item item = itemDAO.getItem(id);
+		Post newPost = new Post();
 		mv.setViewName("views/posts.jsp");
-		mv.addObject("newPost", post);
+		mv.addObject("newPost", newPost);
+		mv.addObject("item", item);
 		return mv;
 	}
 	
@@ -55,6 +62,15 @@ public class CommunityController {
 			mv.setViewName("views/posts.jsp");
 		}
 		mv.setViewName("redirect:getPosts.do");
+		return mv;
+	}
+	
+	@RequestMapping(path="viewGroup.do", method=RequestMethod.GET)
+	public ModelAndView goToGroupPage(int id) {
+		ModelAndView mv = new ModelAndView();
+		Community c = comDAO.getCommunity(id);
+		mv.addObject("group", c);
+		mv.setViewName("views/grouphome.jsp");
 		return mv;
 	}
 }

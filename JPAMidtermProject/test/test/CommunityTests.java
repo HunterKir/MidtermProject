@@ -77,9 +77,25 @@ public class CommunityTests {
 //		assertEquals(deletedCommunity.getName(), "SQL crew"); 
 //	}
 
+//	@Test
+//	public void Community_to_MemberMap() {
+//		
+//		assertEquals(2,em.find(Community.class,1).getMembers().size());
+//	}
+	
 	@Test
-	public void Community_to_MemberMap() {
+	public void CommunitySearch() {
+		List <Community> c = dao.getCommunitybyDesc("ink");
+		assertEquals(2,c.size());
 		
-		assertEquals(2,em.find(Community.class,1).getMembers().size());
+	}
+	
+	@Test
+	public void CommunitiesToOwnersTest() {
+		Community c1 = em.find(Community.class,3);
+		Community c2 = em.find(Community.class,5);
+		assertEquals (4,c1.getOwner().getId());
+		assertEquals (4,c2.getOwner().getId());
+		
 	}
 }

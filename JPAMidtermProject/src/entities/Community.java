@@ -28,11 +28,11 @@ public class Community {
 	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Name must not contain symbols.")
 	private String name;
 
-	@ManyToOne()
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name="owner_id")
 	private User owner;
 	
-	@OneToMany(mappedBy="community")
+	@OneToMany(mappedBy="community",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Item> items;
 	
 	@ManyToMany(mappedBy="communities",cascade={CascadeType.PERSIST, CascadeType.REMOVE})

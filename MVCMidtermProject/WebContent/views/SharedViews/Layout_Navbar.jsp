@@ -28,7 +28,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                    <c:forEach var="community" items="${activeUser.communities}">
-                        <a href="${community.id}" class="dropdown-item">${community.name}</a>
+                        <a href="viewGroup.do?id=${community.id}" class="dropdown-item">${community.name}</a>
                    </c:forEach>
                    <a href="newGroup.do" class="dropdown-item">New Group</a>
               </div>

@@ -96,7 +96,7 @@ public class CommunityDAOImpl implements CommunityDAO{
 		EntityManager em = emf.createEntityManager();
 		List<Community> c = new ArrayList<>();
 		try{
-			String q="SELECT c from Community c WHERE c.name LIKE :desc";
+			String q="SELECT c from Community c WHERE c.name LIKE :desc or c.description LIKE :desc";
 			c = em.createQuery(q,Community.class).setParameter("desc", "%"+desc+"%")
 					.getResultList();
 		} catch (Exception e) {
