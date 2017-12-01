@@ -48,7 +48,7 @@
                                 <ul class="list-group">
                                     <c:forEach var="item"
                                         items="${group.items}">
-                                    <li class="list-group-item"><a href="getPosts.do?id=${item.id}">${item.title}</a></li>
+                                    <li style="list-style:none;"class="alert alert-primary"><a class= "alert-link" href="getPosts.do?id=${item.id}">${item.title}</a></li>
                                 </c:forEach>
                                 </ul>     
                                 </div>
