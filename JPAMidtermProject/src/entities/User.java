@@ -23,42 +23,46 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Size(min = 1, max = 45, message = "First name must contain 1 to 45 characters.")
 	@Pattern(regexp="^[a-zA-Z]+$", message = "First name must not contain numbers or symbols.")
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Size(min = 1, max = 45, message = "Last name must contain 1 to 45 characters.")
 	@Pattern(regexp="^[a-zA-Z]+$", message = "Last name must not contain numbers or symbols.")
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@Size(min = 5, max = 45, message = "Username must contain 5 to 45 characters.")
 	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Username must not contain symbols.")
 	private String username;
-	
+
 	@Size(min = 5, max = 45, message = "Password must be 5 to 45 characters long.")
 	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Password must not contain symbols.")
 	private String password;
 
-	private boolean admin;
-	
+	private Boolean admin;
+
 	@OneToMany(mappedBy="user",cascade={CascadeType.PERSIST, CascadeType.REMOVE},fetch = FetchType.EAGER)
-	private List<Item> itemsPosted; 
-	
+	private List<Item> itemsPosted;
+
+
 	@OneToMany(mappedBy="owner",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Community> ownedCommunities;
-	
-	@ManyToMany(cascade=CascadeType.PERSIST)
+
+
+
+	@ManyToMany(	cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+
 	@JoinTable(name="user_community",
     joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name="community_id"))
 	private List<Community> communities;
-	
+
 	@OneToMany (mappedBy="user",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<Post> posts;
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -95,14 +99,14 @@ public class User {
 		return admin;
 	}
 
-	public void setAdmin(boolean admin) {
+	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
 
 	public int getId() {
 		return id;
 	}
-	
+
 	public List<Item> getItemPosts() {
 		return itemsPosted;
 	}
@@ -111,8 +115,8 @@ public class User {
 		this.itemsPosted = itemPosts;
 	}
 
-	
-	
+
+
 	public List<Item> getItemsPosted() {
 		return itemsPosted;
 	}
@@ -137,7 +141,7 @@ public class User {
 		this.posts = posts;
 	}
 
-	
+
 	public List<Community> getOwnedCommunities() {
 		return ownedCommunities;
 	}

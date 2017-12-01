@@ -83,7 +83,7 @@ public class UserDAOImpl implements UserDAO {
 	public User getUserByUserName(String username) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
-		String query = "SELECT u from User u WHERE username LIKE :username";
+		String query = "SELECT u from User u JOIN FETCH u.communities WHERE username LIKE :username";
 		User user = null; 
 		try {
 			user = em.createQuery(query, User.class )
