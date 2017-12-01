@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.UserDAO;
+import entities.Community;
 import entities.User;
 
 @Controller
@@ -28,7 +29,7 @@ public class UserController {
 			mv.setViewName("views/login.jsp");
 			return mv;
 		}
-		mv.setViewName("home.jsp");
+		mv.setViewName("views/userHome.jsp");
 		return mv;
 	}
 	
