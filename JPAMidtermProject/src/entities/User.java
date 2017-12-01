@@ -16,7 +16,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-//@Table(name = "user")
 public class User {
 
 	@Id
@@ -49,8 +48,7 @@ public class User {
 	@ManyToMany
 	@JoinTable(name="user_community",
     joinColumns=@JoinColumn(name="user_id"),
-    inverseJoinColumns=@JoinColumn(name="community_id")
-  )
+    inverseJoinColumns=@JoinColumn(name="community_id"))
 	private List<Community> communities;
 	
 	public String getFirstName() {
