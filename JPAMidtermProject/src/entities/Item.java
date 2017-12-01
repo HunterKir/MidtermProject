@@ -20,7 +20,8 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; 
-	@ManyToOne
+	
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name="user_id")
 	private User user; 
 	
@@ -39,12 +40,14 @@ public class Item {
 	@ManyToOne
 	@JoinColumn(name="community_id")
 	private Community community; 
+	
 	@OneToMany(mappedBy="item")
 	private List<Post> posts;
 	
 	public Item() {
 		
 	}
+	
 	
 	public int getId() {
 		return id;

@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `community` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `owner_id` INT NOT NULL,
+  `description` TEXT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC),
   INDEX `id_idx` (`owner_id` ASC),
@@ -197,8 +198,10 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `SwapMeetDB`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`, `home_community_id`) VALUES (1, 'Robert', 'Smith', 'bobsmith', 'bobbob', NULL, NULL);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`, `home_community_id`) VALUES (2, 'Hunter', 'Kiritsis', 'HunterK', 'password123', 1, NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`, `home_community_id`) VALUES (1, 'Robert', 'Smith', 'bobsmith', 'bobbob', TRUE, NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`, `home_community_id`) VALUES (2, 'Hunter', 'Kiritsis', 'HunterK', 'password123', TRUE, NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (4, 'John', 'Jackson', 'john', 'jonjon', FALSE);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (3, 'Shaquille', 'O\'Neal', 'shaq', 'bigshaq', FALSE);
 
 COMMIT;
 
@@ -209,7 +212,9 @@ COMMIT;
 START TRANSACTION;
 USE `SwapMeetDB`;
 INSERT INTO `community` (`id`, `name`, `owner_id`) VALUES (1, 'Gobots', 1);
-INSERT INTO `community` (`id`, `name`, `owner_id`) VALUES (2, 'SD13', 2);
+INSERT INTO `community` (`id`, `name`, `owner_id`, `description`) VALUES (2, 'SD13', 2, 'The best class to ever drink from the Skill Distillery firehose.');
+INSERT INTO `community` (`id`, `name`, `owner_id`, `description`) VALUES (3, 'Transformers', 4, NULL);
+
 
 COMMIT;
 
@@ -222,9 +227,14 @@ START TRANSACTION;
 USE `SwapMeetDB`;
 INSERT INTO `category` (`id`, `type`) VALUES (1, 'Vehicles');
 INSERT INTO `category` (`id`, `type`) VALUES (2, 'Toys and Games');
-INSERT INTO `category` (`id`, `type`) VALUES (3, 'Sports Equipment');
-INSERT INTO `category` (`id`, `type`) VALUES (4, 'Furniture');
-INSERT INTO `category` (`id`, `type`) VALUES (5, 'Tickets');
+INSERT INTO `category` (`id`, `type`) VALUES (3, 'Sports,Exercise, Outdoors Prodcuts');
+INSERT INTO `category` (`id`, `type`) VALUES (4, ' Furniture and Household Goods');
+INSERT INTO `category` (`id`, `type`) VALUES (5, 'Tickets to Events');
+INSERT INTO `category` (`id`, `type`) VALUES (6, 'Tools and Equipment');
+INSERT INTO `category` (`id`, `type`) VALUES (7, 'Media - Music, Movies, Books');
+INSERT INTO `category` (`id`, `type`) VALUES (8, 'Clothes and Footwear');
+INSERT INTO `category` (`id`, `type`) VALUES (9, 'Electronics');
+INSERT INTO `category` (`id`, `type`) VALUES (10, 'Other');
 
 COMMIT;
 
@@ -250,5 +260,6 @@ USE `SwapMeetDB`;
 INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (1, 1);
 INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (2, 2);
 INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (2, 1);
+INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (3, 2);
 
 COMMIT;

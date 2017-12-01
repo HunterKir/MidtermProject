@@ -63,11 +63,11 @@ public class ItemTests {
 //
 //	}
 //
-	@Test
-	public void descTest() {
-		assertEquals(3, dao.getItembyDescription("air").size());
-
-	}
+//	@Test
+//	public void descTest() {
+//		assertEquals(3, dao.getItembyDescription("air").size());
+//
+//	}
 
 	/* CRUD test are commented out because they make changes to DB */
 	// @Test
