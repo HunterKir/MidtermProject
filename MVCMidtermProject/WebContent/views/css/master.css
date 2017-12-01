@@ -15,6 +15,33 @@
 .left-text {
      text-align: left;
 }
+.bordered {
+     border-style: solid;
+     border-radius: 5px;
+     border-color: black;
+     border-width: 5px;
+}
+.padded {
+     padding: 15px;
+}
+.margins {
+     margin: 10px;
+}
+#itemContent {
+     padding: 10px;
+     margin-right: 10px;
+     margin-left: 10px;
+     margin-top: 10px;
+     margin-bottom: 10px;
+}
+#sellerProfile {
+     padding: 10px;
+     margin-right: 10px;
+     margin-left: 10px;
+     margin-top: 10px;
+     margin-bottom: 10px;
+
+}
 
 /* CSS for the footer
  */
