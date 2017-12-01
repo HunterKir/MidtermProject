@@ -2,6 +2,7 @@ package entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,14 +43,17 @@ public class User {
 
 	private boolean admin;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Item> itemsPosted; 
 	
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinTable(name="user_community",
     joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name="community_id"))
 	private List<Community> communities;
+	
+	@OneToMany (mappedBy="user",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
+	private List<Post> posts;
 	
 	public String getFirstName() {
 		return firstName;
@@ -119,6 +123,14 @@ public class User {
 
 	public void setCommunities(List<Community> communities) {
 		this.communities = communities;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import data.UserDAO;
 import data.UserDAOImpl;
+import entities.Post;
 import entities.User;
 
 public class UserTests {
@@ -69,6 +70,12 @@ public class UserTests {
 //		
 //		assertEquals("Allen", deletedUser.getFirstName());
 //	}
+//	@Test
+//	public void test_deleteUser() {
+//		User deletedUser = dao.deleteUser(3); 
+//		
+//		assertEquals("Allen", deletedUser.getFirstName());
+//	}
 	
 
 //	@Test
@@ -88,17 +95,34 @@ public class UserTests {
 //		assertEquals(1,em.find(User.class,2).getCommunities().size());
 //	}
 	
-	@Test
-	public void FirstOrLastNameTest() {
-		List<User> users = new ArrayList<>();
-		users = dao.getUserbyFirstOrLastName("ames","smit");
-		assertEquals(3,users.size());
-		
-	}
+//	@Test
+//	public void FirstOrLastNameTest() {
+//		List<User> users = new ArrayList<>();
+//		users = dao.getUserbyFirstOrLastName("ames","smit");
+//		assertEquals(3,users.size());
+//		
+//	}
 //	@Test
 //	public void User_to_CommunityMap() {
 //		
 //		assertEquals(1,em.find(User.class,2).getCommunities().size());
 //	}
+	
+	@Test
+	public void getPostsTest() {
+		User u = em.find(User.class, 1);
+		
+		assertEquals(2,u.getPosts().size());
+		
+	}
+	@Test
+	public void getPostsTestReverse() {
+		Post p = em.find(Post.class, 1);
+		Post p2 = em.find(Post.class, 2);
+		
+		assertEquals(1,p.getUser().getId());
+		assertEquals(1,p2.getUser().getId());
+		
+	}
 	
 }

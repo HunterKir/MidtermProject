@@ -77,16 +77,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
-	@Override
-	public List<Post> getPostHistorybyUid(int uid) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
-		EntityManager em = emf.createEntityManager();
-		List<Post> posts = new ArrayList<>();
-		String q = "SELECT p from Post p WHERE p.user.id=:uid";
-		posts = em.createQuery(q,Post.class).setParameter("uid",uid).getResultList();
-		
-		return posts;
-	}
+
 
 	@Override
 	public User getUserByUserName(String username) {

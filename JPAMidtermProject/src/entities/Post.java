@@ -16,13 +16,17 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	
 	@ManyToOne
 	@JoinColumn(name = "item_id")
 	private Item item;
+	
 	private String content;
+	
 	@Column(name = "post_time")
 	private LocalDateTime postTime;
 
