@@ -42,10 +42,10 @@
                                 aria-labelledby="headingOne"
                                 data-parent="#accordion">
                                 <div class="card-body">
-                                    <c:forEach var="item"
+                             <%--        <c:forEach var="item"
                                         items="${group.items}">
                                     ${item}
-                                </c:forEach>
+                                </c:forEach> --%>
                                 </div>
                             </div>
                         </div>

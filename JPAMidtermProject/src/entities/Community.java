@@ -24,7 +24,7 @@ public class Community {
 
 	private String name;
 
-	@ManyToOne( 	cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+	@ManyToOne()
 	@JoinColumn(name="owner_id")
 	private User owner;
 	
@@ -33,7 +33,6 @@ public class Community {
 	
 	@ManyToMany(mappedBy="communities")
 	private List<User>members;
-	
 	
 	public List<User> getMembers() {
 		return members;

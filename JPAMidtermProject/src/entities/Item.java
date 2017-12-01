@@ -36,7 +36,7 @@ public class Item {
 	private Double price; 
 	
 	private String title; 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="community_id")
 	private Community community; 
 	@OneToMany(mappedBy="item")
