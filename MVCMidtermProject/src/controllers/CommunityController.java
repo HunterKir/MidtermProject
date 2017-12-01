@@ -57,4 +57,13 @@ public class CommunityController {
 		mv.setViewName("redirect:getPosts.do");
 		return mv;
 	}
+	
+	@RequestMapping(path="viewGroup.do", method=RequestMethod.GET)
+	public ModelAndView goToGroupPage(int id) {
+		ModelAndView mv = new ModelAndView();
+		Community c = dao.getCommunity(id);
+		mv.addObject("group", c);
+		mv.setViewName("views/grouphome.jsp");
+		return mv;
+	}
 }

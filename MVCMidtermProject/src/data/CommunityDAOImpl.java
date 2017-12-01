@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import entities.Community;
+import entities.Item;
 
 @Repository
 @Transactional
@@ -18,8 +19,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public Community getCommunity(int id) {
 		Community community = null;
 		try {
-			community = em.find(Community.class, id);
-
+			String q = "SELECT c from Community c JOIN FETCH c.items WHERE c.id = :id";
+			community = em.createQuery(q, Community.class).setParameter("id", id).getResultList().get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
