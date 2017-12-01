@@ -24,11 +24,7 @@ public class UserController {
 	private UserDAO dao;
 	
 	@RequestMapping(path="login.do", method=RequestMethod.POST)
-<<<<<<< HEAD
 	public ModelAndView userLogIn(@Valid User user, Errors errors, HttpSession session) {
-=======
-	public ModelAndView userLogIn(@Valid @ModelAttribute("user") User user, Errors errors) {
->>>>>>> b9c27b0db3c2856ca296eb22843feef41b0f589d
 		ModelAndView mv = new ModelAndView();
 		if (errors.getErrorCount() != 0) {
 		//Check for form errors
