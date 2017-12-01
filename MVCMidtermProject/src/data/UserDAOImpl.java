@@ -68,7 +68,6 @@ public class UserDAOImpl implements UserDAO {
 			user = em.createQuery(query, User.class )
 					.setParameter("username", username)
 					.getResultList().get(0); 
-			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
