@@ -23,19 +23,37 @@ public class UserController {
 	private UserDAO dao;
 	
 	@RequestMapping(path="login.do", method=RequestMethod.POST)
-	public ModelAndView userLogIn(@Valid User user, Errors errors) {
+	public ModelAndView userLogIn(@Valid User user, Errors errors, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		if (errors.getErrorCount() != 0) {
+		//Check for form errors
 			mv.setViewName("views/login.jsp");
 			return mv;
 		}
-		mv.setViewName("views/userHome.jsp");
-		return mv;
+		else {
+			//Verify Log-in
+			User retrievedUser = dao.getUserByUserName(user.getUsername());
+			if(retrievedUser != null && retrievedUser.getPassword().equals(user.getPassword())) {
+				session.setAttribute("activeUser", user);
+				mv.setViewName("views/userHome.jsp");
+				return mv;
+			}
+			else {
+			//Failed log-in
+				mv.setViewName("views/login.jsp");
+				return mv;
+			}
+		}	
 	}
 	
 	@RequestMapping(path="login.do", method=RequestMethod.GET)
-	public ModelAndView goToLoginPage() {
+	public ModelAndView goToLoginPage(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		User sessionUser = (User) session.getAttribute("activeUser");
+		if(sessionUser != null) {
+			mv.setViewName("views/userHome.jsp");
+			return mv;
+		}
 		User u = new User();
 		mv.setViewName("views/login.jsp");
 		mv.addObject("user", u);

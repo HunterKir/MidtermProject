@@ -61,25 +61,6 @@
                          <input type="submit" class="btn btn-primary" name="" value="Create an Account">
                     </form>
                </div>
-               <%-- <form class="" action="login.do" method="get">
-                    <div class="form-group align-items-center">
-                         <input type="text" name="" class="form-control" value="" placeholder="Username">
-                    </div>
-                    <div class="form-group align-items-center">
-                         <input type="password" name="" class="form-control" value="" placeholder="Password">
-                    </div>
-                    <div class="col-auto form-group">
-                         <input type="submit" class="btn btn-primary" name="" value="Log In">
-                    </div>
-               </form>
-               <div class="">
-                    <div class="form-group">
-                         Don't have an account? Register now for free!
-                    </div>
-                    <form class="form-group" action="newuser.do" method="post">
-                         <input type="submit" class="btn btn-primary" name="" value="Create an Account">
-                    </form>
-               </div> --%>
           </div>
      </div>
      <div class="row third-height">
