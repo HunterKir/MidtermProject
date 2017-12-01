@@ -32,6 +32,8 @@ public class Community {
 	@ManyToMany(mappedBy="communities")
 	private List<User>members;
 	
+	private String description;
+	
 	
 	public List<User> getMembers() {
 		return members;
@@ -70,9 +72,17 @@ public class Community {
 		this.items = items;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public String toString() {
-		return "Community [id=" + id + ", name=" + name + ", owner=" + owner + "]";
+		return "Community [id=" + id + ", name=" + name + ", owner=" + owner + ", description=" + description + "]";
 	}
 
 	@Override
