@@ -2,6 +2,7 @@ package entities;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,11 +18,11 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne
+	@ManyToOne (cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@ManyToOne
+	@ManyToOne (cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name = "item_id")
 	private Item item;
 	

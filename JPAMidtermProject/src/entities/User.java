@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,10 +44,13 @@ public class User {
 
 	private boolean admin;
 	
-	@OneToMany(mappedBy="user",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy="user",cascade={CascadeType.PERSIST, CascadeType.REMOVE},fetch = FetchType.EAGER)
 	private List<Item> itemsPosted; 
 	
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToMany(mappedBy="owner",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<Community> ownedCommunities;
+	
+	@ManyToMany(cascade=CascadeType.PERSIST)
 	@JoinTable(name="user_community",
     joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name="community_id"))
@@ -98,7 +102,7 @@ public class User {
 	public int getId() {
 		return id;
 	}
-
+	
 	public List<Item> getItemPosts() {
 		return itemsPosted;
 	}
@@ -131,6 +135,15 @@ public class User {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	
+	public List<Community> getOwnedCommunities() {
+		return ownedCommunities;
+	}
+
+	public void setOwnedCommunities(List<Community> ownedCommunities) {
+		this.ownedCommunities = ownedCommunities;
 	}
 
 	@Override
