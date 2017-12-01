@@ -2,8 +2,10 @@ package entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +47,7 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<Item> itemsPosted; 
 	
-	@ManyToMany
+	@ManyToMany(	cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
 	@JoinTable(name="user_community",
     joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name="community_id"))
