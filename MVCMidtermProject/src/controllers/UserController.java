@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,11 @@ public class UserController {
 	private UserDAO dao;
 	
 	@RequestMapping(path="login.do", method=RequestMethod.POST)
+<<<<<<< HEAD
 	public ModelAndView userLogIn(@Valid User user, Errors errors, HttpSession session) {
+=======
+	public ModelAndView userLogIn(@Valid @ModelAttribute("user") User user, Errors errors) {
+>>>>>>> b9c27b0db3c2856ca296eb22843feef41b0f589d
 		ModelAndView mv = new ModelAndView();
 		if (errors.getErrorCount() != 0) {
 		//Check for form errors
