@@ -13,11 +13,10 @@
 </head>
 <body class="full-height">
      <ul>
-          <c:forEach var="item" items="${community.items}">
+          <c:forEach var="item" items="${group.items}">
                <li>
                     <div class="form-group form-inline">
-                         <form:form class="" action="goToPosts.do" method="get" modelAttribute="">
-                         </form:form>
+                         ${item.postTime}, ${item.title}, ${item.price}, ${item.content}
                     </div>
                </li>
           </c:forEach>
