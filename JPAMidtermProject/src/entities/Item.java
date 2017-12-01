@@ -2,8 +2,11 @@ package entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,11 +36,10 @@ public class Item {
 	private Double price; 
 	
 	private String title; 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
 	@JoinColumn(name="community_id")
 	private Community community; 
 	@OneToMany(mappedBy="item")
-
 	private List<Post> posts;
 	
 	public Item() {
