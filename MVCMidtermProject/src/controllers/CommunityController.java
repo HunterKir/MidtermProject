@@ -32,10 +32,10 @@ public class CommunityController {
 	public ModelAndView submitNewGroup(@Valid @ModelAttribute("comModel") Community comModel, Errors errors) {
 		ModelAndView mv = new ModelAndView();
 		if (errors.getErrorCount() != 0) {
-			mv.setViewName("newgroup.jsp");
+			mv.setViewName("views/newgroup.jsp");
 			return mv;
 		}
-		mv.setViewName("grouphome.jsp");
+		mv.setViewName("views/grouphome.jsp");
 		return mv;
 	}
 	
@@ -43,7 +43,7 @@ public class CommunityController {
 	public ModelAndView goToPostPage() {
 		ModelAndView mv = new ModelAndView();
 		Post post = new Post();
-		mv.setViewName("posts.jsp");
+		mv.setViewName("views/posts.jsp");
 		mv.addObject("newPost", post);
 		return mv;
 	}
@@ -52,7 +52,7 @@ public class CommunityController {
 	public ModelAndView submitNewPostToItem(@Valid @ModelAttribute("newPost") Post newPost, Errors errors) {
 		ModelAndView mv = new ModelAndView();
 		if (errors.getErrorCount() != 0) {
-			mv.setViewName("posts.jsp");
+			mv.setViewName("views/posts.jsp");
 		}
 		mv.setViewName("redirect:getPosts.do");
 		return mv;
