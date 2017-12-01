@@ -2,8 +2,11 @@ package entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +20,8 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id; 
-	@ManyToOne
+	
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name="user_id")
 	private User user; 
 	
@@ -36,13 +40,15 @@ public class Item {
 	@ManyToOne
 	@JoinColumn(name="community_id")
 	private Community community; 
-	@OneToMany(mappedBy="item")
 
+	
+	@OneToMany(mappedBy="item",cascade= {CascadeType.PERSIST, CascadeType.REMOVE},fetch = FetchType.EAGER)
 	private List<Post> posts;
 	
 	public Item() {
 		
 	}
+	
 	
 	public int getId() {
 		return id;

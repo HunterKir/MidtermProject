@@ -2,6 +2,7 @@ package entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class Community {
 	@OneToMany(mappedBy="community")
 	private List<Item> items;
 	
-	@ManyToMany(mappedBy="communities")
+	@ManyToMany(mappedBy="communities",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<User>members;
 	
 	@Pattern(regexp="^[^\\[\\];\\:{\\}\\\\\\/_\\<\\>]+$", message="Description cannot contain the following characters: [ ] ; : { } / \\ _ > < ")
