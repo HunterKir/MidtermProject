@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "community")
@@ -19,7 +21,9 @@ public class Community {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	
+	@Size(min=5, max=100, message="Name must be 5 to 100 characters long.")
+	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Name must not contain symbols.")
 	private String name;
 
 	@ManyToOne
@@ -32,6 +36,7 @@ public class Community {
 	@ManyToMany(mappedBy="communities")
 	private List<User>members;
 	
+	@Pattern(regexp="^[^\\[\\];\\:{\\}\\\\\\/_\\<\\>]+$", message="Description cannot contain the following characters: [ ] ; : { } / \\ _ > < ")
 	private String description;
 	
 	
