@@ -26,7 +26,10 @@
          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                   <a href="createGroup.do" class="dropdown-item">New Group</a>
+                   <c:forEach var="community" items="${activeUser.communities}">
+                        <a href="${community.id}" class="dropdown-item">${community.name} Placeholder</a>
+                   </c:forEach>
+                   <a href="newGroup.do" class="dropdown-item">New Group</a>
               </div>
          </li>
      </ul>

@@ -35,7 +35,7 @@ public class UserController {
 			//Verify Log-in
 			User retrievedUser = dao.getUserByUserName(user.getUsername());
 			if(retrievedUser != null && retrievedUser.getPassword().equals(user.getPassword())) {
-				session.setAttribute("activeUser", user);
+				session.setAttribute("activeUser", retrievedUser);
 				mv.setViewName("views/userHome.jsp");
 				return mv;
 			}
