@@ -50,7 +50,7 @@ public class User {
 	@OneToMany(mappedBy="owner",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Community> ownedCommunities;
 
-	@ManyToMany(	cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER)
+	@ManyToMany(	cascade = {CascadeType.PERSIST}, fetch=FetchType.EAGER)
 	@JoinTable(name="user_community",
     joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name="community_id"))

@@ -89,4 +89,13 @@ public class CommunityTests {
 		assertEquals(2,c.size());
 		
 	}
+	
+	@Test
+	public void CommunitiesToOwnersTest() {
+		Community c1 = em.find(Community.class,3);
+		Community c2 = em.find(Community.class,5);
+		assertEquals (4,c1.getOwner().getId());
+		assertEquals (4,c2.getOwner().getId());
+		
+	}
 }
