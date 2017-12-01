@@ -42,7 +42,7 @@ public class User {
 	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Password must not contain symbols.")
 	private String password;
 
-	private boolean admin;
+	private Boolean admin;
 	
 	@OneToMany(mappedBy="user")
 	private List<Item> itemsPosted; 
@@ -89,7 +89,7 @@ public class User {
 		return admin;
 	}
 
-	public void setAdmin(boolean admin) {
+	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
 
