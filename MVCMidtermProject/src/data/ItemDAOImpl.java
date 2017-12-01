@@ -27,7 +27,11 @@ public class ItemDAOImpl implements ItemDAO {
 	@Override
 	public Item getItem(int id) {
 		Item item = null;
+		// should change this to be more efficient
 		item = em.find(Item.class, id);
+		item.getPosts().size();
+//		String q = "SELECT ii FROM Item ii JOIN FETCH ii.posts WHERE ii.id = :id";
+//		item = em.createQuery(q, Item.class).setParameter("id", id).getResultList().get(0);
 		return item;
 	}
 
