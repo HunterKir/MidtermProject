@@ -10,14 +10,27 @@
 
          <!-- Bootstrap CSS -->
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+     <link rel="stylesheet" href="views/css/master.css">
 </head>
 <body>
-     <h1>${item.title}</h1>
-     <h3>${item.price}</h3>
-     <h4>${item.content}</h4>
-     <c:forEach var="post" items="${item.posts}">
-          ${post.content}
-     </c:forEach>
+     <%@ include file="SharedViews/Layout_Navbar.jsp" %>
+     <div class="container-fluid">
+          <div class="row">
+               <div class="col container bordered" id="sellerProfile">
+                    ${item.user.username}
+                    <br>
+                    ${item.user.firstName} ${item.user.lastName}
+               </div>
+               <div class="container bordered col-9" id="itemContent">
+                    <h1>${item.title}</h1>
+                    <h3>${item.price}</h3>
+                    <h4>${item.content}</h4>
+                    <c:forEach var="post" items="${item.posts}">
+                         ${post.content}
+                    </c:forEach>
+               </div>
+          </div>
+     </div>
          <!-- Optional JavaScript -->
          <!-- jQuery first, then Popper.js, then Bootstrap JS -->
      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

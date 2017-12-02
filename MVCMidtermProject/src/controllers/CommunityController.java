@@ -32,7 +32,6 @@ public class CommunityController {
 		mv.addObject("comModel", comModel);
 		return mv; 
 	}
-	
 	@RequestMapping(path="newGroup.do", method=RequestMethod.POST)
 	public ModelAndView submitNewGroup(@Valid @ModelAttribute("comModel") Community comModel, Errors errors) {
 		ModelAndView mv = new ModelAndView();

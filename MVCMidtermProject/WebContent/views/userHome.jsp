@@ -17,13 +17,19 @@
                 <a href="newGroup.do" class="btn btn-danger col">
                     Want to create a group? Go! </a>
             </div>
-            <div class="col-sm bg-white">
-                <form class="form-inline my-2 my-lg-0">
+            <div class="col-sm bg-white p-2">
+                <form action="search.do" method="GET" class="form-inline my-2 my-lg-0">
                     <input class="form-control col" type="search"
-                        placeholder="Search" aria-label="Search">
+                        placeholder="Search" aria-label="Search" name="search">
                     <button class="btn btn-outline-danger my-2 my-sm-0"
                         type="submit">Search</button>
                 </form>
+                <c:if test="${kwError != null }"><p class="alert alert-danger">${kwError}</p></c:if>
+                <ul class="list-group">
+                    <c:forEach var="item" items="${itemsList}">
+                        <li class="list-group-item"><a href="getPosts.do?id=${item.id}">${item.title}</a> Asking price: $${item.price}</li>
+                    </c:forEach>
+                </ul>
             </div>
             <div class="col-sm fixed">
                 <div id="accordion" role="tablist">
@@ -48,7 +54,7 @@
                                 <ul class="list-group">
                                     <c:forEach var="item"
                                         items="${group.items}">
-                                    <li class="list-group-item"><a href="getPosts.do?id=${item.id}">${item.title}</a></li>
+                                    <li style="list-style:none;"class="alert alert-primary"><a class= "alert-link" href="getPosts.do?id=${item.id}">${item.title}</a></li>
                                 </c:forEach>
                                 </ul>     
                                 </div>
