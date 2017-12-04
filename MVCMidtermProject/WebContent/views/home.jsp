@@ -10,9 +10,10 @@
 </head>
 <body>
 <%@ include file="SharedViews/Layout_Navbar.jsp" %>
-    <div class="container-fluid" id="home-headImage">
+<!--     <div class="container-fluid" id="home-headImage">
         <h1 class="row justify-content-center text-white">Swap Meet</h1>
-    </div>
+    </div> -->
+
     <div class="container col-sm-8 justify-content-center">
         <h1 class="row justify-content-center">How it works</h1>
         

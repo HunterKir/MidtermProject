@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `admin` TINYINT NULL,
-  `profile_views` INT NULL,
+  `profile_views` INT NULL DEFAULT 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -191,7 +191,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Data for table `user`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `SwapMeetDB`;
+USE `SwapMeetDB`
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (1, 'Robert', 'Smith', 'bobsmith', 'bobbob', TRUE);
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (2, 'Hunter', 'Kiritsis', 'HunterK', 'password123', TRUE);
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (4, 'John', 'Jackson', 'john', 'jonjon', FALSE);
