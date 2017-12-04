@@ -9,17 +9,22 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.ItemDAO;
+import data.UserDAO;
 import entities.Item;
-import entities.User;
+import entities.Post;
 
 @Controller
 public class ItemController {
 	
 	@Autowired
 	private ItemDAO dao;
+	
+	@Autowired
+	private UserDAO uDAO;
 	
 	@RequestMapping(path="newItem.do", method=RequestMethod.GET)
 	public ModelAndView goToNewItemForm() {
@@ -40,6 +45,17 @@ public class ItemController {
 		if(dao.createItem(item) != null) {
 			mv.setViewName("getPosts.do?id=" + item.getId());
 		}
+		return mv;
+	}
+	@RequestMapping(path="newPost.do", method=RequestMethod.POST)
+	public ModelAndView createNewItem(@RequestParam("ownerId") int ownerId,
+			@RequestParam("itemId") int itemId, 
+			@RequestParam("content")String content ) {
+		ModelAndView mv = new ModelAndView(); 
+		Post post = new Post(); 
+		post.setContent(content);
+		post.setItem(dao.getItem(itemId));
+		post.setUser(uDAO.getUser(ownerId));
 		return mv;
 	}
 }
