@@ -1,5 +1,11 @@
 package data;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +21,10 @@ import entities.User;
 @Repository
 @Transactional
 public class CommunityDAOImpl implements CommunityDAO {
+	
+	private String url = "jdbc:mysql://localhost:3306/swapmeetdb";
+	private String user = "blossom";
+	private String pass = "blossom";
 	@PersistenceContext
 	private EntityManager em;
 
@@ -32,14 +42,61 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
-	public Community createCommunity(Community community) {
+	public Community createCommunity(Community community, User owner) {
+//		try {
+//			em.persist(owner);
+//			community.setOwner(owner);
+//			em.persist(community);
+//			em.flush();
+//		}
+//		catch(Exception e) {
+//			e.printStackTrace();
+//			return null; 
+//		}
+		Connection conn = null;
+		String sql;
+		String sql2;
 		try {
-			em.persist(community);
-			em.flush();	
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			return null; 
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql = "INSERT INTO community (name, owner_id, description) VALUES (?, ?, ?)" ;
+			sql2 = "INSERT INTO user_community (user_id, community_id) VALUES (?, ?)" ;
+			
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement st2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, community.getName());
+			st.setInt(2, owner.getId());
+			st.setString(3, community.getDescription());
+			st.executeUpdate();
+			
+			ResultSet keys = st.getGeneratedKeys();
+			int id = 0;
+			if (keys.next()) {
+				id = keys.getInt(1);
+			}
+			
+			st2.setInt(1, owner.getId());
+			st2.setInt(2, id);
+			st2.executeUpdate();
+
+			conn.commit(); // Commit the transaction
+
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
 		}
 		return community;
 

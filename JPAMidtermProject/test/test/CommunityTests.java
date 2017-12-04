@@ -48,15 +48,15 @@ public class CommunityTests {
 		
 	}
 	/*CRUD test are commented out because they make changes to DB*/
-//	@Test
-//	public void test_createCommunity() {
-//		Community com = new Community(); 
-//		com.setName("Java crew");
-//		com.setOwner(uDao.getUser(1));
-//		Community createdCommunity = dao.createCommunity(com); 
-//		
-//		assertEquals(createdCommunity.getName(), "Java crew"); 
-//	}
+	@Test
+	public void test_createCommunity() {
+		Community com = new Community(); 
+		com.setName("Java crew");
+		com.setOwner(uDao.getUser(1));
+		Community createdCommunity = dao.createCommunity(com); 
+		
+		assertEquals(createdCommunity.getName(), "Java crew"); 
+	}
 //	@Test
 //	public void test_updateCommunity() {
 //		Community com = dao.getCommunity(2); 

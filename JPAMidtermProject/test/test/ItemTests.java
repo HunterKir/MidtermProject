@@ -111,4 +111,14 @@ public class ItemTests {
 //		 
 //	 }
 	
+	@Test
+	public void getitmebytimefilter() {
+		List<Item> ii = new ArrayList<>();
+		ii = dao.getItembyPastXdaysbyCommunity(4, 7);
+		
+		assertEquals(2,ii.size());
+		
+		
+	}
+	
 }

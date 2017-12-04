@@ -8,7 +8,7 @@ import entities.User;
 
 public interface CommunityDAO {
 	public Community getCommunity(int id);
-	public Community createCommunity(Community community);
+	public Community createCommunity(Community community, User owner);
 	public Community deleteCommunity(int id);
 	public Community updateCommunityName(int id, Community community);
 	public List<Item> getItems(int id);

@@ -1,5 +1,7 @@
 package data;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
 
 import entities.Community;
 import entities.Item;
@@ -124,4 +128,32 @@ public class ItemDAOImpl implements ItemDAO {
 		return items;
 	}
 
-}
+	@Override
+	public List<Item> getItembyPastXdaysbyCommunity(int cid, int day) {
+	
+		List<Item> list = new ArrayList<>();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		List<Item> filtered = null; 
+		try {
+			String q = "SELECT ii from Item ii WHERE ii.community.id=:cid";
+			list = em.createQuery(q,Item.class).setParameter("cid",cid).getResultList();
+			filtered = new ArrayList<Item>(); 
+			for (Item item : list) {
+				if(item.getPostTime().isAfter(LocalDateTime.now().minusDays(day)) && item.getPostTime().isBefore(LocalDateTime.now())) {
+					filtered.add(item); 
+					
+				}				
+			}
+			
+		} catch(Exception e){
+			em.close();
+			emf.close();
+		}
+		return filtered;
+	}
+
+
+	}
+
+

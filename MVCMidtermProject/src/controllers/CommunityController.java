@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.List;
-
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +36,14 @@ public class CommunityController {
 		return mv; 
 	}
 	@RequestMapping(path="newGroup.do", method=RequestMethod.POST)
-	public ModelAndView submitNewGroup(@Valid @ModelAttribute("comModel") Community comModel, Errors errors) {
+	public ModelAndView submitNewGroup(@Valid @ModelAttribute("comModel") Community comModel, Errors errors, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		User sessionUser = (User) session.getAttribute("activeUser");
 		if (errors.getErrorCount() != 0) {
 			mv.setViewName("views/newgroup.jsp");
 			return mv;
 		}
+		comDAO.createCommunity(comModel, sessionUser);
 		mv.setViewName("views/grouphome.jsp");
 		return mv;
 	}
