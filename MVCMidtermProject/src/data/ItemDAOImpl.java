@@ -42,7 +42,7 @@ public class ItemDAOImpl implements ItemDAO {
 		Item item = em.find(Item.class, id);
 
 		if (item != null) {
-			em.remove(item);
+			item.setActive(false);
 		}
 
 		return item;
