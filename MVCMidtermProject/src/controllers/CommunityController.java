@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -73,6 +74,10 @@ public class CommunityController {
 		ModelAndView mv = new ModelAndView();
 		Community c = comDAO.getCommunity(id);
 		mv.addObject("group", c);
+		
+		List<User> groupUsers = comDAO.getUsers(c.getId()); 
+		mv.addObject("groupUsers", groupUsers);
+		mv.addObject("groupSize", groupUsers.size());
 		mv.setViewName("views/grouphome.jsp");
 		return mv;
 	}

@@ -37,6 +37,8 @@ public class UserController {
 			if(retrievedUser != null && retrievedUser.getPassword().equals(user.getPassword())) {
 				session.setAttribute("activeUser", retrievedUser);
 				mv.setViewName("views/userHome.jsp");
+				int totalItems = dao.getUserTotalPost(retrievedUser);
+				mv.addObject("totalItems", totalItems);
 				return mv;
 			}
 			else {
