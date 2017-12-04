@@ -38,7 +38,7 @@ public class ItemController {
 			return mv;
 		}
 		if(dao.createItem(item) != null) {
-			mv.setViewName("views/posts.jsp");
+			mv.setViewName("getPosts.do?id=" + item.getId());
 		}
 		return mv;
 	}
