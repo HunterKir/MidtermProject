@@ -56,6 +56,11 @@ public class Item {
 	public int getId() {
 		return id;
 	}
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 	public User getUser() {
 		return user;
 	}
@@ -81,6 +86,9 @@ public class Item {
 		this.category = category;
 	}
 	public Double getPrice() {
+		if (price == null) {
+			price = 0.00;
+		}
 		return price;
 	}
 	public void setPrice(Double price) {

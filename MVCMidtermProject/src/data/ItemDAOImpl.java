@@ -1,5 +1,11 @@
 package data;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +22,60 @@ import entities.User;
 @Repository
 @Transactional
 public class ItemDAOImpl implements ItemDAO {
+	private String url = "jdbc:mysql://localhost:3306/swapmeetdb";
+	private String user = "blossom";
+	private String pass = "blossom";
+	
 	@PersistenceContext
 	private EntityManager em;
 
 	@Override
-	public Item createItem(Item item) {
-		em.persist(item);
-		em.flush();
+	public Item createItem(Item item, User currentUser, int id) {
+//		em.persist(item);
+//		em.flush();
+		Connection conn = null;
+		String sql;
+		String sql2;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql = "INSERT INTO item (title, price, content, user_id, community_id, active) VALUES (?, ?, ?, ?, ?, ?)" ;
+			
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, item.getTitle());
+			st.setDouble(2, item.getPrice());
+			st.setString(3, item.getContent());
+			st.setInt(4, currentUser.getId());
+			st.setInt(5, id);
+			st.setInt(6, 1);
+			st.executeUpdate();
+			
+			ResultSet keys = st.getGeneratedKeys();
+			int id2 = 0;
+			if (keys.next()) {
+				id2 = keys.getInt(1);
+			}
+			
+			item.setId(id2);
+			conn.commit(); // Commit the transaction
+
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
+		}
 		return item;
 	}
 
