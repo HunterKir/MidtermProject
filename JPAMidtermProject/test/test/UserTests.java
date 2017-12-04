@@ -13,9 +13,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import data.PostDAO;
+import data.PostDAOImpl;
 import data.UserDAO;
 import data.UserDAOImpl;
 import entities.Community;
+import entities.Item;
 import entities.Post;
 import entities.User;
 
@@ -23,18 +26,21 @@ public class UserTests {
 	EntityManagerFactory emf; 
 	EntityManager em; 
 	UserDAO dao; 
+	PostDAO pdao;
 	@Before
 	public void setUp() throws Exception {
 		 this.emf = Persistence.createEntityManagerFactory("MidtermProject");
 		 this.em = emf.createEntityManager();
 		 dao = new UserDAOImpl(); 
+		 pdao = new PostDAOImpl();
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		em.close();
 		emf.close();
-		dao = null; 
+		dao = null;
+		pdao = null;
 	}
 	/*CRUD test are commented out because they make changes to DB*/
 //	@Test
@@ -143,11 +149,40 @@ public class UserTests {
 //		
 //	}
 	
+//	@Test
+//	public void plusViewsTest() {
+//		User u = em.find(User.class,1);
+//		u = dao.plusProfileViewCount(1);
+//		assertEquals(4,u.getProfileViews());
+//		
+//	}
+	
+//	@Test 
+//	public void getPOST(){
+//		Post p = em.find(Post.class,1);
+//		
+//		assertEquals(1,p.getUser().getId());
+//		
+//	}
+	
+//	@Test
+//	public void createPost() {
+//		Post p = new Post();
+//		String content = "this is the GOAT item";
+//		p.setContent(content);
+//		pdao.createPost(p,2,1);
+//		assertEquals(1,p.getUser().getId());
+//		
+//	}
+	
 	@Test
-	public void plusViewsTest() {
-		User u = em.find(User.class,1);
-		u = dao.plusProfileViewCount(1);
-		assertEquals(4,u.getProfileViews());
+	public void updatePost() {
+		Post p = em.find(Post.class, 3);
+		p.setContent("Worst ITEM IN THE UNIVERSE!");
+		
+		 p = pdao.updatePost(3, p);
+		
+		assertEquals("Worst ITEM IN THE UNIVERSE!",p.getContent());
 		
 	}
 }

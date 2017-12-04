@@ -48,7 +48,7 @@ public class CommunityController {
 		return mv;
 	}
 	
-	@RequestMapping(path="getPosts.do", method=RequestMethod.GET)
+	@RequestMapping(path="getPosts.do")
 	public ModelAndView goToPostPage(int id) {
 		ModelAndView mv = new ModelAndView();
 		Item item = itemDAO.getItem(id);
@@ -69,7 +69,7 @@ public class CommunityController {
 		return mv;
 	}
 	
-	@RequestMapping(path="viewGroup.do", method=RequestMethod.GET)
+	@RequestMapping(path="viewGroup.do")
 	public ModelAndView goToGroupPage(int id) {
 		ModelAndView mv = new ModelAndView();
 		Community c = comDAO.getCommunity(id);

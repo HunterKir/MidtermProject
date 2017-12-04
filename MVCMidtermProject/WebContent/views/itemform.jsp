@@ -20,9 +20,9 @@
              class="row align-items-center justify-content-center third-height">
              <div
                  class="col-8 form-control center-text align-self-center transparency-white">
-                 <h1>Create Your New Group</h1>
+                 <h1>Post Your Item</h1>
 
-                 <form:form class="form-group" action="newItem.do" method="POST" modelAttribute="item">
+                 <form:form class="form-group" action="newItem.do?id=${cid}" method="POST" modelAttribute="item">
 
                      <div class="row">
                          <div class="col"></div>
