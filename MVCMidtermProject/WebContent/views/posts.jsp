@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -55,16 +56,22 @@
                             </div>
                         </c:if>
                     </div>
-
-                    <div class="bg-white pl-4">
-                        <textarea class="col rounded mt-2" rows="1" cols="80%"></textarea>
-                        <form>
-                            <input class="btn btn-primary m-1" type="submit" value="Inquire"/>
+                    <div class="bg-white pl-4 pr-4">
+                        <form action="newPost.do" method="POST">
+                            <input type="hidden" name="ownerId"
+                                value="${activeUser.id}" /> <input
+                                type="hidden" name="itemId"
+                                value="${item.id}" />
+                            <textarea class="col rounded mt-2" rows="1"
+                                cols="80%" name="content"></textarea>
+                            <input class="btn btn-primary m-1"
+                                type="submit" value="Inquire" />
                         </form>
                     </div>
                     <c:forEach var="post" items="${item.posts}">
                         <ul class="list-group">
-                            <li class="list-group-item">post.content</li>
+                            <li class="list-group-item">${post.user.username}:
+                                ${post.content }</li>
                         </ul>
                     </c:forEach>
                 </div>
