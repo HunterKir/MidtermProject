@@ -46,6 +46,8 @@ public class Item {
 	@OneToMany(mappedBy="item")
 	private List<Post> posts;
 	
+	private Boolean active;
+	
 	public Item() {
 		
 	}
@@ -102,6 +104,16 @@ public class Item {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 
 	@Override
 	public String toString() {

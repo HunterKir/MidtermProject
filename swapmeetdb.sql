@@ -48,16 +48,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `admin` TINYINT NULL,
-  `home_community_id` INT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `community_home_id_fk_idx` (`home_community_id` ASC),
-  CONSTRAINT `community_home_id_fk`
-    FOREIGN KEY (`home_community_id`)
-    REFERENCES `community` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `profile_views` INT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `category`
@@ -85,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `item` (
   `price` DECIMAL NULL,
   `title` TEXT NOT NULL,
   `community_id` INT NOT NULL,
+  `active` TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   INDEX `id_idx` (`user_id` ASC),
   INDEX `category_id_idx` (`category_id` ASC),
@@ -198,8 +192,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `SwapMeetDB`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`, `home_community_id`) VALUES (1, 'Robert', 'Smith', 'bobsmith', 'bobbob', TRUE, NULL);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`, `home_community_id`) VALUES (2, 'Hunter', 'Kiritsis', 'HunterK', 'password123', TRUE, NULL);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (1, 'Robert', 'Smith', 'bobsmith', 'bobbob', TRUE);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (2, 'Hunter', 'Kiritsis', 'HunterK', 'password123', TRUE);
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (4, 'John', 'Jackson', 'john', 'jonjon', FALSE);
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `admin`) VALUES (3, 'Shaquille', 'O\'Neal', 'shaq', 'bigshaq', FALSE);
 
