@@ -48,6 +48,9 @@
                         </div>
                     </c:forEach>
                 </div>
+                <div class="container">
+                <div class="row col">
+                    <a class="btn btn-primary" href="">Want to post a new item? Go.</a>
             </div>
         </div>
     </div>
