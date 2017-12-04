@@ -9,7 +9,9 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import entities.Community;
 import entities.Item;
+import entities.User;
 
 @Repository
 @Transactional
@@ -89,15 +91,22 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<Item> getItembyDescription(String descrip) {
-		List<Item> items = new ArrayList<>();
+	public List<Item> getItembyDescription(String descrip, User user) {
+		
+		List<Item> tempItems = new ArrayList<>();
+		List<Item> finalItems = new ArrayList<>();
 		try {
-			String q = "SELECT ii from Item ii WHERE ii.content LIKE :text";
-			items = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%").getResultList();
-
+			String q = "SELECT i from Item i WHERE i.content LIKE :text AND i.community.id = :id";
+			for (Community c : user.getCommunities()) {
+				tempItems = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%")
+						.setParameter("id", c.getId()).getResultList();
+				for (Item i : tempItems) {
+					finalItems.add(i);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return items;
+		return finalItems;
 	}
 }

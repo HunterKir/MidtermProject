@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import entities.Community;
 import entities.Item;
+import entities.User;
 
 @Repository
 @Transactional
@@ -73,6 +74,13 @@ public class CommunityDAOImpl implements CommunityDAO {
 			.getResultList();
 		return items;
 	}
-	
-
+	@Override
+	public List<User> getUsers(int id){
+		String query = "SELECT c FROM Community c JOIN FETCH c.members WHERE c.id = :id "; 
+		List<Community> community = em.createQuery(query, Community.class)
+				.setParameter("id", id)
+				.getResultList(); 
+		List<User> userList = community.get(0).getMembers(); 
+		return userList;
+	}
 }

@@ -1,12 +1,18 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import entities.Community;
+import entities.Item;
 import entities.User;
 @Repository
 @Transactional
@@ -77,7 +83,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 	@Override
 	public User getLoadedUser(String username) {
-		//Needs to be Optimized totally ineffecient
+		//Needs to be Optimized totally inefficient
 		String query = "SELECT u from User u WHERE username = :username"; 
 		User user = null; 
 		User managedUser = null; 
@@ -90,11 +96,44 @@ public class UserDAOImpl implements UserDAO {
 			for (Community c : managedUser.getCommunities()) {
 				c.getItems().size(); 
 			}
+			managedUser.getItemsPosted().size(); 
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		return managedUser;
 	}
-
+	@Override 
+	public int getUserTotalPost(User user) {
+		String query = "SELECT i FROM Item i WHERE i.user.id = :id"; 
+		int totalPosts = 0; 
+		List<Item> items = em.createQuery(query, Item.class)
+				.setParameter("id", user.getId())
+				.getResultList();
+		totalPosts = items.size();
+		return totalPosts; 
+	}
+	@Override
+	public List<User> getUserbyFirstOrLastName(String first, String last, User user) {
+		List<User> tempUsers = new ArrayList<>();
+		List<User> finalUsers = new ArrayList<>();
+		try{
+		String q = "SELECT u FROM User u Where u.firstName LIKE :first OR u.lastName LIKE :last";
+//		for (Community c : user.getCommunities()) {
+//			tempUsers = em.createQuery(q,User.class).setParameter("first", "%"+first+"%").setParameter("last","%"+last+"%")
+//					.setParameter("id",c.getId())
+//					.getResultList();
+//			for (User u : tempUsers) {
+//				finalUsers.add(u);
+//			}
+//		}
+					finalUsers = em.createQuery(q,User.class).setParameter("first", "%"+first+"%").setParameter("last","%"+last+"%")
+				.getResultList();
+		return finalUsers;
+		} 
+		catch (Exception e) {
+		e.printStackTrace();
+		}
+		return finalUsers;
+	}
 }

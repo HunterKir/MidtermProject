@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -36,7 +37,7 @@ public class User {
 	@Size(min = 5, max = 45, message = "Username must contain 5 to 45 characters.")
 	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Username must not contain symbols.")
 	private String username;
-
+	
 	@Size(min = 5, max = 45, message = "Password must be 5 to 45 characters long.")
 	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Password must not contain symbols.")
 	private String password;
@@ -45,8 +46,7 @@ public class User {
 
 	@OneToMany(mappedBy="user",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Item> itemsPosted;
-
-
+	
 	@OneToMany(mappedBy="owner",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Community> ownedCommunities;
 
@@ -58,7 +58,10 @@ public class User {
 
 	@OneToMany (mappedBy="user",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<Post> posts;
-
+	
+	@Transient
+	private int totalItems;
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -151,6 +154,12 @@ public class User {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
 				+ ", password=" + password + ", admin=" + admin + "]";
 	}
+	
+	public int getTotalItems() {
+		totalItems = itemsPosted.size(); 
+		return totalItems;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

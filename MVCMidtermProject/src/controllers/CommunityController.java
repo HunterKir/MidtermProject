@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import data.ItemDAO;
 import entities.Community;
 import entities.Item;
 import entities.Post;
+import entities.User;
 
 @Controller
 public class CommunityController {
@@ -69,6 +72,10 @@ public class CommunityController {
 		ModelAndView mv = new ModelAndView();
 		Community c = comDAO.getCommunity(id);
 		mv.addObject("group", c);
+		
+		List<User> groupUsers = comDAO.getUsers(c.getId()); 
+		mv.addObject("groupUsers", groupUsers);
+		mv.addObject("groupSize", groupUsers.size());
 		mv.setViewName("views/grouphome.jsp");
 		return mv;
 	}
