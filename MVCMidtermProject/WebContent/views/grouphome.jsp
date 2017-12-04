@@ -34,18 +34,20 @@
                 </div>
                 <div class="row col-sm-9 p-2">
                     <c:forEach var="item" items="${group.items}">
-                        <div class="card m-1" style="width: 20rem;">
-                            <img class="card-img-top" src="..."
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">${item.title }</h4>
-                                <p class="card-text">${item.postTime}
-                                    ${item.price }</p>
-                                <a href="getPosts.do?id=${item.id}"
-                                    class="btn btn-primary">See item
-                                </a>
-                            </div>
-                        </div>
+                         <c:if test="${item.active == true}">
+                              <div class="card m-1" style="width: 20rem;">
+                                   <img class="card-img-top" src="..."
+                                        alt="Card image cap">
+                                        <div class="card-body">
+                                             <h4 class="card-title">${item.title }</h4>
+                                             <p class="card-text">${item.postTime}
+                                                  ${item.price }</p>
+                                                  <a href="getPosts.do?id=${item.id}"
+                                                       class="btn btn-primary">See item
+                                                  </a>
+                                             </div>
+                                        </div>
+                         </c:if>
                     </c:forEach>
                 </div>
                 <div class="container">

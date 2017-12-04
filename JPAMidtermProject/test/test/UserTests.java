@@ -135,4 +135,12 @@ public class UserTests {
 //		
 //	}
 	
+	@Test
+	public void UserRemovefromCommunityTest() {
+		User u = em.find(User.class,1);
+		dao.removeUserfromCommunityByCid(u, 3);
+		assertEquals(2,u.getCommunities().size());
+		
+	}
+	
 }

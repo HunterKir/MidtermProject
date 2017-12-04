@@ -13,4 +13,5 @@ public interface ItemDAO {
 	public List<Item> getItembyPrice(double min, double max);
 	public List<Item> getItembyDescription(String descrip);
 	public List<Item> getItembyPastXdaysbyCommunity(int cid, int day);
+	public Item changeActiveStatus (int id);
 }

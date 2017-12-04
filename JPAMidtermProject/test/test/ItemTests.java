@@ -111,13 +111,21 @@ public class ItemTests {
 //		 
 //	 }
 	
+//	@Test
+//	public void getitmebytimefilter() {
+//		List<Item> ii = new ArrayList<>();
+//		ii = dao.getItembyPastXdaysbyCommunity(4, 7);
+//		
+//		assertEquals(2,ii.size());
+//		
+//		
+//	}
+	
 	@Test
-	public void getitmebytimefilter() {
-		List<Item> ii = new ArrayList<>();
-		ii = dao.getItembyPastXdaysbyCommunity(4, 7);
-		
-		assertEquals(2,ii.size());
-		
+	public void changeItemStatusTest() {
+		Item ii = em.find(Item.class, 1);
+		ii = dao.changeActiveStatus(ii.getId());
+		assertEquals(false,ii.getActive());
 		
 	}
 	
