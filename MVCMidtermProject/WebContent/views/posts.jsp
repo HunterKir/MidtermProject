@@ -22,26 +22,51 @@
     <div class="container-fluid">
         <div class="container">
             <div class="row">
-                <div class="bg-white col-sm-3 mt-2 mr-5 rounded" id="sellerProfile">
+                <div class="bg-white col-sm-3 mt-2 mr-5 rounded"
+                    id="sellerProfile">
                     <div class="alert alert-primary">
-                        <h1 class="text-dark">${item.user.firstName} ${item.user.lastName}</h1>
+                        <h1 class="text-dark">${item.user.firstName}
+                            ${item.user.lastName}</h1>
                         <h2 class="lead">@${item.user.username}</h2>
                     </div>
                 </div>
-                <div class="col-sm-8 bg-white mt-2 p-2 rounded">
-                    <h1>${item.title}</h1>
-                    <h3>Asking price: $${item.price}</h3>
-                    <h4>${item.content}</h4>
-                    <c:if test="${activeUser.id == item.user.id}">
-                      <div class="row">
-                        <form><input class="btn btn-secondary" type="submit" name="itemUpdate" value="update"/></form>
-                        <form><input class="btn btn-success" type="submit" name="itemSold" value="sold"/></form>
-                        <form><input class="btn btn-danger" type="submit" name="itemDelete" value="delete"/></form>
-                      </div>
-                    </c:if>
+                <div class="col-sm-8 mt-2 p-2 rounded bg-light">
+                    <div class="bg-white rounded pl-4">
+                        <h1>${item.title}</h1>
+                        <h3>Asking price: $${item.price}</h3>
+                        <h4>${item.content}</h4>
+                        <c:if test="${activeUser.id == item.user.id}">
+                            <div class="row ml-2">
+                                <form class="m-1">
+                                    <input class="btn btn-secondary"
+                                        type="submit" name="itemUpdate"
+                                        value="update" />
+                                </form>
+                                <form class="m-1">
+                                    <input class="btn btn-success"
+                                        type="submit" name="itemSold"
+                                        value="sold" />
+                                </form>
+                                <form class="m-1">
+                                    <input class="btn btn-danger"
+                                        type="submit" name="itemDelete"
+                                        value="delete" />
+                                </form>
+                            </div>
+                        </c:if>
+                    </div>
+
+                    <div class="bg-white pl-4">
+                        <textarea class="col rounded mt-2" rows="1" cols="80%"></textarea>
+                        <form>
+                            <input class="btn btn-primary m-1" type="submit" value="Inquire"/>
+                        </form>
+                    </div>
                     <c:forEach var="post" items="${item.posts}">
-                         ${post.content}
-                </c:forEach>
+                        <ul class="list-group">
+                            <li class="list-group-item">post.content</li>
+                        </ul>
+                    </c:forEach>
                 </div>
             </div>
         </div>
