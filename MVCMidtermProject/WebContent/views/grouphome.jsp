@@ -19,43 +19,43 @@
 <body class="full-height bg-light">
     <%@ include file="SharedViews/Layout_Navbar.jsp"%>
     <div class="container-fluid">
-        <div class="container">
-            <div class="row mt-2 mb-2">
-                <div class="col-sm-3 mr-3 mt-2 bg-white p-2">
+        <div class="row">
+            <div class="col-sm mr-3 mt-2 bg-white p-2 rounded">
                 <div class="alert alert-primary mt-1 text-dark">
                     <h1>${group.name}</h1>
                     <h2 class="lead">Users in group: ${groupSize}</h2>
                 </div>
-                        <ul class="list-group">
+                <ul class="list-group">
                     <c:forEach var="member" items="${groupUsers}">
                         <li class="list-group-item">${member.username }</li>
                     </c:forEach>
-                        </ul>
-                </div>
-                <div class="row col-sm-9 p-2">
-                    <c:forEach var="item" items="${group.items}">
-                         <c:if test="${item.active == true}">
-                              <div class="card m-1" style="width: 20rem;">
-                                   <img class="card-img-top" src="..."
-                                        alt="Card image cap">
-                                        <div class="card-body">
-                                             <h4 class="card-title">${item.title }</h4>
-                                             <p class="card-text">${item.postTime}
-                                                  ${item.price }</p>
-                                                  <a href="getPosts.do?id=${item.id}"
-                                                       class="btn btn-primary">See item
-                                                  </a>
-                                             </div>
-                                        </div>
-                         </c:if>
-                    </c:forEach>
-                </div>
-                <div class="container">
-                <div class="row col">
-                    <a class="btn btn-primary" href="">Want to post a new item? Go.</a>
+                </ul>
+            </div>
+            <div class="row col-sm-8 mt-2">
+                <c:forEach var="item" items="${group.items}">
+                    <c:if test="${item.active == true}">
+                        <div class="card m-1" style="width: 20rem;">
+                            <img class="card-img-top" src="..."
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">${item.title }</h4>
+                                <p class="card-text">${item.postTime}
+                                    ${item.price }</p>
+                                <a href="getPosts.do?id=${item.id}"
+                                    class="btn btn-primary">See item
+                                </a>
+                            </div>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="col-sm mt-2">
+                <a class="btn btn-primary" href="newItem.do?id=${group.id}">Want to post a
+                    new item? Go.</a>
             </div>
         </div>
     </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
