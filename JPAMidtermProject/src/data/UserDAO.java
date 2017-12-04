@@ -13,4 +13,5 @@ public interface UserDAO {
 	public User getUserByUserName(String username); 
 	public List<User> getUserbyFirstOrLastName (String first, String last);
 	public User removeUserfromCommunityByCid(User user1, int cid);
+	public User plusProfileViewCount(int id);
 }

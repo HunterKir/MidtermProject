@@ -172,4 +172,17 @@ public class UserDAOImpl implements UserDAO {
 		
 		return user1;
 	}
+
+	@Override
+	public User plusProfileViewCount(int id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		User userToUpdate = em.find(User.class, id);
+		int count = (userToUpdate.getProfileViews())+1;
+		userToUpdate.setProfileViews(count);
+		em.getTransaction().commit();
+		System.out.println("you added a view");
+		return userToUpdate;
+	}
 }

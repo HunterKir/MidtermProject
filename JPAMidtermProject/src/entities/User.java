@@ -62,6 +62,21 @@ public class User {
 	@Transient
 	private int totalItems;
 	
+	@Column(name="profile_views")
+	private int profileViews;
+	
+	public int getProfileViews() {
+		return profileViews;
+	}
+
+	public void setProfileViews(int profileViews) {
+		this.profileViews = profileViews;
+	}
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -148,13 +163,16 @@ public class User {
 	public void setOwnedCommunities(List<Community> ownedCommunities) {
 		this.ownedCommunities = ownedCommunities;
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
-				+ ", password=" + password + ", admin=" + admin + "]";
+				+ ", password=" + password + ", admin=" + admin + ", itemsPosted=" + itemsPosted + ", ownedCommunities="
+				+ ownedCommunities + ", communities=" + communities + ", posts=" + posts + ", profileViews="
+				+ profileViews + "]";
 	}
-	
+
 	public int getTotalItems() {
 		totalItems = itemsPosted.size(); 
 		return totalItems;
