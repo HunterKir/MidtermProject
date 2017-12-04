@@ -8,15 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.CommunityDAO;
 import data.ItemDAO;
-import entities.Community;
+import data.UserDAO;
 import entities.Item;
+import entities.Post;
 import entities.User;
 
 @Controller
@@ -27,6 +28,9 @@ public class ItemController {
 	
 	@Autowired
 	private CommunityDAO comDAO;
+	
+	@Autowired
+	private UserDAO uDAO;
 	
 	@RequestMapping(path="newItem.do", method=RequestMethod.GET)
 	public ModelAndView goToNewItemForm(int id) {
@@ -50,6 +54,17 @@ public class ItemController {
 		if(dao.createItem(item, user, id) != null) {
 			mv.setViewName("redirect:getPosts.do?id=" + item.getId());
 		}
+		return mv;
+	}
+	@RequestMapping(path="newPost.do", method=RequestMethod.POST)
+	public ModelAndView createNewItem(@RequestParam("ownerId") int ownerId,
+			@RequestParam("itemId") int itemId, 
+			@RequestParam("content")String content ) {
+		ModelAndView mv = new ModelAndView(); 
+		Post post = new Post(); 
+		post.setContent(content);
+		post.setItem(dao.getItem(itemId));
+		post.setUser(uDAO.getUser(ownerId));
 		return mv;
 	}
 }

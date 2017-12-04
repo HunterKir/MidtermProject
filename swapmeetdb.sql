@@ -257,3 +257,11 @@ INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (2, 1);
 INSERT INTO `user_community` (`user_id`, `community_id`) VALUES (3, 2);
 
 COMMIT;
+-- -----------------------------------------------------
+-- Data for table `post`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `SwapMeetDB`;
+INSERT INTO `post` (`user_id`, `item_id`, `content`, `post_time`) VALUES (2, 1, "Cool chair", '1970-01-01 00:00:01');
+
+COMMIT;
