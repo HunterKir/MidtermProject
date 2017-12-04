@@ -130,30 +130,45 @@ public class ItemDAOImpl implements ItemDAO {
 
 	@Override
 	public List<Item> getItembyPastXdaysbyCommunity(int cid, int day) {
-	
+
 		List<Item> list = new ArrayList<>();
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
-		List<Item> filtered = null; 
+		List<Item> filtered = null;
 		try {
 			String q = "SELECT ii from Item ii WHERE ii.community.id=:cid";
-			list = em.createQuery(q,Item.class).setParameter("cid",cid).getResultList();
-			filtered = new ArrayList<Item>(); 
+			list = em.createQuery(q, Item.class).setParameter("cid", cid).getResultList();
+			filtered = new ArrayList<Item>();
 			for (Item item : list) {
-				if(item.getPostTime().isAfter(LocalDateTime.now().minusDays(day)) && item.getPostTime().isBefore(LocalDateTime.now())) {
-					filtered.add(item); 
-					
-				}				
+				if (item.getPostTime().isAfter(LocalDateTime.now().minusDays(day))
+						&& item.getPostTime().isBefore(LocalDateTime.now())) {
+					filtered.add(item);
+
+				}
 			}
-			
-		} catch(Exception e){
+
+		} catch (Exception e) {
 			em.close();
 			emf.close();
 		}
 		return filtered;
 	}
 
-
+	@Override
+	public Item changeActiveStatus(int id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Item itemToUpdate = em.find(Item.class, id);
+		if (itemToUpdate.getActive() == true) {
+			System.out.println("flipped to false");
+			itemToUpdate.setActive(false);
+		} else {
+			System.out.println("flipped to true");
+			itemToUpdate.setActive(true);
+		}
+		em.getTransaction().commit();
+		return itemToUpdate;
 	}
 
-
+}
