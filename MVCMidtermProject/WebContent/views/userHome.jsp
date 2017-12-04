@@ -65,7 +65,7 @@
                                 href="getPosts.do?id=${item.id}">${item.title}</a>
                                 Asking price: $${item.price}</li>
                         </c:forEach>
-                    </ul>           
+                    </ul>
                 </c:if>
                 <c:if test="${not empty userList}">
                     <ul class="list-group mt-2">
@@ -74,7 +74,7 @@
                                 href="getPosts.do?id=${user.id}">${user.username}</a>
                             </li>
                         </c:forEach>
-                    </ul>                   
+                    </ul>
                 </c:if>
             </div>
             <div class="col-sm fixed">
@@ -109,11 +109,13 @@
                                     <ul class="list-group">
                                         <c:forEach var="item"
                                             items="${group.items}">
-                                            <li
-                                                style="list-style: none;"
-                                                class="alert alert-primary"><a
-                                                class="alert-link"
-                                                href="getPosts.do?id=${item.id}">${item.title}</a></li>
+                                            <c:if test="${item.active == true}">
+                                                 <li
+                                                      style="list-style: none;"
+                                                      class="alert alert-primary"><a
+                                                      class="alert-link"
+                                                      href="getPosts.do?id=${item.id}">${item.title}</a></li>
+                                            </c:if>
                                         </c:forEach>
                                     </ul>
                                 </div>
