@@ -38,7 +38,6 @@
                          <div class="left-text form-group col-8">
                              Group Description:
                              <form:textarea class="form-control" rows="4" path="description" />
-                             <form:errors path="description"/>
                          </div>
                          <div class="col"></div>
                      </div>

@@ -1,5 +1,6 @@
 package controllers;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import data.ItemDAO;
 import entities.Community;
 import entities.Item;
 import entities.Post;
+import entities.User;
 
 @Controller
 public class CommunityController {
@@ -33,12 +35,14 @@ public class CommunityController {
 		return mv; 
 	}
 	@RequestMapping(path="newGroup.do", method=RequestMethod.POST)
-	public ModelAndView submitNewGroup(@Valid @ModelAttribute("comModel") Community comModel, Errors errors) {
+	public ModelAndView submitNewGroup(@Valid @ModelAttribute("comModel") Community comModel, Errors errors, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		User sessionUser = (User) session.getAttribute("activeUser");
 		if (errors.getErrorCount() != 0) {
 			mv.setViewName("views/newgroup.jsp");
 			return mv;
 		}
+		comDAO.createCommunity(comModel, sessionUser);
 		mv.setViewName("views/grouphome.jsp");
 		return mv;
 	}
