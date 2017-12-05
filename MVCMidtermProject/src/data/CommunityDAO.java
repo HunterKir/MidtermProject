@@ -2,6 +2,7 @@ package data;
 
 import java.util.List;
 
+import entities.Category;
 import entities.Community;
 import entities.Item;
 import entities.User;
@@ -16,5 +17,7 @@ public interface CommunityDAO {
 	public List<Community> getAllCommunities();
 	public List<Item> getItembyDescription(String descrip, User user, int groupId);
 	List<User> getUserbyFirstOrLastName(String first, String last, User user, int groupId);
+	List<Item> getItembyCatID(int id, int groupId);
+	List<Category> getCategories();
 
 }

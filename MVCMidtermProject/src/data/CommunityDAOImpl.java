@@ -12,9 +12,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.junit.experimental.categories.Categories;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import entities.Category;
 import entities.Community;
 import entities.Item;
 import entities.User;
@@ -191,5 +193,23 @@ public class CommunityDAOImpl implements CommunityDAO {
 		e.printStackTrace();
 		}
 		return finalUsers;
+	}
+	@Override
+	public List<Item> getItembyCatID(int id, int groupId) {
+		List<Item> items = new ArrayList<>();
+		
+			String q = "SELECT ii from Item ii WHERE ii.category.id =:cid AND ii.community.id =:comId";
+			items = em.createQuery(q, Item.class)
+					.setParameter("cid", id)
+					.setParameter("comId", groupId)
+					.getResultList();
+		return items;
+	}
+	@Override 
+	public List<Category> getCategories(){
+		String query = "SELECT c FROM Category c"; 
+		List<Category> categories = em.createQuery(query, Category.class)
+				.getResultList(); 
+		return categories; 
 	}
 }

@@ -1,6 +1,11 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -84,6 +89,7 @@ public class CommunityController {
 		List<User> groupUsers = comDAO.getUsers(c.getId()); 
 		mv.addObject("groupUsers", groupUsers);
 		mv.addObject("groupSize", groupUsers.size());
+		mv.addObject("categories", comDAO.getCategories()); 
 		mv.setViewName("views/grouphome.jsp");
 		return mv;
 	}
