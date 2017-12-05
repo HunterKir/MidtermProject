@@ -1,5 +1,7 @@
 package controllers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpSession;
@@ -78,6 +80,25 @@ public class ItemController {
 		mv.setViewName("redirect: getPosts.do?id=" + itemId);
 		return mv;
 	}
+	@RequestMapping(path="showUpdateArea.do", method=RequestMethod.GET)
+	public ModelAndView goToUpdatePost(@RequestParam("postId") int postId,
+			@RequestParam("itemId") int itemId) {
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("getPosts.do?id="+ itemId);
+		Post editPost = new Post(); 
+		mv.addObject("editPost", editPost); 
+		return mv; 
+	}
+	@RequestMapping(path="updatePost.do", method=RequestMethod.POST)
+	public ModelAndView updateNewItem(@RequestParam("postId") int postId,
+			@RequestParam("itemId") int itemId, @RequestParam("postContent")String content) {
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("getPosts.do?id="+ itemId);
+		Post post = pDAO.getPost(postId); 
+		post.setContent(content);
+		pDAO.updatePost(postId, post); 
+		return mv; 
+	}
 	
 	@RequestMapping(path="removeItem.do")
 	public ModelAndView removeItem(int id) {
@@ -106,5 +127,14 @@ public class ItemController {
 		dao.updateItem(item.getId(), item);
 		mv.setViewName("redirect:getPosts.do?id=" + item.getId());
 		return mv;
+	}
+	@RequestMapping(path="deletePost.do", method=RequestMethod.POST)
+	public ModelAndView delteItem(@RequestParam("postId")int postId,
+			@RequestParam("itemId") int itemId) {
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("redirect: getPosts.do?id=" + itemId);
+		Post post = pDAO.getPost(postId); 
+		pDAO.deletePost(post); 
+		return mv; 
 	}
 }

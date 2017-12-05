@@ -80,7 +80,6 @@ public class ItemDAOImpl implements ItemDAO {
 		}
 		return item;
 	}
-
 	@Override
 	public Item getItem(int id) {
 		Item item = null;
@@ -99,7 +98,6 @@ public class ItemDAOImpl implements ItemDAO {
 		if (item != null) {
 			item.setActive(false);
 		}
-
 		return item;
 	}
 
@@ -118,7 +116,6 @@ public class ItemDAOImpl implements ItemDAO {
 
 		return itemToUpdate;
 	}
-
 	@Override
 	public List<Item> getItembyCatID(int id) {
 		List<Item> items = new ArrayList<>();
