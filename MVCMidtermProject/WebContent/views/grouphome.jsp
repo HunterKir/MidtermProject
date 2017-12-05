@@ -32,6 +32,17 @@
                 </ul>
             </div>
             <div class="row col-sm-8 mt-2">
+                <form class="container" action="search.do" method="GET"
+                    class="form-inline my-2 my-lg-0">
+                    <select class="mt-2" name="searchSelect">
+                        <option value="items">Search items</option>
+                        <option value="people">Search people</option>
+                    </select> <input class="form-control col mt-3" type="search"
+                        placeholder="Search" aria-label="Search"
+                        name="search">
+                    <button class="btn btn-outline-danger mt-3 ml-1"
+                        type="submit">Search</button>
+                </form>
                 <c:forEach var="item" items="${group.items}">
                     <c:if test="${item.active == true}">
                         <div class="card m-1" style="width: 20rem;">
@@ -50,7 +61,8 @@
                 </c:forEach>
             </div>
             <div class="col-sm mt-2">
-                <a class="btn btn-primary" href="newItem.do?id=${group.id}">Want to post a
+                <a class="btn btn-primary"
+                    href="newItem.do?id=${group.id}">Want to post a
                     new item? Go.</a>
             </div>
         </div>
