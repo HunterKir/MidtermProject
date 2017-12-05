@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
@@ -158,5 +160,22 @@ public class ItemDAOImpl implements ItemDAO {
 			e.printStackTrace();
 		}
 		return finalItems;
+	}
+	
+	@Override
+	public Item changeActiveStatus(int id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Item itemToUpdate = em.find(Item.class, id);
+		if (itemToUpdate.getActive() == true) {
+			System.out.println("flipped to false");
+			itemToUpdate.setActive(false);
+		} else {
+			System.out.println("flipped to true");
+			itemToUpdate.setActive(true);
+		}
+		em.getTransaction().commit();
+		return itemToUpdate;
 	}
 }

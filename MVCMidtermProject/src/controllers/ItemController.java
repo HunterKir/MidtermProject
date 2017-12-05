@@ -80,6 +80,7 @@ public class ItemController {
 		mv.setViewName("redirect: getPosts.do?id=" + itemId);
 		return mv;
 	}
+<<<<<<< HEAD
 	@RequestMapping(path="showUpdateArea.do", method=RequestMethod.GET)
 	public ModelAndView goToUpdatePost(@RequestParam("postId") int postId,
 			@RequestParam("itemId") int itemId) {
@@ -98,5 +99,35 @@ public class ItemController {
 		post.setContent(content);
 		pDAO.updatePost(postId, post); 
 		return mv; 
+=======
+	
+	@RequestMapping(path="removeItem.do")
+	public ModelAndView removeItem(int id) {
+		ModelAndView mv = new ModelAndView();
+		dao.changeActiveStatus(id);
+		mv.setViewName("views/removed.jsp");
+		return mv;
+	}
+	
+	@RequestMapping(path="updateItem.do", method=RequestMethod.GET)
+	public ModelAndView goToUpdateItem(int id) {
+		ModelAndView mv = new ModelAndView();
+		Item i = dao.getItem(id);
+		mv.addObject("item", i);
+		mv.setViewName("views/itemform.jsp");
+		return mv;
+	}
+	
+	@RequestMapping(path="updateItem.do", method=RequestMethod.POST)
+	public ModelAndView updateItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model) {
+		ModelAndView mv = new ModelAndView();
+		if (errors.hasErrors()) {
+			mv.setViewName("views/itemform.jsp");
+			return mv;
+		}
+		dao.updateItem(item.getId(), item);
+		mv.setViewName("redirect:getPosts.do?id=" + item.getId());
+		return mv;
+>>>>>>> f653adc713134be2e0788ed7c9bdfe5fb5590282
 	}
 }
