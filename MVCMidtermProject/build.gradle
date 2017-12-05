@@ -43,6 +43,7 @@ dependencies {
     compile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.1.0'
     compile group: 'javax.servlet', name: 'jstl', version:'1.2'
     compile group: 'org.hibernate', name: 'hibernate-validator', version:'5.2.4.Final'
+    compile 'net.sargue:java-time-jsptags:1.1.4'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-junit:2.0.0.0'
