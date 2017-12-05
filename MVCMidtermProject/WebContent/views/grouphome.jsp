@@ -47,43 +47,12 @@
                     <button class="btn btn-outline-danger mt-3 ml-1"
                         type="submit">Search</button>
                 </form>
-                <c:if test="${ not empty searchItemsList}">
-                    <c:forEach var="item" items="${searchItemsList}">
-                        <div class="card m-1" style="width: 20rem;">
-                            <img class="card-img-top" src="..."
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title">${item.title }</h4>
-
-                                <p class="card-text">
-                                    Date Posted:
-                                    <javatime:format
-                                        value="${item.postTime}"
-                                        style="MS" />
-                                    <br> Price:
-                                    <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber>
-                                </p>
-                                <a href="getPosts.do?id=${item.id}"
-                                    class="btn btn-primary">See item
-                                </a>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </c:if>
-                <c:if test="${not empty searchUsersList}">
-                    <ul class="list-group">
-                        <c:forEach var="user" items="${searchUsersList}">
-                            <li class="list-group-item">${user.username }</li>
-                        </c:forEach>
-                    </ul>
-                </c:if>
-                <c:if
-                    test="${empty searchItemsList && empty searchUsersList}">
-                    <c:forEach var="item" items="${group.items}">
-                        <c:if test="${item.active == true}">
+                <div class="row justify-content-center">
+                    <c:if test="${ not empty searchItemsList}">
+                        <c:forEach var="item" items="${searchItemsList}">
                             <div class="card m-1" style="width: 20rem;">
-<!--                                 <img class="card-img-top" src="..."
-                                    alt="Card image cap"> -->
+                                <img class="card-img-top" src="..."
+                                    alt="Card image cap">
                                 <div class="card-body">
                                     <h4 class="card-title">${item.title }</h4>
                                     <p class="card-text">
@@ -100,16 +69,45 @@
                                         item </a>
                                 </div>
                             </div>
-                        </c:if>
-                    </c:forEach>
-                </c:if>
-                <c:if test="${not empty searchUsersList}">
-                    <ul class="list-group">
-                        <c:forEach var="user" items="${searchUsersList}">
-                            <li class="list-group-item">${user.username }</li>
                         </c:forEach>
-                    </ul>
-                </c:if>
+                    </c:if>
+                    <c:if
+                        test="${empty searchItemsList && empty searchUsersList}">
+                        <c:forEach var="item" items="${group.items}">
+                            <c:if test="${item.active == true}">
+                                <div class="card m-1"
+                                    style="width: 20rem;">
+                                    <!--                                 <img class="card-img-top" src="..."
+                                    alt="Card image cap"> -->
+                                    <div class="card-body">
+                                        <h4 class="card-title">${item.title }</h4>
+                                        <p class="card-text">
+                                            Date Posted:
+                                            <javatime:format
+                                                value="${item.postTime}"
+                                                style="MS" />
+                                            <br> Price:
+                                            <fmt:formatNumber
+                                                type="currency">${item.price}</fmt:formatNumber>
+                                        </p>
+                                        <a
+                                            href="getPosts.do?id=${item.id}"
+                                            class="btn btn-primary">See
+                                            item </a>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${not empty searchUsersList}">
+                        <ul class="list-group">
+                            <c:forEach var="user"
+                                items="${searchUsersList}">
+                                <li class="list-group-item">${user.username }</li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                </div>
             </div>
             <div class="col-sm mt-2">
                 <a class="btn btn-primary"
