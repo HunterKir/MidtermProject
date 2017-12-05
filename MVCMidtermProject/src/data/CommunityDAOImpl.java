@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -147,4 +148,18 @@ public class CommunityDAOImpl implements CommunityDAO {
 		List<User> userList = community.get(0).getMembers(); 
 		return userList;
 	}
+
+	@Override
+	public List<Community> getAllCommunities() {
+		List<Community> communities = new ArrayList<>();
+		try{
+			String q="SELECT c from Community c";
+			communities = em.createQuery(q,Community.class)
+					.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return communities;
+	}	
+	
 }

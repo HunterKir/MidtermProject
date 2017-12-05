@@ -40,23 +40,23 @@ public class CommunityTests {
 		uDao = null; 
 	}
 	
-	@Test
-	public void CommunitybyDescTest(){
-		List<Community> communities = new ArrayList<>();
-		communities = dao.getCommunitybyDesc("bot");
-		assertEquals(1,communities.size());
-		
-	}
+//	@Test
+//	public void CommunitybyDescTest(){
+//		List<Community> communities = new ArrayList<>();
+//		communities = dao.getCommunitybyDesc("bot");
+//		assertEquals(1,communities.size());
+//		
+//	}
 	/*CRUD test are commented out because they make changes to DB*/
-	@Test
-	public void test_createCommunity() {
-		Community com = new Community(); 
-		com.setName("Java crew");
-		com.setOwner(uDao.getUser(1));
-		Community createdCommunity = dao.createCommunity(com); 
-		
-		assertEquals(createdCommunity.getName(), "Java crew"); 
-	}
+//	@Test
+//	public void test_createCommunity() {
+//		Community com = new Community(); 
+//		com.setName("Java crew");
+//		com.setOwner(uDao.getUser(1));
+//		Community createdCommunity = dao.createCommunity(com); 
+//		
+//		assertEquals(createdCommunity.getName(), "Java crew"); 
+//	}
 //	@Test
 //	public void test_updateCommunity() {
 //		Community com = dao.getCommunity(2); 
@@ -83,19 +83,27 @@ public class CommunityTests {
 //		assertEquals(2,em.find(Community.class,1).getMembers().size());
 //	}
 	
-	@Test
-	public void CommunitySearch() {
-		List <Community> c = dao.getCommunitybyDesc("ink");
-		assertEquals(2,c.size());
-		
-	}
+//	@Test
+//	public void CommunitySearch() {
+//		List <Community> c = dao.getCommunitybyDesc("ink");
+//		assertEquals(2,c.size());
+//		
+//	}
+	
+//	@Test
+//	public void CommunitiesToOwnersTest() {
+//		Community c1 = em.find(Community.class,3);
+//		Community c2 = em.find(Community.class,5);
+//		assertEquals (4,c1.getOwner().getId());
+//		assertEquals (4,c2.getOwner().getId());
+//		
+//	}
+	
 	
 	@Test
-	public void CommunitiesToOwnersTest() {
-		Community c1 = em.find(Community.class,3);
-		Community c2 = em.find(Community.class,5);
-		assertEquals (4,c1.getOwner().getId());
-		assertEquals (4,c2.getOwner().getId());
+	public void GetAllCommunitiesTest() {
+		List<Community> list = dao.getAllCommunities();
+		assertEquals(4,list.size());
 		
 	}
 }
