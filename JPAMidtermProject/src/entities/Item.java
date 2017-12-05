@@ -48,6 +48,8 @@ public class Item {
 	
 	private Boolean active;
 	
+	private boolean sold;
+	
 	public Item() {
 		
 	}
@@ -120,6 +122,16 @@ public class Item {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+
+	public boolean isSold() {
+		return sold;
+	}
+
+
+	public void setSold(boolean sold) {
+		this.sold = sold;
 	}
 
 
