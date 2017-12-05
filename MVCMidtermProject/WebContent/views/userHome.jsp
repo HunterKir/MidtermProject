@@ -43,6 +43,14 @@
                         </button>
                     </p>
                 </div>
+                <div class="col bg-white rounded mt-1">
+                    <p class="lead">
+                        Items sold:
+                        <button type="button" class="btn btn-danger ml-5">
+                            <span class="badge badge-light">${activeUser.itemsSold}</span>
+                        </button>
+                    </p>
+                </div>
             </div>
             <div class="col-sm bg-white  border m-1">
                 <form action="search.do" method="GET"
