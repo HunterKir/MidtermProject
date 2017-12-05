@@ -129,12 +129,14 @@ public class ItemController {
 		return mv;
 	}
 	@RequestMapping(path="updateItemInModal.do", method=RequestMethod.POST)
-	public ModelAndView updateInModalItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model) {
+	public ModelAndView updateInModalItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model, int uid, int cid) {
 		ModelAndView mv = new ModelAndView();
-		if (errors.hasErrors()) {
-//			mv.setViewName("views/itemform.jsp");
-			return mv;
-		}
+//		if (errors.hasErrors()) {
+//			mv.setViewName("redirect:getPosts.do?id=" + item.getId());
+//			return mv;
+//		}
+		item.setCommunity(comDAO.getCommunity(cid));
+		item.setUser(uDAO.getUser(uid));
 		dao.updateItem(item.getId(), item);
 		mv.setViewName("redirect:getPosts.do?id=" + item.getId());
 		return mv;

@@ -59,6 +59,7 @@ public class ItemDAOImpl implements ItemDAO {
 				id2 = keys.getInt(1);
 			}
 			
+//			item.setUser(currentUser);
 			item.setId(id2);
 			conn.commit(); // Commit the transaction
 
@@ -103,14 +104,9 @@ public class ItemDAOImpl implements ItemDAO {
 
 	@Override
 	public Item updateItem(int id, Item item) {
-
 		Item itemToUpdate = em.find(Item.class, id);
-
-		itemToUpdate.setUser(item.getUser());
 		itemToUpdate.setCategory(item.getCategory());
-		itemToUpdate.setCommunity(item.getCommunity());
 		itemToUpdate.setContent(item.getContent());
-		itemToUpdate.setPostTime(item.getPostTime());
 		itemToUpdate.setPrice(item.getPrice());
 		itemToUpdate.setTitle(item.getTitle());
 		

@@ -12,7 +12,7 @@ public interface CommunityDAO {
 	public Community deleteCommunity(int id);
 	public Community updateCommunityName(int id, Community community);
 	public List<Item> getItems(int id);
-	List<User> getUsers(int id);
+	public List<User> getUsers(int id);
 	public List<Community> getAllCommunities();
 	public List<Item> getItembyDescription(String descrip, User user, int groupId);
 	List<User> getUserbyFirstOrLastName(String first, String last, User user, int groupId);
