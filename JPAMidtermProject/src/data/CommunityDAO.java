@@ -10,4 +10,5 @@ public interface CommunityDAO {
 	public Community updateCommunity(int id, Community community);
 	public Community deleteCommunity(int id);
 	public List<Community> getCommunitybyDesc(String desc);
+	public List<Community> getAllCommunities();
 }

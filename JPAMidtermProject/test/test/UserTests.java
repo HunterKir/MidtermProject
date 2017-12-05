@@ -177,20 +177,36 @@ public class UserTests {
 	
 //	@Test
 //	public void updatePost() {
-//		Post p = em.find(Post.class, 3);
-//		p.setContent("Worst ITEM IN THE UNIVERSE!");
+//		Post p = em.find(Post.class, 5);
+//		p.setContent("Worst SQUID IN THE UNIVERSE!");
 //		
-//		 p = pdao.updatePost(3, p);
+//		 p = pdao.updatePost(5, p);
 //		
-//		assertEquals("Worst ITEM IN THE UNIVERSE!",p.getContent());
+//		assertEquals("Worst SQUID IN THE UNIVERSE!",p.getContent());
 //		
 //	}
 	
+	
+	
+	
+//	@Test
+//	public void deletePostTest() {
+//		Post p = em.find(Post.class, 4);
+//		Post premoved = pdao.deletePost(p);
+//		assertEquals("a disgusting squid",premoved.getContent());
+//		
+//	}
+	
+	
 	@Test
-	public void deletePostTest() {
-		Post p = em.find(Post.class, 4);
-		Post premoved = pdao.deletePost(p);
-		assertEquals("a disgusting squid",premoved.getContent());
+	public void userUpdateTest() {
+		User u = em.find(User.class, 5);
+		u.setFirstName("LL");
+		u.setLastName("CoolJ");
+		u.setUsername("coolguy");
+		u.setPassword("coolcool");
+		User uprime = dao.updateUser(5, u);
+		assertEquals("LL",uprime.getFirstName());
 		
 	}
 }

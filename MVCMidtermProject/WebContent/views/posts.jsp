@@ -126,9 +126,9 @@
                                 type="hidden" name="itemId"
                                 value="${item.id}" />
                             <textarea class="col rounded mt-2" rows="1"
-                                cols="80%" name="content"></textarea>
+                                cols="80%" name="content" required></textarea>
                             <input class="btn btn-primary m-1"
-                                type="submit" value="Inquire" />
+                                type="submit" value="message" />
                         </form>
                     </div>
                     <c:forEach var="post" items="${item.posts}">

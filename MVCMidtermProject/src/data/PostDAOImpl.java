@@ -95,8 +95,6 @@ public class PostDAOImpl implements PostDAO {
 				}
 			}
 		}
-
 		return p; 
 	}
-
 }

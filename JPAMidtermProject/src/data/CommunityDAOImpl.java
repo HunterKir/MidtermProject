@@ -104,4 +104,19 @@ public class CommunityDAOImpl implements CommunityDAO{
 		}
 		return c;
 	}
+
+	@Override
+	public List<Community> getAllCommunities() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		List<Community> communities = new ArrayList<>();
+		try{
+			String q="SELECT c from Community c";
+			communities = em.createQuery(q,Community.class)
+					.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return communities;
+	}
 }
