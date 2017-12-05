@@ -124,8 +124,8 @@ public class ItemTests {
 	@Test
 	public void changeItemStatusTest() {
 		Item ii = em.find(Item.class, 1);
-		ii = dao.changeActiveStatus(ii.getId());
-		assertEquals(false,ii.getActive());
+		ii = dao.changeSoldStatus(ii.getId());
+		assertEquals(true,ii.isSold());
 		
 	}
 	

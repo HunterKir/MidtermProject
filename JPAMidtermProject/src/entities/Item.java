@@ -50,6 +50,7 @@ public class Item {
 	
 	private boolean sold;
 	
+	
 	public Item() {
 		
 	}
