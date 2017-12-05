@@ -87,4 +87,12 @@ public class SearchController {
 		}
 		return mv; 
 	}
+	@RequestMapping(path="searchByCategory.do", method=RequestMethod.GET)
+	public ModelAndView searchByCategory(@RequestParam("category") String category
+			, @RequestParam("groupId") int groupId) {
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("redirect: viewGroup.do?id=" + groupId);
+		
+		return mv; 
+	}
 }

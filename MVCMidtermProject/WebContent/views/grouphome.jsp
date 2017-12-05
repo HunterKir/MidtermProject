@@ -44,8 +44,29 @@
                     </select><input class="form-control col mt-3" type="search"
                         placeholder="Search" aria-label="Search"
                         name="search">
-                    <button class="btn btn-outline-danger mt-3 ml-1"
-                        type="submit">Search</button>
+                    <div class="row">
+                        <button class="btn btn-outline-danger mt-3 ml-3"
+                            type="submit">Search</button>
+                        <div class="dropdown mt-3 ml-1">
+                            <button
+                                class="btn btn-secondary dropdown-toggle"
+                                type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false">Filter by
+                                category</button>
+                            <div class="dropdown-menu"
+                                aria-labelledby="dropdownMenuButton">
+                                <c:forEach var="cat"
+                                    items="${categories}">
+                                    <a class="dropdown-item"
+                                        text-white"
+                                name="category"
+                                        value="${cat.type}" href="searchByCategory.do?category=${cat.type}&groupId=${group.id}">${cat.type}</a>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <div class="row justify-content-center">
                     <c:if test="${ not empty searchItemsList}">
@@ -123,13 +144,6 @@
                         <label> Search by maximum price</label> <input
                             class="rounded" type="number" min="0" />
                     </form>
-                    <div class="btn-group-vertical">
-                        <p class="lead">Filter by category</p>
-                        <c:forEach var="cat" items="${categories}">
-                            <a class="btn btn-secondary text-white mt-2"
-                                name="category" value="${cat.type}">${cat.type}</a>
-                        </c:forEach>
-                    </div>
                 </div>
             </div>
         </div>
