@@ -101,10 +101,10 @@ public class ItemController {
 	}
 	
 	@RequestMapping(path="removeItem.do")
-	public ModelAndView removeItem(int id) {
+	public ModelAndView removeItem(int iid, int cid) {
 		ModelAndView mv = new ModelAndView();
-		dao.changeActiveStatus(id);
-		mv.setViewName("views/removed.jsp");
+		dao.changeActiveStatus(iid);
+		mv.setViewName("redirect:viewGroup.do?id=" + cid);
 		return mv;
 	}
 	
@@ -122,6 +122,17 @@ public class ItemController {
 		ModelAndView mv = new ModelAndView();
 		if (errors.hasErrors()) {
 			mv.setViewName("views/itemform.jsp");
+			return mv;
+		}
+		dao.updateItem(item.getId(), item);
+		mv.setViewName("redirect:getPosts.do?id=" + item.getId());
+		return mv;
+	}
+	@RequestMapping(path="updateItemInModal.do", method=RequestMethod.POST)
+	public ModelAndView updateInModalItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model) {
+		ModelAndView mv = new ModelAndView();
+		if (errors.hasErrors()) {
+//			mv.setViewName("views/itemform.jsp");
 			return mv;
 		}
 		dao.updateItem(item.getId(), item);

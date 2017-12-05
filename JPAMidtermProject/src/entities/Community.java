@@ -25,7 +25,7 @@ public class Community {
 	private int id;
 	
 	@Size(min=5, max=100, message="Name must be 5 to 100 characters long.")
-	@Pattern(regexp="^[a-zA-Z0-9]+$", message = "Name must not contain symbols.")
+	@Pattern(regexp="^[a-zA-Z0-9 ]+$", message = "Name must not contain symbols.")
 	private String name;
 
 	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})

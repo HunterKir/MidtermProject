@@ -38,21 +38,84 @@
                         <h4>${item.content}</h4>
                         <c:if test="${activeUser.id == item.user.id}">
                             <div class="row ml-2">
-                                <form class="m-1">
-                                    <input class="btn btn-secondary"
-                                        type="submit" name="itemUpdate"
-                                        value="update" />
-                                </form>
-                                <form class="m-1">
-                                    <input class="btn btn-success"
-                                        type="submit" name="itemSold"
-                                        value="sold" />
-                                </form>
-                                <form class="m-1">
-                                    <input class="btn btn-danger"
-                                        type="submit" name="itemDelete"
-                                        value="delete" />
-                                </form>
+                                <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#edit">
+                                     Edit
+                                </button>
+                                <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                     <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                               <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel">Edit Your Item</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                         <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                               </div>
+                                               <form:form class="" action="updateItemInModal.do" method="POST" modelAttribute="item">
+                                                    <div class="modal-body">
+                                                              <form:input class="form-control" path="title"/>
+                                                              <form:input class="form-control" path="price"/>
+                                                              <form:textarea class="form-control" rows="4" path="content"/>
+                                                    </div>
+                                               <div class="modal-footer">
+                                                    <input type="submit" class="btn btn-primary" name="" value="Save Changes">
+                                               </form:form>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                               </div>
+                                          </div>
+                                     </div>
+                                </div>
+                                <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#sold">
+                                     Mark as Sold
+                                </button>
+                                <div class="modal fade" id="sold" tabindex="-1" role="dialog" aria-labelledby="soldModalLabel" aria-hidden="true">
+                                     <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                               <div class="modal-header">
+                                                    <h5 class="modal-title" id="soldModalLabel">Confirm Sold Status</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                         <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                               </div>
+                                               <div class="modal-body">
+                                                    Are you sure you want to mark this item as sold? This will remove this item from ${item.community.name}.
+                                               </div>
+                                               <div class="modal-footer">
+                                                    <form class="m-1" action="soldItem.do">
+                                                         <input class="btn btn-danger" type="submit" name="itemDelete" value="Mark as Sold" />
+                                                         <input type="hidden" name="iid" value="${item.id}">
+                                                         <input type="hidden" name="cid" value="${item.community.id}">
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                               </div>
+                                          </div>
+                                     </div>
+                                </div>
+                                <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#remove">
+                                     Remove
+                                </button>
+                                <div class="modal fade" id="remove" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+                                     <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                               <div class="modal-header">
+                                                    <h5 class="modal-title" id="removeModalLabel">Confirm Removal</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                         <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                               </div>
+                                               <div class="modal-body">
+                                                    Are you sure you want to remove this item?
+                                               </div>
+                                               <div class="modal-footer">
+                                                    <form class="m-1" action="removeItem.do">
+                                                         <input class="btn btn-danger" type="submit" name="itemDelete" value="Remove" />
+                                                         <input type="hidden" name="iid" value="${item.id}">
+                                                         <input type="hidden" name="cid" value="${item.community.id}">
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                               </div>
+                                          </div>
+                                     </div>
+                                </div>
                             </div>
                         </c:if>
                     </div>
@@ -101,7 +164,7 @@
                                      <input type="hidden" name="postId" value ="${post.id}"/>
                                      <input type="hidden" name="itemId" value ="${item.id}"/>
                                      <textarea class="col" rows="1" name="postContent" placeholder="${post.content}" required wrap></textarea>
-                                     <input class="btn btn-success mt-1" type="submit" value="update post"/> 
+                                     <input class="btn btn-success mt-1" type="submit" value="update post"/>
                                 </form>
                             </li>
                         </c:if>

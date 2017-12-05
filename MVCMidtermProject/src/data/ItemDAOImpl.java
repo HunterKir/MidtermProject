@@ -169,10 +169,8 @@ public class ItemDAOImpl implements ItemDAO {
 		em.getTransaction().begin();
 		Item itemToUpdate = em.find(Item.class, id);
 		if (itemToUpdate.getActive() == true) {
-			System.out.println("flipped to false");
 			itemToUpdate.setActive(false);
 		} else {
-			System.out.println("flipped to true");
 			itemToUpdate.setActive(true);
 		}
 		em.getTransaction().commit();
