@@ -61,7 +61,8 @@ public class CommunityDAOImpl implements CommunityDAO{
 			em.getTransaction().begin(); 
 			Community managed = em.find(Community.class, id);
 			managed.setName(community.getName());
-			managed.setOwner(community.getOwner());
+			//managed.setOwner(community.getOwner());
+			managed.setDescription(community.getDescription());
 			em.getTransaction().commit();
 			return managed; 
 		}
@@ -118,5 +119,27 @@ public class CommunityDAOImpl implements CommunityDAO{
 			e.printStackTrace();
 		}
 		return communities;
+	}
+
+	@Override
+	public Community transferCommunityOwner(int uid, int cid) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin(); 
+			Community managed = em.find(Community.class, cid);
+			User managedowner = em.find(User.class, uid);
+			managed.setOwner(managedowner);
+			em.getTransaction().commit();
+			return managed; 
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null; 
+		}
+		finally {
+			em.close();
+			emf.close(); 
+		}
 	}
 }

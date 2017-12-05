@@ -18,6 +18,7 @@ import data.CommunityDAOImpl;
 import data.UserDAO;
 import data.UserDAOImpl;
 import entities.Community;
+import entities.User;
 
 public class CommunityTests {
 	EntityManagerFactory emf; 
@@ -100,10 +101,31 @@ public class CommunityTests {
 //	}
 	
 	
+//	@Test
+//	public void GetAllCommunitiesTest() {
+//		List<Community> list = dao.getAllCommunities();
+//		assertEquals(4,list.size());
+//		
+//	}
+	
+//	@Test
+//	public void UpdateCommunityTest() {
+//		Community community = new Community();
+//		String name = "New Joes";
+//		community.setName(name);
+//		String desc = "Better Joes than last year";
+//		community.setDescription(desc);
+////		User u = em.find(User.class, 1);
+////		community.setOwner(u);
+//		Community community1 = dao.updateCommunity(4,community);
+//		assertEquals("New Joes",community1.getName());
+//		
+//	}
+	
 	@Test
-	public void GetAllCommunitiesTest() {
-		List<Community> list = dao.getAllCommunities();
-		assertEquals(4,list.size());
+	public void TransferOwnerTest() {
+		Community c = dao.transferCommunityOwner(2, 4);
+		assertEquals (2,c.getOwner().getId());
 		
 	}
 }

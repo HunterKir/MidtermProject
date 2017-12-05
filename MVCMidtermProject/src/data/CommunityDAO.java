@@ -12,6 +12,6 @@ public interface CommunityDAO {
 	public Community deleteCommunity(int id);
 	public Community updateCommunityName(int id, Community community);
 	public List<Item> getItems(int id);
-	List<User> getUsers(int id);
+	public List<User> getUsers(int id);
 	public List<Community> getAllCommunities();
 }
