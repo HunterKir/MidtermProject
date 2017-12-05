@@ -27,6 +27,16 @@
                     <h1>${group.name}</h1>
                     <h2 class="lead">Users in group: ${groupSize}</h2>
                 </div>
+                <c:if test="${activeUser.id == group.owner.id}">
+                <div class="row">
+                    <form>
+                        <input class="btn btn-primary ml-2 m-1" type="submit" value="update group"/>
+                    </form>
+                    <form>
+                        <input class="btn btn-primary m-1" type="submit" value="delete group"/>
+                    </form>
+                    </div>
+                </c:if>
                 <ul class="list-group">
                     <c:forEach var="member" items="${groupUsers}">
                         <li class="list-group-item">${member.username }</li>
