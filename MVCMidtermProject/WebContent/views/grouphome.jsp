@@ -30,8 +30,8 @@
                 </div>
                 <c:if test="${activeUser.id == group.owner.id}">
                 <div class="row">
-                     <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#updateGroup">
-                          Update Group
+                     <button type="button" class="btn btn-outline-primary mb-3 ml-3" data-toggle="modal" data-target="#updateGroup">
+                          update group
                      </button>
                      <div class="modal fade" id="updateGroup" tabindex="-1" role="dialog" aria-labelledby="updateGroupModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
@@ -56,8 +56,8 @@
                                </div>
                           </div>
                      </div>
-                     <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#deleteGroup">
-                          Delete Group
+                     <button type="button" class="btn btn-outline-danger ml-1 mb-3" data-toggle="modal" data-target="#deleteGroup">
+                          delete group
                      </button>
                      <div class="modal fade" id="deleteGroup" tabindex="-1" role="dialog" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
@@ -82,8 +82,8 @@
                           </div>
                      </div>
                     </div>
-                </c:if>
-                <ul class="list-group">
+            </c:if>
+            <ul class="list-group">
                     <c:forEach var="member" items="${groupUsers}">
                         <li class="list-group-item"><a href="viewProfile.do?userId=${member.id}">${member.username }</a></li>
                     </c:forEach>
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="row justify-content-center">
+                <div class="row justify-content-center ml-2">
                     <c:if test="${ not empty searchItemsList}">
                         <c:forEach var="item" items="${searchItemsList}">
                             <div class="card m-1" style="width: 20rem;">
