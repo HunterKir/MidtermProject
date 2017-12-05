@@ -175,14 +175,22 @@ public class UserTests {
 //		
 //	}
 	
+//	@Test
+//	public void updatePost() {
+//		Post p = em.find(Post.class, 3);
+//		p.setContent("Worst ITEM IN THE UNIVERSE!");
+//		
+//		 p = pdao.updatePost(3, p);
+//		
+//		assertEquals("Worst ITEM IN THE UNIVERSE!",p.getContent());
+//		
+//	}
+	
 	@Test
-	public void updatePost() {
-		Post p = em.find(Post.class, 3);
-		p.setContent("Worst ITEM IN THE UNIVERSE!");
-		
-		 p = pdao.updatePost(3, p);
-		
-		assertEquals("Worst ITEM IN THE UNIVERSE!",p.getContent());
+	public void deletePostTest() {
+		Post p = em.find(Post.class, 4);
+		Post premoved = pdao.deletePost(p);
+		assertEquals("a disgusting squid",premoved.getContent());
 		
 	}
 }
