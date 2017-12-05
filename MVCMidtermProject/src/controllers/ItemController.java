@@ -1,5 +1,7 @@
 package controllers;
 
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import data.CommunityDAO;
 import data.ItemDAO;
+import data.PostDAO;
 import data.UserDAO;
 import entities.Item;
 import entities.Post;
@@ -31,6 +34,9 @@ public class ItemController {
 	
 	@Autowired
 	private UserDAO uDAO;
+	
+	@Autowired
+	private PostDAO pDAO; 
 	
 	@RequestMapping(path="newItem.do", method=RequestMethod.GET)
 	public ModelAndView goToNewItemForm(int id) {
@@ -60,11 +66,16 @@ public class ItemController {
 	public ModelAndView createNewItem(@RequestParam("ownerId") int ownerId,
 			@RequestParam("itemId") int itemId, 
 			@RequestParam("content")String content ) {
+		
 		ModelAndView mv = new ModelAndView(); 
 		Post post = new Post(); 
 		post.setContent(content);
 		post.setItem(dao.getItem(itemId));
 		post.setUser(uDAO.getUser(ownerId));
+		post.setPostTime(LocalDateTime.now());
+		pDAO.createPost(post, itemId, ownerId); 
+		
+		mv.setViewName("redirect: getPosts.do?id=" + itemId);
 		return mv;
 	}
 }
