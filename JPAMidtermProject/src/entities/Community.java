@@ -62,6 +62,10 @@ public class Community {
 		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public User getOwner() {
 		return owner;
 	}

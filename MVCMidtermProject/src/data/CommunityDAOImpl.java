@@ -56,14 +56,17 @@ public class CommunityDAOImpl implements CommunityDAO {
 		Connection conn = null;
 		String sql;
 		String sql2;
+		String sql3;
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false); // Start transaction
-			sql = "INSERT INTO community (name, owner_id, description) VALUES (?, ?, ?)" ;
-			sql2 = "INSERT INTO user_community (user_id, community_id) VALUES (?, ?)" ;
+			sql = "INSERT INTO community (name, owner_id, description) VALUES (?, ?, ?)";
+			sql2 = "INSERT INTO user_community (user_id, community_id) VALUES (?, ?)";
+			sql3 = "INSERT INTO item (user_id, content, title, community_id, active) VALUES (?, \"Dummy\", \"Dummy\", ?, 0)";
 			
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			PreparedStatement st2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement st3 = conn.prepareStatement(sql3, Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, community.getName());
 			st.setInt(2, owner.getId());
@@ -75,10 +78,14 @@ public class CommunityDAOImpl implements CommunityDAO {
 			if (keys.next()) {
 				id = keys.getInt(1);
 			}
-			
+			community.setId(id);
 			st2.setInt(1, owner.getId());
 			st2.setInt(2, id);
 			st2.executeUpdate();
+			
+			st3.setInt(1, owner.getId());
+			st3.setInt(2, id);
+			st3.executeUpdate();
 
 			conn.commit(); // Commit the transaction
 

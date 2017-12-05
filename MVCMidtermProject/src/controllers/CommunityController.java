@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import data.CommunityDAO;
 import data.ItemDAO;
+import data.UserDAO;
 import entities.Community;
 import entities.Item;
 import entities.Post;
@@ -22,10 +23,13 @@ import entities.User;
 @Controller
 public class CommunityController {
 	@Autowired
-	CommunityDAO comDAO; 
+	private CommunityDAO comDAO; 
 	
 	@Autowired
-	ItemDAO itemDAO;
+	private ItemDAO itemDAO;
+	
+	@Autowired
+	private UserDAO userDAO;
 	
 	@RequestMapping(path="newGroup.do", method=RequestMethod.GET)
 	public ModelAndView goToNewGroup() {
@@ -44,7 +48,9 @@ public class CommunityController {
 			return mv;
 		}
 		comDAO.createCommunity(comModel, sessionUser);
-		mv.setViewName("views/grouphome.jsp");
+		User reloaded = userDAO.getLoadedUser(sessionUser.getUsername());
+		session.setAttribute("activeUser", reloaded);
+		mv.setViewName("views/userHome.jsp");
 		return mv;
 	}
 	
