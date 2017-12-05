@@ -115,7 +115,7 @@
                                 aria-labelledby="dropdownMenuButton">
                                 <c:forEach var="cat"
                                     items="${categories}">
-                                    <a class="dropdown-item text-white" name="category"
+                                    <a class="dropdown-item text-primary" name="category"
                                         value="${cat.type}" href="searchByCategory.do?category=${cat.type}&groupId=${group.id}">${cat.type}</a>
                                 </c:forEach>
                             </div>
