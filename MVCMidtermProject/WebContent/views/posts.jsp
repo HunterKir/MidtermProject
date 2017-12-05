@@ -55,6 +55,11 @@
                                                               <form:input class="form-control" path="title"/>
                                                               <form:input class="form-control" path="price"/>
                                                               <form:textarea class="form-control" rows="4" path="content"/>
+                                                              <input type="hidden" name="cid" value="${item.community.id}">
+                                                              <input type="hidden" name="uid" value="${activeUser.id}">
+                                                              <input type="hidden" name="id" value="${item.id}">
+                                                              <input type="hidden" name="postTime" value="${item.postTime}">
+                                                              <input type="hidden" name="category" value="${item.category}">
                                                     </div>
                                                <div class="modal-footer">
                                                     <input type="submit" class="btn btn-primary" name="" value="Save Changes">
