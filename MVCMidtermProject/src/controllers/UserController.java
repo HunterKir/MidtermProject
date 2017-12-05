@@ -52,6 +52,8 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		User sessionUser = (User) session.getAttribute("activeUser");
 		if(sessionUser != null) {
+			User retrievedUser = dao.getLoadedUser(sessionUser.getUsername());
+			session.setAttribute("activeUser", retrievedUser);
 			mv.setViewName("views/userHome.jsp");
 			return mv;
 		}

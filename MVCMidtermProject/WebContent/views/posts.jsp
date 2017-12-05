@@ -88,7 +88,7 @@
                                                </div>
                                                <div class="modal-footer">
                                                     <form class="m-1" action="soldItem.do">
-                                                         <input class="btn btn-danger" type="submit" name="itemDelete" value="Mark as Sold" />
+                                                         <input class="btn btn-danger" type="submit" name="itemSold" value="Mark as Sold" />
                                                          <input type="hidden" name="iid" value="${item.id}">
                                                          <input type="hidden" name="cid" value="${item.community.id}">
                                                     </form>

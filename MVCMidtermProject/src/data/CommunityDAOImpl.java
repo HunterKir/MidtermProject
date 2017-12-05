@@ -116,22 +116,66 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public Community updateCommunityName(int id, Community community) {
 		Community managed = em.find(Community.class, id);
 		managed.setName(community.getName());
-		managed.setOwner(community.getOwner());
+		managed.setDescription(community.getDescription());
 		return managed;
 	}
 
 	@Override
 	public Community deleteCommunity(int id) {
 		Community managed = em.find(Community.class, id);
-		em.remove(managed);
-		if (em.find(Community.class, id) == null) {
-			System.out.println("true");
-			return managed;
-		} 
-		else {
-			System.out.println("false");
-		return null;
+//		em.remove(managed);
+//		if (em.find(Community.class, id) == null) {
+//			System.out.println("true");
+//			return managed;
+//		} 
+//		else {
+//			System.out.println("false");
+//		}
+		Connection conn = null;
+		String sql;
+		String sql2;
+		String sql3;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql = "DELETE FROM community WHERE id = ?";
+			sql2 = "DELETE FROM item WHERE community_id = ?";
+			sql3 = "DELETE FROM user_community WHERE community_id = ?";
+			
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement st2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement st3 = conn.prepareStatement(sql3, Statement.RETURN_GENERATED_KEYS);
+			
+			st3.setInt(1, managed.getId());
+			st3.executeUpdate();
+			
+			st2.setInt(1, managed.getId());
+			st2.executeUpdate();
+			
+			st.setInt(1, managed.getId());
+			st.executeUpdate();
+			
+			
+
+			conn.commit(); // Commit the transaction
+
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
 		}
+		return managed;
 	}
 	@Override
 	public List<Item> getItems(int id){

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en" class="full-height">
 <head>
@@ -29,12 +30,57 @@
                 </div>
                 <c:if test="${activeUser.id == group.owner.id}">
                 <div class="row">
-                    <form>
-                        <input class="btn btn-primary ml-2 m-1" type="submit" value="update group"/>
-                    </form>
-                    <form>
-                        <input class="btn btn-primary m-1" type="submit" value="delete group"/>
-                    </form>
+                     <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#updateGroup">
+                          Update Group
+                     </button>
+                     <div class="modal fade" id="updateGroup" tabindex="-1" role="dialog" aria-labelledby="updateGroupModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                               <div class="modal-content">
+                                    <div class="modal-header">
+                                         <h5 class="modal-title" id="updateGroupModalLabel">Update This Group</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                         </button>
+                                    </div>
+                                    <form:form class="" action="updateGroup.do" method="post" modelAttribute="group">
+                                    <div class="modal-body">
+                                        <form:input class="form-control" path="name"/>
+                                        <form:textarea class="form-control" rows="5" path="description"/>
+                                        <input type="hidden" name="cid" value="${group.id}">
+                                    </div>
+                                    <div class="modal-footer">
+                                             <input class="btn btn-primary" type="submit" value="Save Changes"/>
+                                        </form:form>
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
+                     <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#deleteGroup">
+                          Delete Group
+                     </button>
+                     <div class="modal fade" id="deleteGroup" tabindex="-1" role="dialog" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                               <div class="modal-content">
+                                    <div class="modal-header">
+                                         <h5 class="modal-title" id="deleteGroupModalLabel">Confirm Deletion</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                         </button>
+                                    </div>
+                                    <div class="modal-body">
+                                         Are you sure you want to delete this group?
+                                    </div>
+                                    <div class="modal-footer">
+                                         <form class="m-1" action="deleteGroup.do">
+                                             <input class="btn btn-primary ml-2 m-1" type="submit" value="Delete"/>
+                                             <input type="hidden" name="cid" value="${group.id}">
+                                         </form>
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
                     </div>
                 </c:if>
                 <ul class="list-group">
@@ -69,9 +115,7 @@
                                 aria-labelledby="dropdownMenuButton">
                                 <c:forEach var="cat"
                                     items="${categories}">
-                                    <a class="dropdown-item"
-                                        text-white"
-                                name="category"
+                                    <a class="dropdown-item text-white" name="category"
                                         value="${cat.type}" href="searchByCategory.do?category=${cat.type}&groupId=${group.id}">${cat.type}</a>
                                 </c:forEach>
                             </div>

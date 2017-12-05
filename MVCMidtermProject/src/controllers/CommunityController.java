@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -91,6 +92,22 @@ public class CommunityController {
 		mv.addObject("groupSize", groupUsers.size());
 		mv.addObject("categories", comDAO.getCategories()); 
 		mv.setViewName("views/grouphome.jsp");
+		return mv;
+	}
+	
+	@RequestMapping(path="updateGroup.do")
+	public ModelAndView updateGroup(@Valid @ModelAttribute("group") Community community, Errors errors, int cid) {
+		ModelAndView mv = new ModelAndView();
+		comDAO.updateCommunityName(cid, community);
+		mv.setViewName("redirect:viewGroup.do?id=" + cid);
+		return mv;
+	}
+	
+	@RequestMapping(path="deleteGroup.do")
+	public ModelAndView deleteGroup(int cid) {
+		ModelAndView mv = new ModelAndView();
+		comDAO.deleteCommunity(cid);
+		mv.setViewName("redirect:login.do");
 		return mv;
 	}
 }

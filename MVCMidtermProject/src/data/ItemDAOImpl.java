@@ -174,4 +174,24 @@ public class ItemDAOImpl implements ItemDAO {
 		em.getTransaction().commit();
 		return itemToUpdate;
 	}
+	
+	@Override
+	public Item changeSoldStatus(int id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Item itemToUpdate = em.find(Item.class, id);
+		if (itemToUpdate.isSold() == false) {
+			System.out.println("flipped to true");
+			itemToUpdate.setSold(true);
+			itemToUpdate.setActive(false);
+		} else {
+			System.out.println("flipped to false");
+			itemToUpdate.setSold(false);
+			itemToUpdate.setActive(true);
+		}
+		
+		em.getTransaction().commit();
+		return itemToUpdate;
+	}
 }
