@@ -39,7 +39,7 @@
                 </c:if>
                 <ul class="list-group">
                     <c:forEach var="member" items="${groupUsers}">
-                        <li class="list-group-item">${member.username }</li>
+                        <li class="list-group-item"><a href="viewProfile.do?userId=${member.id}">${member.username }</a></li>
                     </c:forEach>
                 </ul>
             </div>

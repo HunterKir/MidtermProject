@@ -30,7 +30,7 @@
                     <div class="alert alert-primary">
                         <h1 class="text-dark">${item.user.firstName}
                             ${item.user.lastName}</h1>
-                        <h2 class="lead">@${item.user.username}</h2>
+                        <h2 class="lead"><a href="viewProfile.do?userId=${item.user.id}">@${item.user.username}</a></h2>
                     </div>
                 </div>
                 <div class="col-sm-8 mt-2 p-2 rounded bg-light">
