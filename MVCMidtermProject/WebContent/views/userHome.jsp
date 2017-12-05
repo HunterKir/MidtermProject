@@ -17,7 +17,7 @@
             <div class="col-sm-3  rounded fixed border m-1">
                 <div class="alert alert-primary mt-1">
                 <h1 class="text-dark">${activeUser.firstName} ${activeUser.lastName}</h1>
-                <h2 class="lead">@${activeUser.username}</h2>
+                <h2 class="lead"><a  data-toggle="tooltip" data-placement="top" title="See what your profile looks like to others" href="viewProfile.do?userId=${activeUser.id}">@${activeUser.username}</a></h2>
                 </div>
                     <div class="row">
                         <form>
