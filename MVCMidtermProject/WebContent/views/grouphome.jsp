@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+=======
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
+>>>>>>> f8a726335358067ca9fe7d51f8fe2bc168d3f2b1
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en" class="full-height">
 <head>
@@ -47,14 +52,51 @@
                         type="submit">Search</button>
                 </form>
                 <c:if test="${ not empty searchItemsList}">
+<<<<<<< HEAD
                     <c:forEach var="item" items="${searchItemsList}">
+=======
+                <c:forEach var="item" items="${searchItemsList}">
+                    <div class="card m-1" style="width: 20rem;">
+                        <img class="card-img-top" src="..."
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">${item.title }</h4>
+
+                            <p class="card-text">
+                            Date Posted: <javatime:format value="${item.postTime}" style="MS" />
+                            <br>
+                            Price: <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber></p>
+                            <a href="getPosts.do?id=${item.id}"
+                                class="btn btn-primary">See item </a>
+                        </div>
+                   </div>
+                </c:forEach>
+                </c:if>
+                <c:if test="${not empty searchUsersList}">
+                <ul class="list-group">
+                    <c:forEach var="user" items="${searchUsersList}">
+                         <li class="list-group-item">${user.username }</li>
+                    </c:forEach>
+                </ul>
+                </c:if>
+                <c:if test="${empty searchItemsList && empty searchUsersList}">
+                <c:forEach var="item" items="${group.items}">
+                    <c:if test="${item.active == true}">
+>>>>>>> f8a726335358067ca9fe7d51f8fe2bc168d3f2b1
                         <div class="card m-1" style="width: 20rem;">
                             <img class="card-img-top" src="..."
                                 alt="Card image cap">
                             <div class="card-body">
                                 <h4 class="card-title">${item.title }</h4>
+<<<<<<< HEAD
                                 <p class="card-text">${item.postTime}
                                     ${item.price }</p>
+=======
+                                <p class="card-text">
+                                Date Posted: <javatime:format value="${item.postTime}" style="MS" />
+                                <br>
+                                Price: <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber></p>
+>>>>>>> f8a726335358067ca9fe7d51f8fe2bc168d3f2b1
                                 <a href="getPosts.do?id=${item.id}"
                                     class="btn btn-primary">See item
                                 </a>
