@@ -61,6 +61,8 @@ public class User {
 	
 	@Transient
 	private int totalItems;
+	@Transient 
+	private int itemsSold; 
 	
 	@Column(name="profile_views")
 	private int profileViews;
@@ -174,10 +176,24 @@ public class User {
 	}
 
 	public int getTotalItems() {
-		totalItems = itemsPosted.size(); 
-		return totalItems;
+		int count = 0; 
+		for (Item i : getItemsPosted()) {
+			if(i.getActive()) {
+				count++; 
+			}
+		}
+		return count;
 	}
-
+	
+	public int getItemsSold() {
+		int count = 0; 
+		for (Item i : getItemsPosted()) {
+			if(i.isSold()) {
+				count++; 
+			}
+		}
+		return count;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
