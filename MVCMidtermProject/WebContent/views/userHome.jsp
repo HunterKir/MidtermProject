@@ -19,6 +19,11 @@
                 <h1 class="text-dark">${activeUser.firstName} ${activeUser.lastName}</h1>
                 <h2 class="lead">@${activeUser.username}</h2>
                 </div>
+                    <div class="row">
+                        <form>
+                            <input class="btn btn-primary ml-4 m-1" type="submit" value="edit profile"/>
+                        </form>
+                    </div>
                 <div class="col bg-white rounded">
                     <p class="lead">
                         Items for sale:
