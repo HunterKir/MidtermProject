@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en" class="full-height">
 <head>
@@ -50,8 +51,7 @@
                                 alt="Card image cap">
                             <div class="card-body">
                                 <h4 class="card-title">${item.title }</h4>
-                                <p class="card-text">${item.postTime}
-                                    ${item.price }</p>
+                                <p class="card-text">${item.postTime} <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber></p>
                                 <a href="getPosts.do?id=${item.id}"
                                     class="btn btn-primary">See item
                                 </a>

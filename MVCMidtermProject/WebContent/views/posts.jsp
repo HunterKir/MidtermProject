@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -34,7 +36,7 @@
                 <div class="col-sm-8 mt-2 p-2 rounded bg-light">
                     <div class="bg-white rounded pl-4">
                         <h1>${item.title}</h1>
-                        <h3>Asking price: $${item.price}</h3>
+                        <h3>Asking price: <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber></h3>
                         <h4>${item.content}</h4>
                         <c:if test="${activeUser.id == item.user.id}">
                             <div class="row ml-2">
