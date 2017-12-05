@@ -83,8 +83,9 @@
                                                 type="submit"
                                                 value="edit" />
                                         </form>
-                                        <form class="m-1">
+                                        <form action="deletePost.do" method="POST" class="m-1">
                                             <input type="hidden" name="postId" value="${post.id}" />
+                                            <input type="hidden" name="itemId" value="${item.id }"/>
                                             <input
                                                 class="btn btn-danger"
                                                 type="submit"

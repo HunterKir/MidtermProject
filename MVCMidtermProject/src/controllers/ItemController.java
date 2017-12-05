@@ -80,7 +80,6 @@ public class ItemController {
 		mv.setViewName("redirect: getPosts.do?id=" + itemId);
 		return mv;
 	}
-<<<<<<< HEAD
 	@RequestMapping(path="showUpdateArea.do", method=RequestMethod.GET)
 	public ModelAndView goToUpdatePost(@RequestParam("postId") int postId,
 			@RequestParam("itemId") int itemId) {
@@ -99,7 +98,7 @@ public class ItemController {
 		post.setContent(content);
 		pDAO.updatePost(postId, post); 
 		return mv; 
-=======
+	}
 	
 	@RequestMapping(path="removeItem.do")
 	public ModelAndView removeItem(int id) {
@@ -128,6 +127,14 @@ public class ItemController {
 		dao.updateItem(item.getId(), item);
 		mv.setViewName("redirect:getPosts.do?id=" + item.getId());
 		return mv;
->>>>>>> f653adc713134be2e0788ed7c9bdfe5fb5590282
+	}
+	@RequestMapping(path="deletePost.do", method=RequestMethod.POST)
+	public ModelAndView delteItem(@RequestParam("postId")int postId,
+			@RequestParam("itemId") int itemId) {
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("redirect: getPosts.do?id=" + itemId);
+		Post post = pDAO.getPost(postId); 
+		pDAO.deletePost(post); 
+		return mv; 
 	}
 }
