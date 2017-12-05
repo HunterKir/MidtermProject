@@ -45,11 +45,8 @@ public class PostDAOImpl implements PostDAO {
 
 	@Override
 	public Post updatePost(int id, Post post) {
-
 		Post postToUpdate = em.find(Post.class, id);
-
 		postToUpdate.setContent(post.getContent());
-
 		return postToUpdate;
 	}
 

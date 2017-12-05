@@ -70,8 +70,40 @@
                     </div>
                     <c:forEach var="post" items="${item.posts}">
                         <ul class="list-group">
+                        <c:if test="${editPost == null}">
                             <li class="list-group-item">${post.user.username}:
-                                ${post.content }</li>
+                                ${post.content }
+                            <c:if test="${post.user.id == activeUser.id}">
+                                    <div class="row">
+                                        <form action="showUpdateArea.do" method="GET" class="m-1">
+                                           <input type="hidden" name="postId" value="${post.id}"/>
+                                           <input type="hidden" name="itemId" value="${item.id}"/>
+                                            <input
+                                                class="btn btn-secondary"
+                                                type="submit"
+                                                value="edit" />
+                                        </form>
+                                        <form class="m-1">
+                                            <input type="hidden" name="postId" value="${post.id}" />
+                                            <input
+                                                class="btn btn-danger"
+                                                type="submit"
+                                                value="delete" />
+                                        </form>
+                                    </div>
+                                </c:if>
+                            </li>
+                        </c:if>
+                        <c:if test="${not empty editPost}">
+                            <li class="list-group-item">
+                                <form action="updatePost.do" method="POST">
+                                     <input type="hidden" name="postId" value ="${post.id}"/>
+                                     <input type="hidden" name="itemId" value ="${item.id}"/>
+                                     <textarea class="col" rows="1" name="postContent" placeholder="${post.content}" required wrap></textarea>
+                                     <input class="btn btn-success mt-1" type="submit" value="update post"/> 
+                                </form>
+                            </li>
+                        </c:if>
                         </ul>
                     </c:forEach>
                 </div>
