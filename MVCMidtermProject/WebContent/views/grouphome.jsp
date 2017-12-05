@@ -32,17 +32,42 @@
                 </ul>
             </div>
             <div class="row col-sm-8 mt-2">
-                <form class="container" action="search.do" method="GET"
-                    class="form-inline my-2 my-lg-0">
-                    <select class="mt-2" name="searchSelect">
+                <form class="container" action="groupSearch.do"
+                    method="GET" class="form-inline my-2 my-lg-0">
+                    <input type="hidden" name="groupId"
+                        value="${group.id}" /> <select class="mt-2"
+                        name="searchSelect">
                         <option value="items">Search items</option>
                         <option value="people">Search people</option>
-                    </select> <input class="form-control col mt-3" type="search"
+                    </select><input class="form-control col mt-3" type="search"
                         placeholder="Search" aria-label="Search"
                         name="search">
                     <button class="btn btn-outline-danger mt-3 ml-1"
                         type="submit">Search</button>
                 </form>
+                <c:if test="${ not empty searchItemsList}">
+                <c:forEach var="item" items="${searchItemsList}">
+                    <div class="card m-1" style="width: 20rem;">
+                        <img class="card-img-top" src="..."
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">${item.title }</h4>
+                            <p class="card-text">${item.postTime}
+                                ${item.price }</p>
+                            <a href="getPosts.do?id=${item.id}"
+                                class="btn btn-primary">See item </a>
+                        </div>
+                   </div>
+                </c:forEach>
+                </c:if>
+                <c:if test="${not empty searchUsersList}">
+                <ul class="list-group">
+                    <c:forEach var="user" items="${searchUsersList}">
+                         <li class="list-group-item">${user.username }</li>
+                    </c:forEach>
+                </ul>
+                </c:if>
+                <c:if test="${empty searchItemsList && empty searchUsersList}">
                 <c:forEach var="item" items="${group.items}">
                     <c:if test="${item.active == true}">
                         <div class="card m-1" style="width: 20rem;">
@@ -59,6 +84,7 @@
                         </div>
                     </c:if>
                 </c:forEach>
+            </c:if>
             </div>
             <div class="col-sm mt-2">
                 <a class="btn btn-primary"

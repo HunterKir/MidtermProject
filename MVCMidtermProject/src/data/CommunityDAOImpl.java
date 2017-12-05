@@ -160,6 +160,36 @@ public class CommunityDAOImpl implements CommunityDAO {
 			e.printStackTrace();
 		}
 		return communities;
-	}	
-	
+	}
+	@Override
+	public List<Item> getItembyDescription(String descrip, User user, int groupId) {
+		
+		List<Item> tempItems = new ArrayList<>();
+		try {
+			String q = "SELECT i from Item i WHERE i.content LIKE :text OR i.title LIKE :text AND i.community.id = :id";
+				tempItems = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%")
+						.setParameter("id", groupId).getResultList();
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tempItems;
+	}
+	@Override
+	public List<User> getUserbyFirstOrLastName(String first, String last, User user, int groupId) {
+		List<User> finalUsers = new ArrayList<>();
+		try{
+		String q = "SELECT u FROM User u INNER JOIN u.communities c WHERE (c in :community AND c.id = :cid) AND (u.firstName LIKE :first OR u.lastName LIKE :last)";
+		finalUsers = em.createQuery(q,User.class)
+				.setParameter("first", "%"+first+"%")
+				.setParameter("last","%"+last+"%")
+				.setParameter("cid", groupId)
+				.setParameter("community", getCommunity(groupId))
+				.getResultList();
+		}
+		catch (Exception e) {
+		e.printStackTrace();
+		}
+		return finalUsers;
+	}
 }

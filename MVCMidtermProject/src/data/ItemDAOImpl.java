@@ -113,6 +113,8 @@ public class ItemDAOImpl implements ItemDAO {
 		itemToUpdate.setPostTime(item.getPostTime());
 		itemToUpdate.setPrice(item.getPrice());
 		itemToUpdate.setTitle(item.getTitle());
+		
+		itemToUpdate.getPosts().size(); 
 
 		return itemToUpdate;
 	}
