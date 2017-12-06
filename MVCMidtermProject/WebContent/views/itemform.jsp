@@ -29,6 +29,7 @@
                          <div class="left-text form-group col-8">
                              Title:
                              <form:input class="form-control" path="title" />
+                             <form:errors path="title"/>
                          </div>
                          <div class="col"></div>
                      </div>
@@ -37,6 +38,7 @@
                          <div class="left-text form-group col-8">
                              Price:
                              <form:input class="form-control" path="price" />
+                             <form:errors path="price">You must enter a valid number.</form:errors>
                          </div>
                          <div class="col"></div>
                      </div>
@@ -45,6 +47,7 @@
                          <div class="left-text form-group col-8">
                              Description:
                              <form:textarea class="form-control" rows="4" path="content" />
+                             <form:errors path="content"/>
                          </div>
                          <div class="col"></div>
                      </div>
@@ -52,10 +55,12 @@
                          <div class="col"></div>
                          <div class="left-text form-group col-8">
                              Category:
-                             <form:select class="form-control" path="category">
-                                  <form:option value="NONE"> --SELECT--</form:option>
+                             <form:select class="form-control" path="cid">
+                                  <form:option value="0"> --SELECT--</form:option>
                                   <form:options class="" items="${categories}" itemLabel="type" itemValue="id"/>
                              </form:select>
+                             <form:errors path="cid"/>
+                             <p style="color: black;">${noCategory}</p>
                          </div>
                          <div class="col"></div>
                      </div>
