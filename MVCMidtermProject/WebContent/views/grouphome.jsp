@@ -236,9 +236,9 @@
                 <form action="searchByRange.do" method="GET">
                 <input type="hidden" name="groupId" value="${group.id}"/>
                     <p class="lead">Filter items by price range</p>
-                    <label> Set by minimum price</label> <input
+                    <label> Set minimum price</label> <input
                         class="col rounded" name="min" type="number" min="0" required/>
-                    <label> Set by maximum price</label> <input
+                    <label> Set maximum price</label> <input
                         class=" col rounded" name="max" type="number" min="0" max="9999999" required />
                     <input class="btn btn-primary mt-1" type="submit" value="get items" />
                 </form>
