@@ -29,105 +29,168 @@
                     <h2 class="lead">Users in group: ${groupSize}</h2>
                 </div>
                 <c:if test="${activeUser.id == group.owner.id}">
-                <div class="row">
-                     <button type="button" class="btn btn-outline-primary mb-3 ml-3" data-toggle="modal" data-target="#updateGroup">
-                          update group
-                     </button>
-                     <div class="modal fade" id="updateGroup" tabindex="-1" role="dialog" aria-labelledby="updateGroupModalLabel" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                               <div class="modal-content">
-                                    <div class="modal-header">
-                                         <h5 class="modal-title" id="updateGroupModalLabel">Update This Group</h5>
-                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                         </button>
-                                    </div>
-                                    <form:form class="" action="updateGroup.do" method="post" modelAttribute="group">
-                                    <div class="modal-body">
-                                        <form:input class="form-control" path="name"/>
-                                        <form:textarea class="form-control" rows="5" path="description"/>
-                                        <input type="hidden" name="cid" value="${group.id}">
-                                    </div>
-                                    <div class="modal-footer">
-                                             <input class="btn btn-primary" type="submit" value="Save Changes"/>
-                                        </form:form>
-                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    </div>
-                               </div>
-                          </div>
-                     </div>
-                     <button type="button" class="btn btn-outline-danger ml-1 mb-3" data-toggle="modal" data-target="#deleteGroup">
-                          delete group
-                     </button>
-                     <div class="modal fade" id="deleteGroup" tabindex="-1" role="dialog" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                               <div class="modal-content">
-                                    <div class="modal-header">
-                                         <h5 class="modal-title" id="deleteGroupModalLabel">Confirm Deletion</h5>
-                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                         </button>
-                                    </div>
-                                    <div class="modal-body">
-                                         Are you sure you want to delete this group?
-                                    </div>
-                                    <div class="modal-footer">
-                                         <form class="m-1" action="deleteGroup.do">
-                                             <input class="btn btn-primary ml-2 m-1" type="submit" value="Delete"/>
-                                             <input type="hidden" name="cid" value="${group.id}">
-                                         </form>
-                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    </div>
-                               </div>
-                          </div>
-                     </div>
-                    </div>
-            </c:if>
-            <ul class="list-group">
-                    <c:forEach var="member" items="${groupUsers}">
-                        <li class="list-group-item"><a href="viewProfile.do?userId=${member.id}">${member.username }</a></li>
-                    </c:forEach>
-                </ul>
-            </div>
-            <div class="row col-sm-8 mt-2">
-                <form class="container" action="groupSearch.do"
-                    method="GET" class="form-inline my-2 my-lg-0">
-                    <input type="hidden" name="groupId"
-                        value="${group.id}" /> <select class="mt-2"
-                        name="searchSelect">
-                        <option value="items">Search items</option>
-                        <option value="people">Search people</option>
-                    </select><input class="form-control col mt-3" type="search"
-                        placeholder="Search" aria-label="Search"
-                        name="search">
                     <div class="row">
-                        <button class="btn btn-outline-danger mt-3 ml-3"
-                            type="submit">Search</button>
-                        <div class="dropdown mt-3 ml-1">
-                            <button
-                                class="btn btn-secondary dropdown-toggle"
-                                type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">Filter by
-                                category</button>
-                            <div class="dropdown-menu"
-                                aria-labelledby="dropdownMenuButton">
-                                <c:forEach var="cat"
-                                    items="${categories}">
-                                    <a class="dropdown-item text-primary" name="category"
-                                        value="${cat.type}" href="searchByCategory.do?category=${cat.type}&groupId=${group.id}">${cat.type}</a>
-                                </c:forEach>
+                        <button type="button"
+                            class="btn btn-outline-primary mb-3 ml-3"
+                            data-toggle="modal"
+                            data-target="#updateGroup">update
+                            group</button>
+                        <div class="modal fade" id="updateGroup"
+                            tabindex="-1" role="dialog"
+                            aria-labelledby="updateGroupModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="updateGroupModalLabel">Update
+                                            This Group</h5>
+                                        <button type="button"
+                                            class="close"
+                                            data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form:form class=""
+                                        action="updateGroup.do"
+                                        method="post"
+                                        modelAttribute="group">
+                                        <div class="modal-body">
+                                            <form:input
+                                                class="form-control"
+                                                path="name" />
+                                            <form:textarea
+                                                class="form-control"
+                                                rows="5"
+                                                path="description" />
+                                            <input type="hidden"
+                                                name="cid"
+                                                value="${group.id}">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input
+                                                class="btn btn-primary"
+                                                type="submit"
+                                                value="Save Changes" />
+                                    </form:form>
+                                    <button type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal">Cancel</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </form>
-                <div class="row justify-content-center ml-2">
-                    <c:if test="${ not empty searchItemsList}">
-                        <c:forEach var="item" items="${searchItemsList}">
+                    <button type="button"
+                        class="btn btn-outline-danger ml-1 mb-3"
+                        data-toggle="modal" data-target="#deleteGroup">
+                        delete group</button>
+                    <div class="modal fade" id="deleteGroup"
+                        tabindex="-1" role="dialog"
+                        aria-labelledby="deleteGroupModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="deleteGroupModalLabel">Confirm
+                                        Deletion</h5>
+                                    <button type="button" class="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">Are you
+                                    sure you want to delete this group?
+                                </div>
+                                <div class="modal-footer">
+                                    <form class="m-1"
+                                        action="deleteGroup.do">
+                                        <input
+                                            class="btn btn-primary ml-2 m-1"
+                                            type="submit" value="Delete" />
+                                        <input type="hidden" name="cid"
+                                            value="${group.id}">
+                                    </form>
+                                    <button type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </c:if>
+            <ul class="list-group">
+                <c:forEach var="member" items="${groupUsers}">
+                    <li class="list-group-item"><a
+                        href="viewProfile.do?userId=${member.id}">${member.username }</a></li>
+                </c:forEach>
+            </ul>
+        </div>
+        <div class="row col-sm-8 mt-2">
+            <form class="container" action="groupSearch.do" method="GET"
+                class="form-inline my-2 my-lg-0">
+                <input type="hidden" name="groupId" value="${group.id}" />
+                <select class="mt-2" name="searchSelect">
+                    <option value="items">Search items</option>
+                    <option value="people">Search people</option>
+                </select><input class="form-control col mt-3" type="search"
+                    placeholder="Search" aria-label="Search"
+                    name="search">
+                <div class="row">
+                    <button class="btn btn-outline-danger mt-3 ml-3"
+                        type="submit">Search</button>
+                    <div class="dropdown mt-3 ml-1">
+                        <button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">Filter by
+                            category</button>
+                        <div class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton">
+                            <c:forEach var="cat" items="${categories}">
+                                <a class="dropdown-item text-primary"
+                                    name="category" value="${cat.id}"
+                                    href="searchByCategory.do?catId=${cat.id}&groupId=${group.id}&catType=${cat.type}">${cat.type}</a>
+                            </c:forEach>
+                        </div>
+                    </div>
+                        <div class="mt-3 ml-2"><a class="btn btn-warning" href="resetSearch.do?groupId=${group.id}">reset search</a></div>
+                </div>
+            </form>
+            <div class="row justify-content-center ml-2">
+                <c:if test="${ not empty searchItemsList}">
+                    <c:forEach var="item" items="${searchItemsList}">
+                        <div class="card m-1" style="width: 20rem;">
+                            <img class="card-img-top" src="..."
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">${item.title }</h4>
+                                <p class="card-text">
+                                    Date Posted:
+                                    <javatime:format
+                                        value="${item.postTime}"
+                                        style="MS" />
+                                    <br> Price:
+                                    <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber>
+                                </p>
+                                <a href="getPosts.do?id=${item.id}"
+                                    class="btn btn-primary">See item
+                                </a>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:if>
+                <c:if
+                    test="${empty searchItemsList && empty searchUsersList && empty kwError}">
+                    <c:forEach var="item" items="${groupItemsList}">
+                        <c:if test="${item.active == true}">
                             <div class="card m-1" style="width: 20rem;">
-                                <img class="card-img-top" src="..."
-                                    alt="Card image cap">
+                                <!--                                 <img class="card-img-top" src="..."
+                                    alt="Card image cap"> -->
                                 <div class="card-body">
                                     <h4 class="card-title">${item.title }</h4>
                                     <p class="card-text">
@@ -144,61 +207,34 @@
                                         item </a>
                                 </div>
                             </div>
+                        </c:if>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${not empty searchUsersList}">
+                    <ul class="list-group">
+                        <c:forEach var="user" items="${searchUsersList}">
+                            <li class="list-group-item">${user.username }</li>
                         </c:forEach>
-                    </c:if>
-                    <c:if
-                        test="${empty searchItemsList && empty searchUsersList}">
-                        <c:forEach var="item" items="${group.items}">
-                            <c:if test="${item.active == true}">
-                                <div class="card m-1"
-                                    style="width: 20rem;">
-                                    <!--                                 <img class="card-img-top" src="..."
-                                    alt="Card image cap"> -->
-                                    <div class="card-body">
-                                        <h4 class="card-title">${item.title }</h4>
-                                        <p class="card-text">
-                                            Date Posted:
-                                            <javatime:format
-                                                value="${item.postTime}"
-                                                style="MS" />
-                                            <br> Price:
-                                            <fmt:formatNumber
-                                                type="currency">${item.price}</fmt:formatNumber>
-                                        </p>
-                                        <a
-                                            href="getPosts.do?id=${item.id}"
-                                            class="btn btn-primary">See
-                                            item </a>
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:forEach>
-                    </c:if>
-                    <c:if test="${not empty searchUsersList}">
-                        <ul class="list-group">
-                            <c:forEach var="user"
-                                items="${searchUsersList}">
-                                <li class="list-group-item">${user.username }</li>
-                            </c:forEach>
-                        </ul>
-                    </c:if>
-                </div>
+                    </ul>
+                </c:if>
+                <c:if test="${not empty kwError}">
+                <div class="alert alert-danger p-2">${kwError}</div>
+                </c:if>
             </div>
-            <div class="col-sm mt-2">
-                <a class="btn btn-primary"
-                    href="newItem.do?id=${group.id}">Want to post a
-                    new item? Go.</a>
-                <div class="row col-sm mt-2">
-                    <form action="searchByMin.do" method="POST">
-                        <p class="lead">Filter items by price</p>
-                        <label> Search by minimum price</label> <input
-                            class="rounded" type="number" min="0" />
-                    </form>
-                    <form action="searchByMax.do" method="POST">
-                        <label> Search by maximum price</label> <input
-                            class="rounded" type="number" min="0" />
-                    </form>
-                </div>
+        </div>
+        <div class="col-sm mt-2">
+            <a class="btn btn-primary" href="newItem.do?id=${group.id}">Want
+                to post a new item? Go.</a>
+            <div class="row col-sm mt-2">
+                <form action="searchByRange.do" method="GET">
+                <input type="hidden" name="groupId" value="${group.id}"/>
+                    <p class="lead">Filter items by price range</p>
+                    <label> Set by minimum price</label> <input
+                        class="rounded" name="min" type="number" min="0" required/>
+                    <label> Set by maximum price</label> <input
+                        class="rounded" name="max" type="number" min="0" max="9999999" required />
+                    <input class="btn btn-primary" type="submit" value="get items" />
+                </form>
             </div>
         </div>
     </div>

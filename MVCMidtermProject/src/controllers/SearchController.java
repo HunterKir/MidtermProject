@@ -34,24 +34,25 @@ public class SearchController {
 		ModelAndView mv = new ModelAndView(); 
 		mv.setViewName("views/userHome.jsp");
 		switch(searchSelect) {
-		case "items":
-			List<Item> itemList = iDAO.getItembyDescription(kw, user); 
-			if(itemList == null || itemList.size() == 0)	{
-				String error = "No items with keyword: " + kw; 
-				mv.addObject("kwError", error);
-				return mv; 
-			}	
-			mv.addObject("itemsList", itemList); 
-			break;
-		case "people":
-			List<User> userList = uDAO.getUserbyFirstOrLastName(kw, "", user);
-			if(userList == null || userList.size() ==0) {
-				String error = "No people named: " + kw;
-				mv.addObject("kwError", error);
-				return mv;
-			}
-			mv.addObject("userList", userList);
-			break;
+			
+			case "items":
+				List<Item> itemList = iDAO.getItembyDescription(kw, user); 
+				if(itemList == null || itemList.size() == 0)	{
+					String error = "No items with keyword: " + kw; 
+					mv.addObject("kwError", error);
+					return mv; 
+				}	
+				mv.addObject("itemsList", itemList); 
+				break;
+			case "people":
+				List<User> userList = uDAO.getUserbyFirstOrLastName(kw, "", user);
+				if(userList == null || userList.size() ==0) {
+					String error = "No people named: " + kw;
+					mv.addObject("kwError", error);
+					return mv;
+				}
+				mv.addObject("userList", userList);
+				break;
 		}
 		return mv; 
 	}
@@ -65,34 +66,84 @@ public class SearchController {
 		ModelAndView mv = new ModelAndView(); 
 		mv.setViewName("viewGroup.do?id=" + groupId);
 		
-		switch(searchSelect) {
-		case "items":
-			List<Item> itemList = cDAO.getItembyDescription(kw, user, groupId); 
-			if(itemList == null || itemList.size() == 0)	{
-				String error = "No items with keyword: " + kw; 
-				mv.addObject("kwError", error);
-				return mv; 
-			}	
-			mv.addObject("searchItemsList", itemList); 
-			break;
-		case "people":
-			List<User> userList = cDAO.getUserbyFirstOrLastName(kw, "", user, groupId);
-			if(userList == null || userList.size() ==0) {
-				String error = "No people named: " + kw;
-				mv.addObject("kwError", error);
-				return mv;
+		if(kw.equals("")) {
+			List<Item> itemList = cDAO.getAllItemsInCommunity(groupId) ; 
+			mv.addObject("searchItemsList", itemList);
+			return mv; 
+		}
+		else
+		{	
+			switch(searchSelect) {
+			case "items":
+				List<Item> itemList = cDAO.getItembyDescription(kw, user, groupId); 
+				if(itemList == null || itemList.size() == 0)	{
+					String error = "No items with keyword: " + kw; 
+					mv.addObject("kwError", error);
+					return mv; 
+				}	
+				mv.addObject("searchItemsList", itemList); 
+				break;
+			case "people":
+				List<User> userList = cDAO.getUserbyFirstOrLastName(kw, kw, user, groupId);
+				if(userList == null || userList.size() ==0) {
+					String error = "No people named: " + kw;
+					mv.addObject("kwError", error);
+					return mv;
+				}
+				mv.addObject("searchUsersList", userList);
+				break;
 			}
-			mv.addObject("searchUsersList", userList);
-			break;
 		}
 		return mv; 
 	}
 	@RequestMapping(path="searchByCategory.do", method=RequestMethod.GET)
-	public ModelAndView searchByCategory(@RequestParam("category") String category
-			, @RequestParam("groupId") int groupId) {
+	public ModelAndView searchByCategory(@RequestParam("catId") int categoryId
+			, @RequestParam("groupId") int groupId
+			, @RequestParam("catType") String catType) {
 		ModelAndView mv = new ModelAndView(); 
-		mv.setViewName("redirect: viewGroup.do?id=" + groupId);
+		mv.setViewName("viewGroup.do?id=" + groupId);
+		List<Item> itemList = cDAO.getItembyCatID(categoryId, groupId); 
+		mv.addObject("searchItemsList", itemList); 
 		
+		if(itemList == null || itemList.size() == 0)	{
+			String error = "No items in category: " + catType; 
+			mv.addObject("kwError", error);
+			return mv; 
+		}
+		else
+		{
+			mv.addObject("searchItemsList", itemList);
+			return mv; 
+		}
+	}
+	@RequestMapping(path="resetSearch.do", method=RequestMethod.GET)
+	public ModelAndView resetSearch(@RequestParam("groupId") int groupId) {
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("viewGroup.do?id="+ groupId);
+		mv.addObject("groupItemsList", cDAO.getAllItemsInCommunity(groupId)); 
+		return mv; 
+	}
+	@RequestMapping(path="searchByRange.do", method=RequestMethod.GET)
+	public ModelAndView searchByRange(@RequestParam("groupId") int groupId
+			, @RequestParam("min") int min
+			, @RequestParam("max") int max) {
+		
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("viewGroup.do?id="+ groupId);
+		
+		if(min > max) {
+			min = 0; 
+		}
+		List<Item> itemList = cDAO.getAllItemsInCommunityByRange(groupId, min, max); 
+		if(itemList == null || itemList.size() == 0) {
+			String error = "No items in range: " + min + " - " + max; 
+			mv.addObject("kwError", error);
+			return mv; 
+		}
+		else
+		{
+			mv.addObject("searchItemsList", cDAO.getAllItemsInCommunityByRange(groupId, min, max)); 	
+		}
 		return mv; 
 	}
 }

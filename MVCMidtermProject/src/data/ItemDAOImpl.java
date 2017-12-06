@@ -145,18 +145,18 @@ public class ItemDAOImpl implements ItemDAO {
 		
 		List<Item> tempItems = new ArrayList<>();
 		List<Item> finalItems = new ArrayList<>();
-		try {
-			String q = "SELECT i from Item i WHERE i.content LIKE :text AND i.community.id = :id";
-			for (Community c : user.getCommunities()) {
-				tempItems = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%")
-						.setParameter("id", c.getId()).getResultList();
-				for (Item i : tempItems) {
-					finalItems.add(i);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			String q = "SELECT i from Item i WHERE i.content LIKE :text AND i.community.id = :id";
+//			for (Community c : user.getCommunities()) {
+//				tempItems = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%")
+//						.setParameter("id", c.getId()).getResultList();
+//				for (Item i : tempItems) {
+//					finalItems.add(i);
+//				}
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		return finalItems;
 	}
 	

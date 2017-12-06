@@ -19,5 +19,6 @@ public interface CommunityDAO {
 	List<User> getUserbyFirstOrLastName(String first, String last, User user, int groupId);
 	List<Item> getItembyCatID(int id, int groupId);
 	List<Category> getCategories();
-
+	List<Item> getAllItemsInCommunity(int groupId);
+	List<Item> getAllItemsInCommunityByRange(int groupId, int min , int max);
 }

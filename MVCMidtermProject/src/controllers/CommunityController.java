@@ -90,6 +90,7 @@ public class CommunityController {
 		List<User> groupUsers = comDAO.getUsers(c.getId()); 
 		mv.addObject("groupUsers", groupUsers);
 		mv.addObject("groupSize", groupUsers.size());
+		mv.addObject("groupItemsList", comDAO.getAllItemsInCommunity(c.getId())); 
 		mv.addObject("categories", comDAO.getCategories()); 
 		mv.setViewName("views/grouphome.jsp");
 		return mv;
