@@ -6,15 +6,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Item {
@@ -27,17 +26,21 @@ public class Item {
 	@JoinColumn(name="user_id")
 	private User user; 
 	
+	@Pattern(regexp="^[^\\[\\];\\:{\\}\\\\\\/_\\<\\>]+$", message="Description cannot contain the following characters: [ ] ; : { } / \\ _ > < ")
 	private String content; 
 	
 	@Column(name="post_time")
 	private LocalDateTime postTime; 
 	
+	
 	@ManyToOne
 	@JoinColumn(name="category_id")
-	private Category category; 
+	private Category category;
 	
 	private Double price; 
 	
+	@Size(min=5, max=100, message="Title must be 5 to 100 characters long.")
+	@Pattern(regexp="^[a-zA-Z0-9 ]+$", message = "Title must not contain symbols.")
 	private String title; 
 	@ManyToOne
 	@JoinColumn(name="community_id")

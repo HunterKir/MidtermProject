@@ -1,7 +1,5 @@
 package controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,6 +22,7 @@ import data.PostDAO;
 import data.UserDAO;
 import entities.Category;
 import entities.Item;
+import entities.ItemForm;
 import entities.Post;
 import entities.User;
 
@@ -45,7 +44,7 @@ public class ItemController {
 	@RequestMapping(path="newItem.do", method=RequestMethod.GET)
 	public ModelAndView goToNewItemForm(int id) {
 		ModelAndView mv = new ModelAndView();
-		Item i = new Item();
+		ItemForm i = new ItemForm();
 		int num = comDAO.getCommunity(id).getId();
 		List<Category> cats = comDAO.getCategories();
 		mv.addObject("categories", cats);
@@ -56,14 +55,14 @@ public class ItemController {
 	}
 	
 	@RequestMapping(path="newItem.do", method=RequestMethod.POST)
-	public ModelAndView createNewItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model, HttpSession session, int id, int category) {
+	public ModelAndView createNewItem(@Valid @ModelAttribute("item") ItemForm item, Errors errors, Model model, HttpSession session, int id, int cid) {
 		ModelAndView mv = new ModelAndView();
 		User user = (User) session.getAttribute("activeUser");
-//		if (errors.hasErrors()) {
-//			mv.setViewName("views/itemform.jsp");
-//			return mv;
-//		}
-		if (category < 1) {
+		Item newItem = new Item();
+		newItem.setTitle(item.getTitle());
+		newItem.setContent(item.getContent());
+		newItem.setPrice(item.getPrice());
+		if (cid < 1) {
 			mv.setViewName("views/itemform.jsp");
 			List<Category> cats = comDAO.getCategories();
 			mv.addObject("categories", cats);
@@ -72,8 +71,17 @@ public class ItemController {
 			mv.addObject("noCategory", "You must select a category.");
 			return mv;
 		}
-		if(dao.createItem(item, user, id, category) != null) {
-			mv.setViewName("redirect:getPosts.do?id=" + item.getId());
+		if (errors.hasErrors()) {
+			System.out.println(errors.getFieldError());
+			mv.setViewName("views/itemform.jsp");
+			List<Category> cats = comDAO.getCategories();
+			mv.addObject("categories", cats);
+			mv.addObject("item", item);
+			mv.addObject("cid", id);
+			return mv;
+		}
+		if(dao.createItem(newItem, user, id, cid) != null) {
+			mv.setViewName("redirect:getPosts.do?id=" + newItem.getId());
 		}
 		return mv;
 	}
