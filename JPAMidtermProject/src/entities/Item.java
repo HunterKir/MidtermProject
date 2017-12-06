@@ -26,7 +26,6 @@ public class Item {
 	@JoinColumn(name="user_id")
 	private User user; 
 	
-	@Pattern(regexp="^[^\\[\\];\\:{\\}\\\\\\/_\\<\\>]+$", message="Description cannot contain the following characters: [ ] ; : { } / \\ _ > < ")
 	private String content; 
 	
 	@Column(name="post_time")

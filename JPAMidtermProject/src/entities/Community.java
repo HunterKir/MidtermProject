@@ -38,7 +38,6 @@ public class Community {
 	@ManyToMany(mappedBy="communities",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<User>members;
 	
-	@Pattern(regexp="^[^\\[\\];\\:{\\}\\\\\\/_\\<\\>]+$", message="Description cannot contain the following characters: [ ] ; : { } / \\ _ > < ")
 	private String description;
 	
 	@OneToMany(mappedBy="community",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
