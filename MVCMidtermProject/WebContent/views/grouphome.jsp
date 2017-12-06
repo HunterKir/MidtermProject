@@ -28,61 +28,68 @@
                     <h1>${group.name}</h1>
                     <h2 class="lead">Users in group: ${groupSize}</h2>
                 </div>
-                <c:if test="${activeUser.id == group.owner.id}">
-                    <div class="row">
-                        <button type="button"
-                            class="btn btn-outline-primary mb-3 ml-3"
-                            data-toggle="modal"
-                            data-target="#updateGroup">update
-                            group</button>
-                        <div class="modal fade" id="updateGroup"
-                            tabindex="-1" role="dialog"
-                            aria-labelledby="updateGroupModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
+                <c:if test="${activeUser.id == group.owner.id || activeUser.admin == true}">
+                <div class="row">
+                     <button type="button" class="btn btn-outline-primary mb-3 ml-3" data-toggle="modal" data-target="#updateGroup">
+                          update group
+                     </button>
+                     <div class="modal fade" id="updateGroup" tabindex="-1" role="dialog" aria-labelledby="updateGroupModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                               <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title"
-                                            id="updateGroupModalLabel">Update
-                                            This Group</h5>
-                                        <button type="button"
-                                            class="close"
-                                            data-dismiss="modal"
-                                            aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                         <h5 class="modal-title" id="updateGroupModalLabel">Update This Group</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                         </button>
                                     </div>
-                                    <form:form class=""
-                                        action="updateGroup.do"
-                                        method="post"
-                                        modelAttribute="group">
-                                        <div class="modal-body">
-                                            <form:input
-                                                class="form-control"
-                                                path="name" />
-                                            <form:textarea
-                                                class="form-control"
-                                                rows="5"
-                                                path="description" />
-                                            <input type="hidden"
-                                                name="cid"
-                                                value="${group.id}">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <input
-                                                class="btn btn-primary"
-                                                type="submit"
-                                                value="Save Changes" />
-                                    </form:form>
-                                    <button type="button"
-                                        class="btn btn-secondary"
-                                        data-dismiss="modal">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    <form:form class="" action="updateGroup.do" method="post" modelAttribute="group">
+                                    <div class="modal-body">
+                                        <form:input class="form-control" path="name"/>
+                                        <form:textarea class="form-control" rows="5" path="description"/>
+                                        <input type="hidden" name="cid" value="${group.id}">
+                                    </div>
+                                    <div class="modal-footer">
+                                             <input class="btn btn-primary" type="submit" value="Save Changes"/>
+                                        </form:form>
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
+                     <button type="button" class="btn btn-outline-primary ml-3 mb-3" data-toggle="modal" data-target="#history">
+                          item history
+                     </button>
+                     <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                               <div class="modal-content">
+                                    <div class="modal-header">
+                                         <h5 class="modal-title" id="historyModalLabel">Item History for ${group.name}</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                         </button>
+                                    </div>
+                                    <div class="modal-body">
+                                         <ul class="list-group mt-2">
+                                            <c:forEach var="item" items="${group.items}">
+                                                 <c:if test="${item.active == false}">
+                                                      <c:if test="${item.title != 'Dummy'}">
+                                                           <li class="list-group-item">
+                                                                <a href="getPosts.do?id=${item.id}">${item.title}</a>
+                                                                <javatime:format value="${item.postTime}" style="MS" />
+                                                           </li>
+                                                      </c:if>
+                                                 </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
                     <button type="button"
-                        class="btn btn-outline-danger ml-1 mb-3"
+                        class="btn btn-outline-danger ml-3 mb-3"
                         data-toggle="modal" data-target="#deleteGroup">
                         delete group</button>
                     <div class="modal fade" id="deleteGroup"

@@ -84,10 +84,17 @@ public class RatingsTest {
 //		
 //	}
 
-@Test
-public void getAllRatingsbyCid() {
-	List <UserRating> rlist = rDao.getallRatingsbyCommunity(1);
-	assertEquals(3,rlist.size());
-}
+//@Test
+//public void getAllRatingsbyCid() {
+//	List <UserRating> rlist = rDao.getallRatingsbyCommunity(1);
+//	assertEquals(3,rlist.size());
+//}
 	
+//@Test
+//public void getnewRatingsAvgTest() {
+//	//UserRating r = em.find(UserRating.class, 4);
+//	UserRating rprime = rDao.updateRating(4, 4);
+//	assertEquals(4.33,rprime.getRating(),.01);
+//}
+
 	}

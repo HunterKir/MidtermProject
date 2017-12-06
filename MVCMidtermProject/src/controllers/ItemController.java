@@ -3,6 +3,7 @@ package controllers;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import data.CommunityDAO;
 import data.ItemDAO;
 import data.PostDAO;
 import data.UserDAO;
+import entities.Category;
 import entities.Item;
 import entities.Post;
 import entities.User;
@@ -45,6 +47,8 @@ public class ItemController {
 		ModelAndView mv = new ModelAndView();
 		Item i = new Item();
 		int num = comDAO.getCommunity(id).getId();
+		List<Category> cats = comDAO.getCategories();
+		mv.addObject("categories", cats);
 		mv.addObject("item", i);
 		mv.addObject("cid", num);
 		mv.setViewName("views/itemform.jsp");
@@ -52,14 +56,14 @@ public class ItemController {
 	}
 	
 	@RequestMapping(path="newItem.do", method=RequestMethod.POST)
-	public ModelAndView createNewItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model, HttpSession session, int id) {
+	public ModelAndView createNewItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model, HttpSession session, int id, int category) {
 		ModelAndView mv = new ModelAndView();
 		User user = (User) session.getAttribute("activeUser");
-		if (errors.hasErrors()) {
-			mv.setViewName("views/itemform.jsp");
-			return mv;
-		}
-		if(dao.createItem(item, user, id) != null) {
+//		if (errors.hasErrors()) {
+//			mv.setViewName("views/itemform.jsp");
+//			return mv;
+//		}
+		if(dao.createItem(item, user, id, category) != null) {
 			mv.setViewName("redirect:getPosts.do?id=" + item.getId());
 		}
 		return mv;

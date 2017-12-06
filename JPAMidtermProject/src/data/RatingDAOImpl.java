@@ -75,7 +75,12 @@ public class RatingDAOImpl implements RatingDAO {
 		EntityManager em = emf.createEntityManager();
 		UserRating ratingToUpdate = em.find(UserRating.class, id);
 		em.getTransaction().begin();
-		ratingToUpdate.setRating(ratingToUpdate.getRating()+score);;
+		ratingToUpdate.setRatingCount(ratingToUpdate.getRatingCount()+1); 
+		int countprime = ratingToUpdate.getRatingCount();
+		int countold = countprime-1;
+		double scoreprime = (ratingToUpdate.getRating()*countold)+score;
+		double averageprime = (scoreprime/countprime);
+		ratingToUpdate.setRating(averageprime);
 
 		em.getTransaction().commit();
 		em.close();

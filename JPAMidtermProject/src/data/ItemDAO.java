@@ -15,4 +15,5 @@ public interface ItemDAO {
 	public List<Item> getItembyPastXdaysbyCommunity(int cid, int day);
 	public Item changeActiveStatus (int id);
 	public Item changeSoldStatus (int id);
+	public List<Item> getAllInactiveItems();
 }

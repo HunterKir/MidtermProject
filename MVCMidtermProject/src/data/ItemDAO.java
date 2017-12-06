@@ -7,7 +7,7 @@ import entities.Item;
 import entities.User;
 
 public interface ItemDAO {
-	public Item createItem(Item item, User user, int id); 
+	public Item createItem(Item item, User user, int id, int categoryId); 
 	public Item getItem(int id);
 	public Item deleteItem(int id); 
 	public Item updateItem(int id, Item item); 

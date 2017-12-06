@@ -32,7 +32,7 @@ public class ItemDAOImpl implements ItemDAO {
 	private EntityManager em;
 
 	@Override
-	public Item createItem(Item item, User currentUser, int id) {
+	public Item createItem(Item item, User currentUser, int id, int categoryId) {
 //		em.persist(item);
 //		em.flush();
 		Connection conn = null;
@@ -41,7 +41,7 @@ public class ItemDAOImpl implements ItemDAO {
 		try {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false); // Start transaction
-			sql = "INSERT INTO item (title, price, content, user_id, community_id, active) VALUES (?, ?, ?, ?, ?, ?)" ;
+			sql = "INSERT INTO item (title, price, content, user_id, community_id, active, category_id) VALUES (?, ?, ?, ?, ?, ?, ?)" ;
 			
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
@@ -51,6 +51,7 @@ public class ItemDAOImpl implements ItemDAO {
 			st.setInt(4, currentUser.getId());
 			st.setInt(5, id);
 			st.setInt(6, 1);
+			st.setInt(7, categoryId);
 			st.executeUpdate();
 			
 			ResultSet keys = st.getGeneratedKeys();

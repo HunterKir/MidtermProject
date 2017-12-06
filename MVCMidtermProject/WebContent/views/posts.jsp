@@ -44,74 +44,95 @@
                             <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber>
                         </h3>
                         <h4>${item.content}</h4>
-                    </div>
-                    <c:if test="${activeUser.id == item.user.id}">
-                        <div class="row ml-2">
-                            <button type="button"
-                                class="btn btn-primary margins"
-                                data-toggle="modal" data-target="#edit">Edit</button>
-                            <div class="modal fade" id="edit"
-                                tabindex="-1" role="dialog"
-                                aria-labelledby="editModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog"
-                                    role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title"
-                                                id="editModalLabel">Edit
-                                                Your Item</h5>
-                                            <button type="button"
-                                                class="close"
-                                                data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form:form class=""
-                                            action="updateItemInModal.do"
-                                            method="POST"
-                                            modelAttribute="item">
-                                            <div class="modal-body">
-                                                <form:input
-                                                    class="form-control"
-                                                    path="title" />
-                                                <form:input
-                                                    class="form-control"
-                                                    path="price" />
-                                                <form:textarea
-                                                    class="form-control"
-                                                    rows="4"
-                                                    path="content" />
-                                                <input type="hidden"
-                                                    name="cid"
-                                                    value="${item.community.id}">
-                                                <input type="hidden"
-                                                    name="uid"
-                                                    value="${activeUser.id}">
-                                                <input type="hidden"
-                                                    name="id"
-                                                    value="${item.id}">
-                                                <input type="hidden"
-                                                    name="postTime"
-                                                    value="${item.postTime}">
-                                                <input type="hidden"
-                                                    name="category"
-                                                    value="${item.category}">
-                                            </div>
-                                            <div class="modal-footer">
-                                                <input type="submit"
-                                                    class="btn btn-primary"
-                                                    name=""
-                                                    value="Save Changes">
-                                        </form:form>
+                        <c:if
+                            test="${activeUser.id == item.user.id || activeUser.admin == true}">
+                            <div class="row ml-2">
+                                <c:if test="${item.active == true}">
+                                    <c:if
+                                        test="${activeUser.id == item.user.id}">
                                         <button type="button"
-                                            class="btn btn-secondary"
-                                            data-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
+                                            class="btn btn-primary margins"
+                                            data-toggle="modal"
+                                            data-target="#edit">
+                                            Edit</button>
+                                        <div class="modal fade"
+                                            id="edit" tabindex="-1"
+                                            role="dialog"
+                                            aria-labelledby="editModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog"
+                                                role="document">
+                                                <div
+                                                    class="modal-content">
+                                                    <div
+                                                        class="modal-header">
+                                                        <h5
+                                                            class="modal-title"
+                                                            id="editModalLabel">Edit
+                                                            Your Item</h5>
+                                                        <button
+                                                            type="button"
+                                                            class="close"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span
+                                                                aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form:form class=""
+                                                        action="updateItemInModal.do"
+                                                        method="POST"
+                                                        modelAttribute="item">
+                                                        <div
+                                                            class="modal-body">
+                                                            <form:input
+                                                                class="form-control"
+                                                                path="title" />
+                                                            <form:input
+                                                                class="form-control"
+                                                                path="price" />
+                                                            <form:textarea
+                                                                class="form-control"
+                                                                rows="4"
+                                                                path="content" />
+                                                            <input
+                                                                type="hidden"
+                                                                name="cid"
+                                                                value="${item.community.id}">
+                                                            <input
+                                                                type="hidden"
+                                                                name="uid"
+                                                                value="${activeUser.id}">
+                                                            <input
+                                                                type="hidden"
+                                                                name="id"
+                                                                value="${item.id}">
+                                                            <input
+                                                                type="hidden"
+                                                                name="postTime"
+                                                                value="${item.postTime}">
+                                                            <input
+                                                                type="hidden"
+                                                                name="category"
+                                                                value="${item.category}">
+                                                        </div>
+                                                        <div
+                                                            class="modal-footer">
+                                                            <input
+                                                                type="submit"
+                                                                class="btn btn-primary"
+                                                                name=""
+                                                                value="Save Changes">
+                                                    </form:form>
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-secondary"
+                                                        data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
                             </div>
-                        </div>
+                        </c:if>
                         <button type="button"
                             class="btn btn-primary margins"
                             data-toggle="modal" data-target="#sold">
@@ -162,7 +183,8 @@
                         </div>
                         <button type="button"
                             class="btn btn-primary margins"
-                            data-toggle="modal" data-target="#remove">Remove</button>
+                            data-toggle="modal" data-target="#remove">
+                            Remove</button>
                         <div class="modal fade" id="remove"
                             tabindex="-1" role="dialog"
                             aria-labelledby="removeModalLabel"
@@ -204,70 +226,97 @@
                                 </div>
                             </div>
                         </div>
+                        </c:if>
+                    </div>
+                    </c:if>
                 </div>
-                </c:if>
-            </div>
-            <div class="bg-white pl-4 pr-4">
-                <form action="newPost.do" method="POST">
-                    <input type="hidden" name="ownerId"
-                        value="${activeUser.id}" /> <input
-                        type="hidden" name="itemId" value="${item.id}" />
-                    <textarea class="col rounded mt-2" rows="1"
-                        cols="80%" name="content" required></textarea>
-                    <input class="btn btn-primary m-1" type="submit"
-                        value="message" />
-                </form>
-            </div>
-            <c:forEach var="post" items="${item.posts}">
-                <ul class="list-group">
-                    <c:if test="${editPost == null}">
-                        <li class="list-group-item">${post.user.username}:
-                            ${post.content } <c:if
-                                test="${post.user.id == activeUser.id}">
-                                <div class="row">
-                                    <form action="showUpdateArea.do"
-                                        method="GET" class="m-1">
-                                        <input type="hidden"
-                                            name="postId"
-                                            value="${post.id}" /> <input
-                                            type="hidden" name="itemId"
-                                            value="${item.id}" /> <input
-                                            class="btn btn-secondary"
-                                            type="submit" value="edit" />
-                                    </form>
-                                    <form action="deletePost.do"
-                                        method="POST" class="m-1">
-                                        <input type="hidden"
-                                            name="postId"
-                                            value="${post.id}" /> <input
-                                            type="hidden" name="itemId"
-                                            value="${item.id }" /> <input
-                                            class="btn btn-danger"
-                                            type="submit" value="delete" />
-                                    </form>
-                                </div>
-                            </c:if>
-                        </li>
+                <div class="bg-white pl-4 pr-4">
+                    <c:if test="${item.active == true}">
+                        <form action="newPost.do" method="POST">
+                            <input type="hidden" name="ownerId"
+                                value="${activeUser.id}" /> <input
+                                type="hidden" name="itemId"
+                                value="${item.id}" />
+                            <textarea class="col rounded mt-2" rows="1"
+                                cols="80%" name="content" required></textarea>
+                            <input class="btn btn-primary m-1"
+                                type="submit" value="message" />
+                        </form>
                     </c:if>
-                    <c:if test="${not empty editPost}">
-                        <li class="list-group-item">
-                            <form action="updatePost.do" method="POST">
-                                <input type="hidden" name="postId"
-                                    value="${post.id}" /> <input
-                                    type="hidden" name="itemId"
-                                    value="${item.id}" />
-                                <textarea class="col" rows="1"
-                                    name="postContent"
-                                    placeholder="${post.content}"
-                                    required wrap></textarea>
-                                <input class="btn btn-success mt-1"
-                                    type="submit" value="update post" />
-                            </form>
-                        </li>
-                    </c:if>
-                </ul>
-            </c:forEach>
+                </div>
+                <c:forEach var="post" items="${item.posts}">
+                    <ul class="list-group">
+                        <c:if test="${editPost == null}">
+                            <li class="list-group-item">${post.user.username}:
+                                ${post.content } <c:if
+                                    test="${item.active == true}">
+                                    <c:if
+                                        test="${post.user.id == activeUser.id}">
+                                        <div class="row">
+                                            <form
+                                                action="showUpdateArea.do"
+                                                method="GET" class="m-1">
+                                                <input type="hidden"
+                                                    name="postId"
+                                                    value="${post.id}" />
+                                                <input type="hidden"
+                                                    name="itemId"
+                                                    value="${item.id}" />
+                                                <input
+                                                    class="btn btn-secondary"
+                                                    type="submit"
+                                                    value="edit" />
+                                            </form>
+                                            <c:if
+                                                test="${post.user.id == activeUser.id || activeUser.admin == true}">
+                                                <form
+                                                    action="deletePost.do"
+                                                    method="POST"
+                                                    class="m-1">
+                                                    <input type="hidden"
+                                                        name="postId"
+                                                        value="${post.id}" />
+                                                    <input type="hidden"
+                                                        name="itemId"
+                                                        value="${item.id }" />
+                                                    <input
+                                                        class="btn btn-danger"
+                                                        type="submit"
+                                                        value="delete" />
+                                                </form>
+                                            </c:if>
+                                        </div>
+                                    </c:if>
+                                </c:if>
+                            </li>
+                        </c:if>
+                        <c:if test="${not empty editPost}">
+                            <li class="list-group-item">
+                                <form action="updatePost.do"
+                                    method="POST">
+                                    <input type="hidden" name="postId"
+                                        value="${post.id}" /> <input
+                                        type="hidden" name="itemId"
+                                        value="${item.id}" />
+                                    <textarea class="col" rows="1"
+                                        name="postContent"
+                                        placeholder="${post.content}"
+                                        required wrap></textarea>
+                                    <input class="btn btn-success mt-1"
+                                        type="submit"
+                                        value="update post" />
+                                </form>
+                            </li>
+                        </c:if>
+                    </ul>
+                </c:forEach>
+            </div>
+            <div class="col-sm-2">
+                <a href="viewGroup.do?id=${item.community.id}">Go
+                    back to ${item.community.name} home.</a>
+            </div>
         </div>
+    </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
