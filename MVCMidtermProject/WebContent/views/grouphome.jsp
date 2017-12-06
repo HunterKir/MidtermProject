@@ -56,7 +56,7 @@
                                </div>
                           </div>
                      </div>
-                     <button type="button" class="btn btn-outline-danger ml-1 mb-3" data-toggle="modal" data-target="#deleteGroup">
+                     <button type="button" class="btn btn-outline-danger ml-3 mb-3" data-toggle="modal" data-target="#deleteGroup">
                           delete group
                      </button>
                      <div class="modal fade" id="deleteGroup" tabindex="-1" role="dialog" aria-labelledby="deleteGroupModalLabel" aria-hidden="true">

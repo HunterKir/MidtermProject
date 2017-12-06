@@ -178,6 +178,9 @@
                         </ul>
                     </c:forEach>
                 </div>
+                <div class="col-sm-2">
+                     <a href="viewGroup.do?id=${item.community.id}">Go back to ${item.community.name} home.</a>
+                </div>
             </div>
         </div>
     </div>
