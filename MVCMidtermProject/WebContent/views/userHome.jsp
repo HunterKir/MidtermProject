@@ -63,6 +63,7 @@
                     <select class="mt-2" name="searchSelect">
                         <option value="items">Search items</option>
                         <option value="people">Search people</option>
+                        <option value="groups">Search groups</option>
                     </select> <input class="form-control col mt-3" type="search"
                         placeholder="Search" aria-label="Search"
                         name="search">
@@ -86,6 +87,15 @@
                         <c:forEach var="user" items="${userList}">
                             <li class="list-group-item"><a
                                 href="getPosts.do?id=${user.id}">${user.username}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+                <c:if test="${not empty groupList}">
+                    <ul class="list-group mt-2">
+                        <c:forEach var="group" items="${groupList}">
+                            <li class="list-group-item"><a
+                                href="getGroup.do?id=${group}">${groupList}</a>
                             </li>
                         </c:forEach>
                     </ul>

@@ -164,14 +164,12 @@ public class ItemDAOImpl implements ItemDAO {
 				if(count == user.getCommunities().size()-1) {
 					sql += " uc.community_id =" + c.getId() + " "; 
 					sql += ") AND (i.title LIKE ? OR i.content LIKE ?) ORDER BY i.post_time DESC "; 
-					System.out.println(sql);
 					break; 
 				}
 				else
 				{
 					sql += " uc.community_id =" + c.getId() + " OR "; 
 					count++; 
-					System.out.println(sql);
 				}
 			}
 
@@ -249,14 +247,12 @@ public class ItemDAOImpl implements ItemDAO {
 				if(count == user.getCommunities().size()-1) {
 					sql += " uc.community_id =" + c.getId() + " "; 
 					sql += " ORDER BY i.post_time DESC "; 
-					System.out.println(sql);
 					break; 
 				}
 				else
 				{
 					sql += " uc.community_id =" + c.getId() + " OR "; 
 					count++; 
-					System.out.println(sql);
 				}
 			}
 			
@@ -332,14 +328,12 @@ public class ItemDAOImpl implements ItemDAO {
 				if(count == user.getCommunities().size()-1) {
 					sql += " uc.community_id =" + c.getId() + " "; 
 					sql += " ORDER BY i.post_time DESC LIMIT 10"; 
-					System.out.println(sql);
 					break; 
 				}
 				else
 				{
 					sql += " uc.community_id =" + c.getId() + " OR "; 
 					count++; 
-					System.out.println(sql);
 				}
 			}
 			
