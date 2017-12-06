@@ -38,8 +38,10 @@
                         <h1>${item.title}</h1>
                         <h3>Asking price: <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber></h3>
                         <h4>${item.content}</h4>
-                        <c:if test="${activeUser.id == item.user.id}">
+                        <c:if test="${activeUser.id == item.user.id || activeUser.admin == true}">
                             <div class="row ml-2">
+                                 <c:if test="${item.active == true}">
+                                      <c:if test="${activeUser.id == item.user.id}">
                                 <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#edit">
                                      Edit
                                 </button>
@@ -71,6 +73,7 @@
                                           </div>
                                      </div>
                                 </div>
+                                </c:if>
                                 <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#sold">
                                      Mark as Sold
                                 </button>
@@ -123,10 +126,12 @@
                                           </div>
                                      </div>
                                 </div>
+                                </c:if>
                             </div>
                         </c:if>
                     </div>
                     <div class="bg-white pl-4 pr-4">
+                         <c:if test="${item.active == true}">
                         <form action="newPost.do" method="POST">
                             <input type="hidden" name="ownerId"
                                 value="${activeUser.id}" /> <input
@@ -137,12 +142,14 @@
                             <input class="btn btn-primary m-1"
                                 type="submit" value="message" />
                         </form>
+                        </c:if>
                     </div>
                     <c:forEach var="post" items="${item.posts}">
                         <ul class="list-group">
                         <c:if test="${editPost == null}">
                             <li class="list-group-item">${post.user.username}:
                                 ${post.content }
+                                <c:if test="${item.active == true}">
                             <c:if test="${post.user.id == activeUser.id}">
                                     <div class="row">
                                         <form action="showUpdateArea.do" method="GET" class="m-1">
@@ -153,6 +160,7 @@
                                                 type="submit"
                                                 value="edit" />
                                         </form>
+                                        <c:if test="${post.user.id == activeUser.id || activeUser.admin == true}">
                                         <form action="deletePost.do" method="POST" class="m-1">
                                             <input type="hidden" name="postId" value="${post.id}" />
                                             <input type="hidden" name="itemId" value="${item.id }"/>
@@ -161,7 +169,9 @@
                                                 type="submit"
                                                 value="delete" />
                                         </form>
+                                        </c:if>
                                     </div>
+                                </c:if>
                                 </c:if>
                             </li>
                         </c:if>
@@ -177,6 +187,9 @@
                         </c:if>
                         </ul>
                     </c:forEach>
+                </div>
+                <div class="col-sm-2">
+                     <a href="viewGroup.do?id=${item.community.id}">Go back to ${item.community.name} home.</a>
                 </div>
             </div>
         </div>
