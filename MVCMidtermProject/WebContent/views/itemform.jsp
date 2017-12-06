@@ -48,6 +48,17 @@
                          </div>
                          <div class="col"></div>
                      </div>
+                     <div class="row">
+                         <div class="col"></div>
+                         <div class="left-text form-group col-8">
+                             Category:
+                             <form:select class="form-control" path="category">
+                                  <form:option value="NONE"> --SELECT--</form:option>
+                                  <form:options class="" items="${categories}" itemLabel="type" itemValue="id"/>
+                             </form:select>
+                         </div>
+                         <div class="col"></div>
+                     </div>
                      <div class="form-group">
                          <input type="submit" name="" class="btn btn-primary"
                              value="Finish">
