@@ -72,7 +72,6 @@ public class ItemController {
 			return mv;
 		}
 		if (errors.hasErrors()) {
-			System.out.println(errors.getFieldError());
 			mv.setViewName("views/itemform.jsp");
 			List<Category> cats = comDAO.getCategories();
 			mv.addObject("categories", cats);
