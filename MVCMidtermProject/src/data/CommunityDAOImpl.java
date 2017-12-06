@@ -139,7 +139,8 @@ public class CommunityDAOImpl implements CommunityDAO {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false); // Start transaction
 			sql = "DELETE FROM community WHERE id = ?";
-			sql2 = "DELETE FROM item WHERE community_id = ?";
+//			sql2 = "DELETE FROM item WHERE community_id = ?";
+			sql2 = "UPDATE item SET community_id = 1 WHERE community_id = ?";
 			sql3 = "DELETE FROM user_community WHERE community_id = ?";
 			
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
