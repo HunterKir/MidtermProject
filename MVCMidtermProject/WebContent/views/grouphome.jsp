@@ -28,7 +28,7 @@
                     <h1>${group.name}</h1>
                     <h2 class="lead">Users in group: ${groupSize}</h2>
                 </div>
-                <c:if test="${activeUser.id == group.owner.id}">
+                <c:if test="${activeUser.id == group.owner.id || activeUser.admin == true}">
                 <div class="row">
                      <button type="button" class="btn btn-outline-primary mb-3 ml-3" data-toggle="modal" data-target="#updateGroup">
                           update group

@@ -38,9 +38,10 @@
                         <h1>${item.title}</h1>
                         <h3>Asking price: <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber></h3>
                         <h4>${item.content}</h4>
-                        <c:if test="${activeUser.id == item.user.id}">
+                        <c:if test="${activeUser.id == item.user.id || activeUser.admin == true}">
                             <div class="row ml-2">
                                  <c:if test="${item.active == true}">
+                                      <c:if test="${activeUser.id == item.user.id}">
                                 <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#edit">
                                      Edit
                                 </button>
@@ -72,6 +73,7 @@
                                           </div>
                                      </div>
                                 </div>
+                                </c:if>
                                 <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#sold">
                                      Mark as Sold
                                 </button>
@@ -158,6 +160,7 @@
                                                 type="submit"
                                                 value="edit" />
                                         </form>
+                                        <c:if test="${post.user.id == activeUser.id || activeUser.admin == true}">
                                         <form action="deletePost.do" method="POST" class="m-1">
                                             <input type="hidden" name="postId" value="${post.id}" />
                                             <input type="hidden" name="itemId" value="${item.id }"/>
@@ -166,6 +169,7 @@
                                                 type="submit"
                                                 value="delete" />
                                         </form>
+                                        </c:if>
                                     </div>
                                 </c:if>
                                 </c:if>
