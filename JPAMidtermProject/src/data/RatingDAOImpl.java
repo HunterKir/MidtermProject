@@ -74,12 +74,13 @@ public class RatingDAOImpl implements RatingDAO {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
 		EntityManager em = emf.createEntityManager();
 		UserRating ratingToUpdate = em.find(UserRating.class, id);
-		
 		em.getTransaction().begin();
-		ratingToUpdate.setRatingCount(ratingToUpdate.getRatingCount()+1);
+		ratingToUpdate.setRatingCount(ratingToUpdate.getRatingCount()+1); 
 		int countprime = ratingToUpdate.getRatingCount();
-//		double new
-//		ratingToUpdate.setRating(ratingToUpdate.getRating()+score);;
+		int countold = countprime-1;
+		double scoreprime = (ratingToUpdate.getRating()*countold)+score;
+		double averageprime = (scoreprime/countprime);
+		ratingToUpdate.setRating(averageprime);
 
 		em.getTransaction().commit();
 		em.close();
