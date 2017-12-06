@@ -56,7 +56,7 @@
                                </div>
                           </div>
                      </div>
-                     <button type="button" class="btn btn-outline-danger ml-3 mb-3" data-toggle="modal" data-target="#history">
+                     <button type="button" class="btn btn-outline-primary ml-3 mb-3" data-toggle="modal" data-target="#history">
                           item history
                      </button>
                      <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
