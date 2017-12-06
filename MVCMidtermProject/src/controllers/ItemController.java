@@ -63,6 +63,15 @@ public class ItemController {
 //			mv.setViewName("views/itemform.jsp");
 //			return mv;
 //		}
+		if (category < 1) {
+			mv.setViewName("views/itemform.jsp");
+			List<Category> cats = comDAO.getCategories();
+			mv.addObject("categories", cats);
+			mv.addObject("item", item);
+			mv.addObject("cid", id);
+			mv.addObject("noCategory", "You must select a category.");
+			return mv;
+		}
 		if(dao.createItem(item, user, id, category) != null) {
 			mv.setViewName("redirect:getPosts.do?id=" + item.getId());
 		}

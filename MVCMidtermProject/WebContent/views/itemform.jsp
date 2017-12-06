@@ -53,9 +53,10 @@
                          <div class="left-text form-group col-8">
                              Category:
                              <form:select class="form-control" path="category">
-                                  <form:option value="NONE"> --SELECT--</form:option>
+                                  <form:option value="0"> --SELECT--</form:option>
                                   <form:options class="" items="${categories}" itemLabel="type" itemValue="id"/>
                              </form:select>
+                             <p style="color: black;">${noCategory}</p>
                          </div>
                          <div class="col"></div>
                      </div>
