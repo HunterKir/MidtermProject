@@ -1,5 +1,11 @@
 package data;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +23,10 @@ import entities.User;
 @Repository
 @Transactional
 public class UserDAOImpl implements UserDAO {
+	private String url = "jdbc:mysql://localhost:3306/swapmeetdb";
+	private String user = "blossom";
+	private String pass = "blossom";
+	
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -115,25 +125,64 @@ public class UserDAOImpl implements UserDAO {
 	}
 	@Override
 	public List<User> getUserbyFirstOrLastName(String first, String last, User user) {
-		List<User> tempUsers = new ArrayList<>();
-		List<User> finalUsers = new ArrayList<>();
-		try{
-		String q = "SELECT u FROM User u Where u.firstName LIKE :first OR u.lastName LIKE :last";
-//		for (Community c : user.getCommunities()) {
-//			tempUsers = em.createQuery(q,User.class).setParameter("first", "%"+first+"%").setParameter("last","%"+last+"%")
-//					.setParameter("id",c.getId())
-//					.getResultList();
-//			for (User u : tempUsers) {
-//				finalUsers.add(u);
-//			}
-//		}
-					finalUsers = em.createQuery(q,User.class).setParameter("first", "%"+first+"%").setParameter("last","%"+last+"%")
-				.getResultList();
-		return finalUsers;
-		} 
-		catch (Exception e) {
-		e.printStackTrace();
+		Connection conn = null;
+		String sql;
+		List<User> userList = new ArrayList<>();
+		try {
+			conn = DriverManager.getConnection(url, this.user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql = "SELECT DISTINCT u.id, u.first_name , u.last_name, u.username " + 
+					" FROM user u " + 
+					" JOIN user_community uc ON uc.user_id = u.id " + 
+					" JOIN community c ON uc.community_id = c.id " + 
+					" WHERE ";
+			int count = 0; 
+			user = em.find(User.class, user.getId()); 
+			for (Community c : user.getCommunities()) {
+				if(count == user.getCommunities().size()-1) {
+					sql += " c.id=" + c.getId() + " "; 
+					sql += " ORDER BY u.first_name DESC "; 
+					break; 
+				}
+				else
+				{
+					sql += " c.id =" + c.getId() + " OR "; 
+					count++; 
+				}
+			}
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = st.executeQuery();
+			User u;
+			while (rs.next()) {
+				u = new User();
+				int id = rs.getInt(1);
+				u.setId(id);
+				String fname = rs.getString(2);
+				u.setFirstName(fname);
+				String lname = rs.getString(3);
+				u.setLastName(lname);
+				String uname = rs.getString(4);
+				u.setUsername(uname);
+				userList.add(u);
+			}
+			conn.commit(); // Commit the transaction
+
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
 		}
-		return finalUsers;
+		return userList;
 	}
 }

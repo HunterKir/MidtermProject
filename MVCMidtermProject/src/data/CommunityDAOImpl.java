@@ -280,7 +280,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 			conn.setAutoCommit(false); // Start transaction
 			sql = "SELECT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title, "
 					+ " i.community_id, i.active, i.sold FROM item i " + " JOIN community c ON c.id = i.community_id"
-					+ " 	WHERE c.id = ? ORDER BY i.title";
+					+ " 	WHERE c.id = ? ORDER BY i.post_time DESC";
 			
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, groupId);
@@ -467,7 +467,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 			sql = "SELECT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title, " + 
 					"					i.community_id, i.active, i.sold FROM item i " + 
 					"					JOIN community c ON c.id = i.community_id " + 
-					"					WHERE i.category_id = ? AND i.community_id = ? ORDER BY i.price" ;
+					"					WHERE i.category_id = ? AND i.community_id = ? ORDER BY i.post_time DESC" ;
 			
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, catId);

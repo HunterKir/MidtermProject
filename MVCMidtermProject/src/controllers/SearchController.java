@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import data.CommunityDAO;
 import data.ItemDAO;
 import data.UserDAO;
-import entities.Community;
 import entities.Item;
 import entities.User;
 
@@ -36,7 +35,7 @@ public class SearchController {
 		switch(searchSelect) {
 			
 			case "items":
-				List<Item> itemList = iDAO.getItembyDescription(kw, user); 
+				List<Item> itemList = iDAO.getAllItemsInAllCommunitiesByDescription(kw, user);
 				if(itemList == null || itemList.size() == 0)	{
 					String error = "No items with keyword: " + kw; 
 					mv.addObject("kwError", error);

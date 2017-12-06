@@ -13,7 +13,9 @@ public interface ItemDAO {
 	public Item updateItem(int id, Item item); 
 	public List<Item> getItembyCatID(int id);
 	public List<Item> getItembyPrice(double min, double max);
-	public List<Item> getItembyDescription(String descrip, User user);
+	public List<Item> getAllItemsInAllCommunitiesByDescription(String descrip, User user);
 	public Item changeActiveStatus (int id);
 	public Item changeSoldStatus (int id);
+	List<Item> getAllItemsInAllCommunitiesByUser(User user);
+	List<Item> getAllItemsInAllCommunitiesByUserLimit10(User user);
 }

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import entities.Category;
 import entities.Community;
 import entities.Item;
 import entities.User;
@@ -142,23 +144,255 @@ public class ItemDAOImpl implements ItemDAO {
 	}
 
 	@Override
-	public List<Item> getItembyDescription(String descrip, User user) {
-		
-		List<Item> tempItems = new ArrayList<>();
-		List<Item> finalItems = new ArrayList<>();
-//		try {
-//			String q = "SELECT i from Item i WHERE i.content LIKE :text AND i.community.id = :id";
-//			for (Community c : user.getCommunities()) {
-//				tempItems = em.createQuery(q, Item.class).setParameter("text", "%" + descrip + "%")
-//						.setParameter("id", c.getId()).getResultList();
-//				for (Item i : tempItems) {
-//					finalItems.add(i);
-//				}
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		return finalItems;
+	public List<Item> getAllItemsInAllCommunitiesByDescription(String kw, User user) {
+		Connection conn = null;
+		String sql;
+		List<Item> itemList = new ArrayList<>();
+		try {
+			conn = DriverManager.getConnection(url, this.user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql =  "SELECT DISTINCT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title, \n" + 
+					" i.community_id, i.active, i.sold " + 
+					" FROM item i " + 
+					" JOIN user_community uc ON i.community_id = uc.community_id " + 
+					" JOIN user u ON i.user_id = u.id " + 
+					" WHERE ( "; 
+			
+			user = em.find(User.class, user.getId()); 
+			int count =0; 
+			for (Community c : user.getCommunities()) {
+				if(count == user.getCommunities().size()-1) {
+					sql += " uc.community_id =" + c.getId() + " "; 
+					sql += ") AND (i.title LIKE ? OR i.content LIKE ?) ORDER BY i.post_time DESC "; 
+					System.out.println(sql);
+					break; 
+				}
+				else
+				{
+					sql += " uc.community_id =" + c.getId() + " OR "; 
+					count++; 
+					System.out.println(sql);
+				}
+			}
+
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, "%" + kw + "%");
+			st.setString(2, "%" + kw + "%");
+			ResultSet rs = st.executeQuery();
+			Item i;
+			while (rs.next()) {
+				if (rs.getBoolean(9) == true) {
+					i = new Item();
+					int id = rs.getInt(1);
+					i.setId(id);
+					User itemUser = em.find(User.class, rs.getInt(2));
+					i.setUser(itemUser);
+					String content = rs.getString(3);
+					i.setContent(content);
+					LocalDateTime time = rs.getTimestamp(4).toLocalDateTime();
+					i.setPostTime(time);
+					Category itemCategory = em.find(Category.class, rs.getInt(5));
+					i.setCategory(itemCategory);
+					double price = rs.getDouble(6);
+					i.setPrice(price);
+					String title = rs.getString(7);
+					i.setTitle(title);
+					Community community = em.find(Community.class, rs.getInt(8));
+					i.setCommunity(community);
+					boolean active = rs.getBoolean(9);
+					i.setActive(active);
+					boolean sold = rs.getBoolean(10);
+					i.setSold(sold);
+					itemList.add(i);
+				} else {
+					continue;
+				}
+			}
+			conn.commit(); // Commit the transaction
+
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
+		}
+		return itemList;
+	}
+	@Override
+	public List<Item> getAllItemsInAllCommunitiesByUser(User user) {
+		Connection conn = null;
+		String sql;
+		List<Item> itemList = new ArrayList<>();
+		try {
+			conn = DriverManager.getConnection(url, this.user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql =  "SELECT DISTINCT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title, \n" + 
+					" i.community_id, i.active, i.sold " + 
+					" FROM item i " + 
+					" JOIN user_community uc ON i.community_id = uc.community_id " + 
+					" JOIN user u ON i.user_id = u.id " + 
+					" WHERE "; 
+			
+			user = em.find(User.class, user.getId()); 
+			int count =0; 
+			for (Community c : user.getCommunities()) {
+				if(count == user.getCommunities().size()-1) {
+					sql += " uc.community_id =" + c.getId() + " "; 
+					sql += " ORDER BY i.post_time DESC "; 
+					System.out.println(sql);
+					break; 
+				}
+				else
+				{
+					sql += " uc.community_id =" + c.getId() + " OR "; 
+					count++; 
+					System.out.println(sql);
+				}
+			}
+			
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = st.executeQuery();
+			Item i;
+			while (rs.next()) {
+				if (rs.getBoolean(9) == true) {
+					i = new Item();
+					int id = rs.getInt(1);
+					i.setId(id);
+					User itemUser = em.find(User.class, rs.getInt(2));
+					i.setUser(itemUser);
+					String content = rs.getString(3);
+					i.setContent(content);
+					LocalDateTime time = rs.getTimestamp(4).toLocalDateTime();
+					i.setPostTime(time);
+					Category itemCategory = em.find(Category.class, rs.getInt(5));
+					i.setCategory(itemCategory);
+					double price = rs.getDouble(6);
+					i.setPrice(price);
+					String title = rs.getString(7);
+					i.setTitle(title);
+					Community community = em.find(Community.class, rs.getInt(8));
+					i.setCommunity(community);
+					boolean active = rs.getBoolean(9);
+					i.setActive(active);
+					boolean sold = rs.getBoolean(10);
+					i.setSold(sold);
+					itemList.add(i);
+				} else {
+					continue;
+				}
+			}
+			conn.commit(); // Commit the transaction
+			
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
+		}
+		return itemList;
+	}
+	@Override
+	public List<Item> getAllItemsInAllCommunitiesByUserLimit10(User user) {
+		Connection conn = null;
+		String sql;
+		List<Item> itemList = new ArrayList<>();
+		try {
+			conn = DriverManager.getConnection(url, this.user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql =  "SELECT DISTINCT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title, \n" + 
+					" i.community_id, i.active, i.sold " + 
+					" FROM item i " + 
+					" JOIN user_community uc ON i.community_id = uc.community_id " + 
+					" JOIN user u ON i.user_id = u.id " + 
+					" WHERE "; 
+			
+			user = em.find(User.class, user.getId()); 
+			int count =0; 
+			for (Community c : user.getCommunities()) {
+				if(count == user.getCommunities().size()-1) {
+					sql += " uc.community_id =" + c.getId() + " "; 
+					sql += " ORDER BY i.post_time DESC LIMIT 10"; 
+					System.out.println(sql);
+					break; 
+				}
+				else
+				{
+					sql += " uc.community_id =" + c.getId() + " OR "; 
+					count++; 
+					System.out.println(sql);
+				}
+			}
+			
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ResultSet rs = st.executeQuery();
+			Item i;
+			while (rs.next()) {
+				if (rs.getBoolean(9) == true) {
+					i = new Item();
+					int id = rs.getInt(1);
+					i.setId(id);
+					User itemUser = em.find(User.class, rs.getInt(2));
+					i.setUser(itemUser);
+					String content = rs.getString(3);
+					i.setContent(content);
+					LocalDateTime time = rs.getTimestamp(4).toLocalDateTime();
+					i.setPostTime(time);
+					Category itemCategory = em.find(Category.class, rs.getInt(5));
+					i.setCategory(itemCategory);
+					double price = rs.getDouble(6);
+					i.setPrice(price);
+					String title = rs.getString(7);
+					i.setTitle(title);
+					Community community = em.find(Community.class, rs.getInt(8));
+					i.setCommunity(community);
+					boolean active = rs.getBoolean(9);
+					i.setActive(active);
+					boolean sold = rs.getBoolean(10);
+					i.setSold(sold);
+					itemList.add(i);
+				} else {
+					continue;
+				}
+			}
+			conn.commit(); // Commit the transaction
+			
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
+		}
+		return itemList;
 	}
 	
 	@Override

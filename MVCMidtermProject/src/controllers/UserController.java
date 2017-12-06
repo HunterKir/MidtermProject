@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.ItemDAO;
 import data.UserDAO;
+import entities.Item;
 import entities.User;
 
 @Controller
@@ -20,6 +24,9 @@ public class UserController {
 	
 	@Autowired
 	private UserDAO dao;
+	
+	@Autowired 
+	private ItemDAO iDAO; 
 	
 	@RequestMapping(path="login.do", method=RequestMethod.POST)
 	public ModelAndView userLogIn(@Valid User user, Errors errors, HttpSession session) {
@@ -35,6 +42,8 @@ public class UserController {
 			if(retrievedUser != null && retrievedUser.getPassword().equals(user.getPassword())) {
 				session.setAttribute("activeUser", retrievedUser);
 				mv.setViewName("views/userHome.jsp");
+				List<Item> itemsList = iDAO.getAllItemsInAllCommunitiesByUserLimit10(retrievedUser);				
+				mv.addObject("itemsList", itemsList); 
 				return mv;
 			}
 			else {
@@ -106,7 +115,7 @@ public class UserController {
 		ModelAndView mv = new ModelAndView(); 
 		mv.setViewName("views/viewProfile.jsp");
 		User viewedUser = dao.getUser(userId); 
-		viewedUser = dao.getLoadedUser(viewedUser.getUsername()); 
+		viewedUser = dao.getLoadedUser(viewedUser.getUsername());
 		mv.addObject("viewedUser", viewedUser); 
 		return mv; 
 	}
