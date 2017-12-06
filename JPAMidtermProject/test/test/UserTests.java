@@ -90,11 +90,11 @@ public class UserTests {
 //		assertEquals(3,dao.getPostHistorybyUid(2).size());
 //		
 //	}
-//	@Test
-//	public void test_getUserByUserName() {
-//		User user = dao.getUserByUserName("HunterK");
-//		assertEquals(user.getFirstName(), "Hunter"); 
-//	}
+	@Test
+	public void test_getUserByUserName() {
+		User user = dao.getUserByUserName("shaq");
+		assertEquals(user.getFirstName(), "Shaquille"); 
+	}
 	 
 //	@Test
 //	public void User_to_CommunityMap() {
@@ -105,8 +105,8 @@ public class UserTests {
 //	@Test
 //	public void FirstOrLastNameTest() {
 //		List<User> users = new ArrayList<>();
-//		users = dao.getUserbyFirstOrLastName("ames","smit");
-//		assertEquals(3,users.size());
+//		users = dao.getUserbyFirstOrLastName("ill","acks");
+//		assertEquals(3,users.size());}
 //		
 //	}
 //	@Test
@@ -198,15 +198,22 @@ public class UserTests {
 //	}
 	
 	
+//	@Test
+//	public void userUpdateTest() {
+//		User u = em.find(User.class, 5);
+//		u.setFirstName("LL");
+//		u.setLastName("CoolJ");
+//		u.setUsername("coolguy");
+//		u.setPassword("coolcool");
+//		User uprime = dao.updateUser(5, u);
+//		assertEquals("LL",uprime.getFirstName());
+	
 	@Test
-	public void userUpdateTest() {
-		User u = em.find(User.class, 5);
-		u.setFirstName("LL");
-		u.setLastName("CoolJ");
-		u.setUsername("coolguy");
-		u.setPassword("coolcool");
-		User uprime = dao.updateUser(5, u);
-		assertEquals("LL",uprime.getFirstName());
-		
+	public void userRatingTest() {
+		User u = em.find(User.class, 1);
+		assertEquals(2,u.getRatings().size());
 	}
+//		
+//	}
+	
 }

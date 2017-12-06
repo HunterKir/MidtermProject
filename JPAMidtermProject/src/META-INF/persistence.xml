@@ -10,6 +10,7 @@
         <class>entities.Post</class>
         <class>entities.Item</class>
         <class>entities.Community</class>
+        <class>entities.UserRating</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/swapmeetdb" />

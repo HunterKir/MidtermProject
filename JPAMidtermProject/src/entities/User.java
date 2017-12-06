@@ -70,7 +70,9 @@ public class User {
 	public int getProfileViews() {
 		return profileViews;
 	}
-
+	@OneToMany(mappedBy = "user",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
+	List<UserRating> ratings;
+	
 	public void setProfileViews(int profileViews) {
 		this.profileViews = profileViews;
 	}
@@ -167,6 +169,10 @@ public class User {
 	}
 	
 	
+	public List<UserRating> getRatings() {
+		return ratings;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
