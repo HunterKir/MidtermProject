@@ -191,4 +191,22 @@ public class ItemDAOImpl implements ItemDAO {
 		return itemToUpdate;
 	}
 
+	@Override
+	public List<Item> getAllInactiveItems() {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MidtermProject");
+		EntityManager em = emf.createEntityManager();
+		List<Item> items = new ArrayList<>();
+		try {
+			String q = "SELECT ii from Item ii WHERE ii.active =FALSE";
+			items = em.createQuery(q, Item.class).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+			emf.close();
+		}
+		return items;
+	}
+	
+
 }

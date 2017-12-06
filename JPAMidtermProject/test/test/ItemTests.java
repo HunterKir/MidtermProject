@@ -51,11 +51,11 @@ public class ItemTests {
 		uDao = null;
 	}
 
-	@Test
-	public void CatTest() {
-		assertEquals(3, dao.getItembyCatID(10).size());
-
-	}
+//	@Test
+//	public void CatTest() {
+//		assertEquals(3, dao.getItembyCatID(10).size());
+//
+//	}
 ////
 //	@Test
 //	public void PriceFilterTest() {
@@ -129,4 +129,13 @@ public class ItemTests {
 //		
 //	}
 //	
+	
+	@Test
+	public void TestinactveItemgets() {
+		List<Item> items = new ArrayList<>();
+		items = dao.getAllInactiveItems();
+		assertEquals(3,items.size());
+		
+		
+	}
 }
