@@ -183,4 +183,10 @@ public class UserDAOImpl implements UserDAO {
 		System.out.println("you added a view");
 		return userToUpdate;
 	}
+
+	@Override
+	public User addUsertoCommunity(User user, int cid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
