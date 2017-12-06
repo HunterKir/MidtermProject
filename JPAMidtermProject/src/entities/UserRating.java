@@ -1,6 +1,5 @@
 package entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="user_rating")	
@@ -25,10 +25,9 @@ private User user;
 @JoinColumn(name="community_id")
 private Community community;
 
-
 private double rating;
 
-@Column(name="rating_count")
+@Transient 
 private int ratingCount;
 
 public User getUser() {

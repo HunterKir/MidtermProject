@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import entities.Community;
 import entities.Item;
 import entities.User;
+import entities.UserRating;
 @Repository
 @Transactional
 public class UserDAOImpl implements UserDAO {
@@ -94,7 +95,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User getLoadedUser(String username) {
 		//Needs to be Optimized totally inefficient
-		String query = "SELECT u from User u WHERE username = :username"; 
+		String query = "SELECT u from User u JOIN FETCH u.ratings WHERE username = :username"; 
 		User user = null; 
 		User managedUser = null; 
 		try {

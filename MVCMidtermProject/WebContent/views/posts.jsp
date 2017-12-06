@@ -34,6 +34,7 @@
                             <a
                                 href="viewProfile.do?userId=${item.user.id}">@${item.user.username}</a>
                         </h2>
+                        <h4>Overall rating: ${activeUser.overallRating }</h4>
                     </div>
                 </div>
                 <div class="col-sm-8 mt-2 p-2 rounded bg-light">

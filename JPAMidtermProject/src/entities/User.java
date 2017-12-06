@@ -63,6 +63,8 @@ public class User {
 	private int totalItems;
 	@Transient 
 	private int itemsSold; 
+	@Transient
+	private double overallRating;  
 	
 	@Column(name="profile_views")
 	private int profileViews;
@@ -176,7 +178,17 @@ public class User {
 	public List<UserRating> getRatings() {
 		return ratings;
 	}
-
+	public double getOverallRating() {
+		double total = 0; 
+		double overallRating = 0; 
+		
+		for (UserRating r : ratings) {
+			total += r.getRating(); 
+		}
+		
+		overallRating = total / ratings.size(); 
+		return overallRating;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username

@@ -22,6 +22,7 @@
                     <h2 class="lead">
                         <a href="viewProfile.do?userId=${viewedUser.id}">@${viewedUser.username}</a>
                     </h2>
+                    <h4>Overall rating: ${viewedUser.overallRating}</h4>
                 </div>
                 <div class="col bg-white rounded">
                     <p class="lead">
