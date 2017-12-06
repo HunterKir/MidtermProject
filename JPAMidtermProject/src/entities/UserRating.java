@@ -1,5 +1,6 @@
 package entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,11 @@ private User user;
 @JoinColumn(name="community_id")
 private Community community;
 
-private int rating;
+
+private double rating;
+
+@Column(name="rating_count")
+private int ratingCount;
 
 public User getUser() {
 	return user;
@@ -42,11 +47,11 @@ public void setCommunity(Community community) {
 	this.community = community;
 }
 
-public int getRating() {
+public double getRating() {
 	return rating;
 }
 
-public void setRating(int rating) {
+public void setRating(double rating) {
 	this.rating = rating;
 }
 
@@ -54,10 +59,22 @@ public int getId() {
 	return id;
 }
 
+public int getRatingCount() {
+	return ratingCount;
+}
+
+public void setRatingCount(int ratingCount) {
+	this.ratingCount = ratingCount;
+}
+
 @Override
 public String toString() {
-	return "UserRating [id=" + id + ", user=" + user + ", community=" + community + ", rating=" + rating + "]";
+	return "UserRating [id=" + id + ", user=" + user + ", community=" + community + ", rating=" + rating
+			+ ", ratingCount=" + ratingCount + "]";
 }
+
+
+
 
 
 
