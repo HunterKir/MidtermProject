@@ -40,6 +40,7 @@
                         <h4>${item.content}</h4>
                         <c:if test="${activeUser.id == item.user.id}">
                             <div class="row ml-2">
+                                 <c:if test="${item.active == true}">
                                 <button type="button" class="btn btn-primary margins" data-toggle="modal" data-target="#edit">
                                      Edit
                                 </button>
@@ -123,10 +124,12 @@
                                           </div>
                                      </div>
                                 </div>
+                                </c:if>
                             </div>
                         </c:if>
                     </div>
                     <div class="bg-white pl-4 pr-4">
+                         <c:if test="${item.active == true}">
                         <form action="newPost.do" method="POST">
                             <input type="hidden" name="ownerId"
                                 value="${activeUser.id}" /> <input
@@ -137,12 +140,14 @@
                             <input class="btn btn-primary m-1"
                                 type="submit" value="message" />
                         </form>
+                        </c:if>
                     </div>
                     <c:forEach var="post" items="${item.posts}">
                         <ul class="list-group">
                         <c:if test="${editPost == null}">
                             <li class="list-group-item">${post.user.username}:
                                 ${post.content }
+                                <c:if test="${item.active == true}">
                             <c:if test="${post.user.id == activeUser.id}">
                                     <div class="row">
                                         <form action="showUpdateArea.do" method="GET" class="m-1">
@@ -162,6 +167,7 @@
                                                 value="delete" />
                                         </form>
                                     </div>
+                                </c:if>
                                 </c:if>
                             </li>
                         </c:if>

@@ -56,6 +56,38 @@
                                </div>
                           </div>
                      </div>
+                     <button type="button" class="btn btn-outline-danger ml-3 mb-3" data-toggle="modal" data-target="#history">
+                          item history
+                     </button>
+                     <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                               <div class="modal-content">
+                                    <div class="modal-header">
+                                         <h5 class="modal-title" id="historyModalLabel">Item History for ${group.name}</h5>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                         </button>
+                                    </div>
+                                    <div class="modal-body">
+                                         <ul class="list-group mt-2">
+                                            <c:forEach var="item" items="${group.items}">
+                                                 <c:if test="${item.active == false}">
+                                                      <c:if test="${item.title != 'Dummy'}">
+                                                           <li class="list-group-item">
+                                                                <a href="getPosts.do?id=${item.id}">${item.title}</a>
+                                                                <javatime:format value="${item.postTime}" style="MS" />
+                                                           </li>
+                                                      </c:if>
+                                                 </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                               </div>
+                          </div>
+                     </div>
                      <button type="button" class="btn btn-outline-danger ml-3 mb-3" data-toggle="modal" data-target="#deleteGroup">
                           delete group
                      </button>
