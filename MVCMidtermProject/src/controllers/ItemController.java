@@ -131,6 +131,7 @@ public class ItemController {
 	@RequestMapping(path="updateItemInModal.do", method=RequestMethod.POST)
 	public ModelAndView updateInModalItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model, int uid, int cid) {
 		ModelAndView mv = new ModelAndView();
+		// this breaks things for some reason
 //		if (errors.hasErrors()) {
 //			mv.setViewName("redirect:getPosts.do?id=" + item.getId());
 //			return mv;
@@ -149,5 +150,13 @@ public class ItemController {
 		Post post = pDAO.getPost(postId); 
 		pDAO.deletePost(post); 
 		return mv; 
+	}
+	
+	@RequestMapping(path="soldItem.do")
+	public ModelAndView soldItem(int iid, int cid) {
+		ModelAndView mv = new ModelAndView();
+		dao.changeSoldStatus(iid);
+		mv.setViewName("redirect:viewGroup.do?id=" + cid);
+		return mv;
 	}
 }

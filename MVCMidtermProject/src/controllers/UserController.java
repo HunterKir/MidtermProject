@@ -1,7 +1,5 @@
 package controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,10 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.UserDAO;
-import entities.Community;
 import entities.User;
 
 @Controller
@@ -52,6 +50,8 @@ public class UserController {
 		ModelAndView mv = new ModelAndView();
 		User sessionUser = (User) session.getAttribute("activeUser");
 		if(sessionUser != null) {
+			User retrievedUser = dao.getLoadedUser(sessionUser.getUsername());
+			session.setAttribute("activeUser", retrievedUser);
 			mv.setViewName("views/userHome.jsp");
 			return mv;
 		}
@@ -100,5 +100,14 @@ public class UserController {
 		}
 		mv.setViewName("views/userHome.jsp");
 		return mv;
+	}
+	@RequestMapping(path="viewProfile.do", method=RequestMethod.GET)
+	public ModelAndView viewProfile(@RequestParam("userId")int userId) {
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("views/viewProfile.jsp");
+		User viewedUser = dao.getUser(userId); 
+		viewedUser = dao.getLoadedUser(viewedUser.getUsername()); 
+		mv.addObject("viewedUser", viewedUser); 
+		return mv; 
 	}
 }

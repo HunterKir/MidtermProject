@@ -12,13 +12,18 @@
 </head>
 <body class="bg-light">
     <%@ include file="SharedViews/Layout_Navbar.jsp"%>
-    <div class="container-fluid mt-4 bg-white">
+    <div class="container-fluid mt-4">
         <div class="row">
-            <div class="col-sm-3  rounded fixed border m-1">
+            <div class="col-sm-3 bg-white rounded m-1">
                 <div class="alert alert-primary mt-1">
                 <h1 class="text-dark">${activeUser.firstName} ${activeUser.lastName}</h1>
-                <h2 class="lead">@${activeUser.username}</h2>
+                <h2 class="lead"><a  data-toggle="tooltip" data-placement="top" title="See what your profile looks like to others" href="viewProfile.do?userId=${activeUser.id}">@${activeUser.username}</a></h2>
                 </div>
+                    <div class="row">
+                        <form>
+                            <input class="btn btn-primary ml-4 m-1" type="submit" value="edit profile"/>
+                        </form>
+                    </div>
                 <div class="col bg-white rounded">
                     <p class="lead">
                         Items for sale:
@@ -52,7 +57,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-sm bg-white  border m-1">
+            <div class="col-sm bg-white  m-1">
                 <form action="search.do" method="GET"
                     class="form-inline my-2 my-lg-0">
                     <select class="mt-2" name="searchSelect">
