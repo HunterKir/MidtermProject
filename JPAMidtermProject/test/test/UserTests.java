@@ -90,11 +90,11 @@ public class UserTests {
 //		assertEquals(3,dao.getPostHistorybyUid(2).size());
 //		
 //	}
-	@Test
-	public void test_getUserByUserName() {
-		User user = dao.getUserByUserName("shaq");
-		assertEquals(user.getFirstName(), "Shaquille"); 
-	}
+//	@Test
+//	public void test_getUserByUserName() {
+//		User user = dao.getUserByUserName("shaq");
+//		assertEquals(user.getFirstName(), "Shaquille"); 
+//	}
 	 
 //	@Test
 //	public void User_to_CommunityMap() {
@@ -208,12 +208,18 @@ public class UserTests {
 //		User uprime = dao.updateUser(5, u);
 //		assertEquals("LL",uprime.getFirstName());
 	
-	@Test
-	public void userRatingTest() {
-		User u = em.find(User.class, 1);
-		assertEquals(2,u.getRatings().size());
-	}
-//		
+//	@Test
+//	public void userRatingTest() {
+//		User u = em.find(User.class, 1);
+//		assertEquals(2,u.getRatings().size());
 //	}
+
+	@Test
+	public void useraddtoCommunityTest() {
+		User u = em.find(User.class, 3);
+		dao.addUsertoCommunity(u,4);
+		assertEquals(3,u.getCommunities().size());
+	}
+	
 	
 }

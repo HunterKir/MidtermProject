@@ -94,7 +94,8 @@ public class UserDAOImpl implements UserDAO {
 		String query = "SELECT u from User u JOIN FETCH u.communities WHERE u.username LIKE :username";
 		User user = null;
 		try {
-			user = em.createQuery(query, User.class).setParameter("username", "%"+username+"%").getResultList().get(0);
+			user = em.createQuery(query, User.class).setParameter("username", "%" + username + "%").getResultList()
+					.get(0);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,14 +145,14 @@ public class UserDAOImpl implements UserDAO {
 			List<Community> communities = user1.getCommunities();
 			Iterator<Community> i = communities.iterator();
 			while (i.hasNext()) {
-			   Community c = i.next();
-			  if(c.getId() == cid) { 
-			  
-			    i.remove();
-			    user1.setCommunities(communities);
+				Community c = i.next();
+				if (c.getId() == cid) {
+
+					i.remove();
+					user1.setCommunities(communities);
+				}
 			}
-		}
-			} catch (SQLException e) {
+		} catch (SQLException e) {
 			// Something went wrong.
 			System.err.println("Error during inserts.");
 			// e.printStackTrace();
@@ -167,7 +168,7 @@ public class UserDAOImpl implements UserDAO {
 				}
 			}
 		}
-		
+
 		return user1;
 	}
 
@@ -177,7 +178,7 @@ public class UserDAOImpl implements UserDAO {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		User userToUpdate = em.find(User.class, id);
-		int count = (userToUpdate.getProfileViews())+1;
+		int count = (userToUpdate.getProfileViews()) + 1;
 		userToUpdate.setProfileViews(count);
 		em.getTransaction().commit();
 		System.out.println("you added a view");
@@ -185,8 +186,46 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User addUsertoCommunity(User user, int cid) {
-		// TODO Auto-generated method stub
-		return null;
+	public User addUsertoCommunity(User user1, int cid) {
+		Connection conn = null;
+		String sql;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql = "INSERT INTO user_community (user_id,community_id) VALUES(?,?)";
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			st.setInt(1, user1.getId());
+			st.setInt(2, cid);
+			st.executeUpdate();
+
+			ResultSet keys = st.getGeneratedKeys();
+			int id = 0;
+			if (keys.next()) {
+				id = keys.getInt(1);
+			}
+			conn.commit();
+			List<Community> communities = user1.getCommunities();
+			CommunityDAO Cdao = new CommunityDAOImpl();
+			Community c = Cdao.getCommunity(cid);
+			communities.add(c);
+			user1.setCommunities(communities);
+
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
+		}
+		return user1;
 	}
 }
