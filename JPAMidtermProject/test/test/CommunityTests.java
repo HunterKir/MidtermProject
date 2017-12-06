@@ -19,6 +19,7 @@ import data.UserDAO;
 import data.UserDAOImpl;
 import entities.Community;
 import entities.User;
+import entities.UserRating;
 
 public class CommunityTests {
 	EntityManagerFactory emf; 
@@ -122,10 +123,17 @@ public class CommunityTests {
 //		
 //	}
 	
+//	@Test
+//	public void TransferOwnerTest() {
+//		Community c = dao.transferCommunityOwner(2, 4);
+//		assertEquals (2,c.getOwner().getId());
+//		
+//	}
+	
 	@Test
-	public void TransferOwnerTest() {
-		Community c = dao.transferCommunityOwner(2, 4);
-		assertEquals (2,c.getOwner().getId());
+	public void CommunitiestoRatingsMap() {
+		Community c = em.find(Community.class,1);
+		assertEquals(2,c.getRatings().size());
 		
 	}
 }

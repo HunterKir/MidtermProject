@@ -51,15 +51,15 @@ public class ItemTests {
 		uDao = null;
 	}
 
-//	@Test
-//	public void CatTest() {
-//		assertEquals(2, dao.getItembyCatID(2).size());
-//
-//	}
+	@Test
+	public void CatTest() {
+		assertEquals(3, dao.getItembyCatID(10).size());
+
+	}
 ////
 //	@Test
 //	public void PriceFilterTest() {
-//		assertEquals(2, dao.getItembyPrice(2, 3).size());
+//		assertEquals(3, dao.getItembyPrice(1000, 4000).size());
 //
 //	}
 //
@@ -114,19 +114,19 @@ public class ItemTests {
 //	@Test
 //	public void getitmebytimefilter() {
 //		List<Item> ii = new ArrayList<>();
-//		ii = dao.getItembyPastXdaysbyCommunity(4, 7);
+//		ii = dao.getItembyPastXdaysbyCommunity(1, 5);
 //		
-//		assertEquals(2,ii.size());
+//		assertEquals(5,ii.size());
 //		
 //		
 //	}
 	
-	@Test
-	public void changeItemStatusTest() {
-		Item ii = em.find(Item.class, 1);
-		ii = dao.changeSoldStatus(ii.getId());
-		assertEquals(true,ii.isSold());
-		
-	}
-	
+//	@Test
+//	public void changeItemStatusTest() {
+//		Item ii = em.find(Item.class, 1);
+//		ii = dao.changeSoldStatus(ii.getId());
+//		assertEquals(true,ii.isSold());
+//		
+//	}
+//	
 }

@@ -41,6 +41,8 @@ public class Community {
 	@Pattern(regexp="^[^\\[\\];\\:{\\}\\\\\\/_\\<\\>]+$", message="Description cannot contain the following characters: [ ] ; : { } / \\ _ > < ")
 	private String description;
 	
+	@OneToMany(mappedBy="community",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<UserRating> ratings;
 	
 	public List<User> getMembers() {
 		return members;
@@ -87,6 +89,11 @@ public class Community {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	
+	public List<UserRating> getRatings() {
+		return ratings;
 	}
 
 	@Override
