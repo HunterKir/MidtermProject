@@ -38,13 +38,13 @@
                                       </div>
                                       <form:form class="" action="updateUser.do" method="post" modelAttribute="user">
                                       <div class="modal-body">
-                                          <form:input class="form-control" path="firstName" placeholder="first name" pattern="^[a-zA-Z]{1,}$" oninvalid="setCustomValidity('Name must not contain symbols and must be at least 1 character long.')"
+                                          <form:input class="form-control" path="firstName" placeholder="first name" required="required" pattern="^[a-zA-Z]{1,}$" oninvalid="setCustomValidity('Name must not contain symbols and must be at least 1 character long.')"
                                           onchange="try{setCustomValidity('')}catch(e){}"></form:input>
-                                          <form:input class="form-control" path="lastName" placeholder="last name" pattern="^[a-zA-Z]{1,}$" oninvalid="setCustomValidity('Name must not contain symbols and must be at least 1 character long.')"
+                                          <form:input class="form-control" path="lastName" placeholder="last name" required="required" pattern="^[a-zA-Z]{1,}$" oninvalid="setCustomValidity('Name must not contain symbols and must be at least 1 character long.')"
                                           onchange="try{setCustomValidity('')}catch(e){}"></form:input>
-                                          <form:input class="form-control" path="username" placeholder="username" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Username must not contain symbols and must be at least 5 characters long.')"
+                                          <form:input class="form-control" path="username" placeholder="username" required="required" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Username must not contain symbols and must be at least 5 characters long.')"
                                           onchange="try{setCustomValidity('')}catch(e){}"></form:input>
-                                          <form:input class="form-control" id="userPassword" path="password" placeholder="new password" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Password must not contain symbols and must be at least 5 characters long.')"
+                                          <form:input class="form-control" id="userPassword" path="password" required="required" placeholder="new password" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Password must not contain symbols and must be at least 5 characters long.')"
                                           onchange="try{setCustomValidity('')}catch(e){}"></form:input>
                                           <p style="color: black;">${usernameError}</p>
                                           <input type="hidden" name="id" value="${activeUser.id}">

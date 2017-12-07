@@ -87,11 +87,11 @@
                                                             class="modal-body">
                                                             <form:input
                                                                 class="form-control"
-                                                                path="title" pattern="^[a-zA-Z0-9 ]{5,}$" oninvalid="setCustomValidity('Title must not contain symbols and must be at least 5 characters long.')"
+                                                                path="title" pattern="^[a-zA-Z0-9 ]{5,}$" required="required" oninvalid="setCustomValidity('Title must not contain symbols and must be at least 5 characters long.')"
                                                                 onchange="try{setCustomValidity('')}catch(e){}"/>
                                                             <form:input
                                                                 class="form-control"
-                                                                path="price" pattern="^[0-9]+\.?[0-9]*" oninvalid="setCustomValidity('Price must be a valid number.')"
+                                                                path="price" pattern="^[0-9]+\.?[0-9]*" required="required" oninvalid="setCustomValidity('Price must be a valid number.')"
                                                                 onchange="try{setCustomValidity('')}catch(e){}"/>
                                                             <form:textarea
                                                                 class="form-control"
