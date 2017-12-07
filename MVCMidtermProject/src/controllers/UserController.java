@@ -41,6 +41,7 @@ public class UserController {
 			User retrievedUser = dao.getLoadedUser(user.getUsername()); 
 			if(retrievedUser != null && retrievedUser.getPassword().equals(user.getPassword())) {
 				session.setAttribute("activeUser", retrievedUser);
+				mv.addObject("user", retrievedUser);
 				mv.setViewName("views/userHome.jsp");
 				List<Item> itemsList = iDAO.getAllItemsInAllCommunitiesByUserLimit10(retrievedUser);				
 				mv.addObject("itemsList", itemsList); 
@@ -61,6 +62,7 @@ public class UserController {
 		if(sessionUser != null) {
 			User retrievedUser = dao.getLoadedUser(sessionUser.getUsername());
 			session.setAttribute("activeUser", retrievedUser);
+			mv.addObject("user", retrievedUser);
 			mv.setViewName("views/userHome.jsp");
 			return mv;
 		}
@@ -82,6 +84,7 @@ public class UserController {
 		
 		//If user exist send them away to their home page
 		if(user != null) {
+			mv.addObject("user", user);
 			mv.setViewName("redirect: views/userHome.jsp");
 			return mv; 
 		}
@@ -107,6 +110,7 @@ public class UserController {
 		if(dao.createUser(user) != null) {
 			session.setAttribute("activeUser", user);
 		}
+		mv.addObject("user", user);
 		mv.setViewName("views/userHome.jsp");
 		return mv;
 	}
@@ -118,5 +122,34 @@ public class UserController {
 		viewedUser = dao.getLoadedUser(viewedUser.getUsername());
 		mv.addObject("viewedUser", viewedUser); 
 		return mv; 
+	}
+	
+	@RequestMapping(path="updateUser.do")
+	public ModelAndView updateUser(@Valid User user, Errors errors, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		User currentUser = (User) session.getAttribute("activeUser");
+		if (user.getId() > 0) {
+			if (currentUser.getUsername().equalsIgnoreCase(user.getUsername())) {
+				User updated = dao.updateUser(user.getId(), user);
+				if (updated != null) {
+					session.setAttribute("activeUser", updated);
+					mv.setViewName("redirect:login.do");
+					return mv;
+				}
+			}
+			else if(dao.getUserByUserName(user.getUsername()) != null){
+				mv.setViewName("views/userHome.jsp");
+				mv.addObject("usernameError", "Username already exists pick a new username");
+				return mv;	
+			}
+			User updated = dao.updateUser(user.getId(), user);
+			if (updated != null) {
+				session.setAttribute("activeUser", updated);
+				mv.setViewName("redirect:login.do");
+				return mv;
+			}
+		}
+		mv.setViewName("views/userHome.jsp");
+		return mv;
 	}
 }

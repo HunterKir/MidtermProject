@@ -42,11 +42,10 @@
      margin-bottom: 10px;
 
 }
-#input-to-replace{
-    opacity: 0.2;
-    /*you want display: none; or something else here, the opacity is
-    for you to see how it stays in sync*/
+#userPassword {
+     -webkit-text-security: disc;
 }
+
 
 
 /* CSS for the footer

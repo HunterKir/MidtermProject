@@ -44,7 +44,7 @@
                                     </div>
                                     <form:form class="" action="updateGroup.do" method="post" modelAttribute="group">
                                     <div class="modal-body">
-                                        <form:input class="form-control" path="name" pattern="^[a-zA-Z0-9 ]{5,}$" oninvalid="setCustomValidity('Name must not contain symbols and must be at least 5 characters long.')"
+                                        <form:input class="form-control" path="name" required="required" pattern="^[a-zA-Z0-9 ]{5,}$" oninvalid="setCustomValidity('Name must not contain symbols and must be at least 5 characters long.')"
                                         onchange="try{setCustomValidity('')}catch(e){}"/>
                                         <form:textarea class="form-control" rows="5" path="description"/>
                                         <input type="hidden" name="cid" value="${group.id}">
