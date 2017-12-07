@@ -91,14 +91,15 @@ public class CommunityController {
 		mv.setViewName("views/grouphome.jsp");
 		return mv;
 	}
-	@RequestMapping(path="groupView.do", method=RequestMethod.GET)
-	public ModelAndView viewGroup(@RequestParam("groupId") int id) {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("views/groupView.jsp");
-		Community c= comDAO.getCommunity(id); 
-		mv.addObject("group", c); 
-		return mv; 
-	}
+	
+//	@RequestMapping(path="groupView.do", method=RequestMethod.GET)
+//	public ModelAndView viewGroup(@RequestParam("groupId") int id) {
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("views/groupView.jsp");
+//		Community c= comDAO.getCommunity(id); 
+//		mv.addObject("group", c); 
+//		return mv; 
+//	}
 	
 	@RequestMapping(path="updateGroup.do")
 	public ModelAndView updateGroup(@Valid @ModelAttribute("group") Community community, Errors errors, int cid) {
