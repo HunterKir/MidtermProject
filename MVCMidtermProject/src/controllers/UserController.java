@@ -108,6 +108,7 @@ public class UserController {
 			return mv;	
 		}
 		if(dao.createUser(user) != null) {
+			user = dao.getLoadedUser(user.getUsername());
 			session.setAttribute("activeUser", user);
 		}
 		mv.addObject("user", user);

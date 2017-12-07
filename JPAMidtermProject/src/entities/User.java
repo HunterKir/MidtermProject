@@ -64,7 +64,7 @@ public class User {
 	@Transient 
 	private int itemsSold; 
 	@Transient
-	private double overallRating;  
+	private double overallRating = 5.0;  
 	@Transient
 	private int ownedCommunitiesSize; 
 	
@@ -190,6 +190,10 @@ public class User {
 		overallRating = total / ratings.size(); 
 		return overallRating;
 	}
+	public void setOverallRating(double overallRating) {
+		this.overallRating = overallRating;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username

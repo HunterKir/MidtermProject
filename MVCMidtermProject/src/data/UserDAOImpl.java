@@ -46,8 +46,52 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User createUser(User user) {
 
-		em.persist(user);
-		em.flush();
+//		em.persist(user);
+//		em.flush();
+		Connection conn = null;
+		String sql;
+		String sql2;
+		try {
+			conn = DriverManager.getConnection(url, this.user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql = "INSERT INTO user (first_name, last_name, username, password, admin, profile_views) VALUES (?, ?, ?, ?, 0, 0)";
+			sql2 = "INSERT INTO user_rating (community_id, user_id, rating) VALUES (1, ?, 5)";
+			
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement st2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, user.getFirstName());
+			st.setString(2, user.getLastName());
+			st.setString(3, user.getUsername());
+			st.setString(4, user.getPassword());
+			st.executeUpdate();
+			
+			ResultSet keys = st.getGeneratedKeys();
+			int id = 0;
+			if (keys.next()) {
+				id = keys.getInt(1);
+			}
+			user.setId(id);
+			st2.setInt(1, id);
+			st2.executeUpdate();
+			
+			conn.commit(); // Commit the transaction
+
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
+		}
 		return user;
 	}
 
