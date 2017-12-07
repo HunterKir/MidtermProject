@@ -582,16 +582,19 @@ public class CommunityDAOImpl implements CommunityDAO {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false); // Start transaction
 			sql = "INSERT INTO user_community (user_id,community_id) VALUES(?,?)";
-			String SQL2 = "insert into user_rating (community_id, user_id, rating) VALUES(?, ? 5)"; 
+			String SQL2 = "INSERT INTO user_rating (community_id, user_id, rating) VALUES(?, ?,5)"; 
+			
+			//Statement 1
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, user1.getId());
 			st.setInt(2, cid);
 			st.executeUpdate();
 			
+			//Statement 2
 			PreparedStatement st2 = conn.prepareStatement(SQL2, Statement.RETURN_GENERATED_KEYS); 
 			st2.setInt(1,  cid);
 			st2.setInt(2, user1.getId());
-			st.executeUpdate();
+			st2.executeUpdate();
 			
 
 			ResultSet keys = st.getGeneratedKeys();
@@ -600,11 +603,11 @@ public class CommunityDAOImpl implements CommunityDAO {
 				id = keys.getInt(1);
 			}
 			conn.commit();
-			List<Community> communities = user1.getCommunities();
-			CommunityDAO Cdao = new CommunityDAOImpl();
-			Community c = Cdao.getCommunity(cid);
-			communities.add(c);
-			user1.setCommunities(communities);
+//			List<Community> communities = user1.getCommunities();
+//			CommunityDAO Cdao = new CommunityDAOImpl();
+//			Community c = Cdao.getCommunity(cid);
+//			communities.add(c);
+//			user1.setCommunities(communities);
 
 		} catch (SQLException e) {
 			// Something went wrong.

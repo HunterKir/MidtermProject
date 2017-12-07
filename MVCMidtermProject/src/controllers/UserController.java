@@ -30,10 +30,14 @@ public class UserController {
 	
 	@RequestMapping(path="login.do", method=RequestMethod.POST)
 	public ModelAndView userLogIn(@Valid User user, Errors errors, HttpSession session) {
+		User sessionUser = (User) session.getAttribute("activeUser"); 
 		ModelAndView mv = new ModelAndView();
+		mv.setViewName("views/login.jsp");
 		if (errors.getErrorCount() != 0) {
 		//Check for form errors
-			mv.setViewName("views/login.jsp");
+			return mv;
+		}
+		else if(sessionUser != null) {
 			return mv;
 		}
 		else {
@@ -74,6 +78,8 @@ public class UserController {
 	@RequestMapping(path="logout.do", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.setAttribute("activeUser", null);
+		session.removeAttribute("activeUser");
+		session.invalidate();
 		return "home.do";
 	}
 	
