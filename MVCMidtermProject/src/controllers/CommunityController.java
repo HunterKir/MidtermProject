@@ -52,6 +52,7 @@ public class CommunityController {
 		comDAO.createCommunity(comModel, sessionUser);
 		User reloaded = userDAO.getLoadedUser(sessionUser.getUsername());
 		session.setAttribute("activeUser", reloaded);
+		mv.addObject("user", reloaded);
 		mv.setViewName("views/userHome.jsp");
 		return mv;
 	}

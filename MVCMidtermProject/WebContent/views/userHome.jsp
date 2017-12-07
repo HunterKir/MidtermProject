@@ -207,12 +207,12 @@
                                         <p>${group.size}</p>
                                     </div>
                                     <div class="modal-footer">
+                                         <a class="btn btn-primary"
+                                              href="userJoinGroup.do?groupId=${group.id}&userId=${activeUser.id}">Join
+                                              group</a>
                                         <button type="button"
                                             class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                        <a class="btn btn-primary"
-                                            href="userJoinGroup.do?groupId=${group.id}&userId=${activeUser.id}">Join
-                                            group</a>
                                     </div>
                                 </div>
                             </div>
