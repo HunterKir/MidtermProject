@@ -15,7 +15,7 @@
     <%@ include file="SharedViews/Layout_Navbar.jsp"%>
     <div class="container-fluid mt-4 ">
         <div class="row">
-            <div class="col-sm-3 m-1">
+            <div class="col-sm-3 m-1 bg-white">
                 <div class="alert alert-primary mt-1">
                     <h1 class="text-dark">${viewedUser.firstName}
                         ${viewedUser.lastName}</h1>
@@ -24,7 +24,7 @@
                     </h2>
                     <h4>Overall rating: ${viewedUser.overallRating}</h4>
                 </div>
-                <div class="col bg-white rounded">
+                <div class="col rounded">
                     <p class="lead">
                         Items for sale:
                         <button type="button"
@@ -33,7 +33,7 @@
                         </button>
                     </p>
                 </div>
-                <div class="col bg-white rounded mt-1">
+                <div class="col  rounded mt-1">
                     <p class="lead">
                         Items sold:
                         <button type="button"

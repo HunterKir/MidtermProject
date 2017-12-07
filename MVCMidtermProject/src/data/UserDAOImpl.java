@@ -108,6 +108,7 @@ public class UserDAOImpl implements UserDAO {
 				c.getItems().size(); 
 			}
 			managedUser.getItemsPosted().size(); 
+			managedUser.getOwnedCommunities().size(); 
 		}
 		catch(Exception e) {
 			e.printStackTrace();

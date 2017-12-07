@@ -10,6 +10,9 @@
 </head>
 <body>
 <%@ include file="SharedViews/Layout_Navbar.jsp" %>
+
+
+<h1 class="text-danger">Cloud Harbor</h1>
     <div class="Jumbotron-fluid">
         <div class="row">
             <div class="card" style="width: 20rem; height:400px">

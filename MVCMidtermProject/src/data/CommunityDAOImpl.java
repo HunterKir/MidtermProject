@@ -34,28 +34,25 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public Community getCommunity(int id) {
 		Community community = null;
+		Community managedCom = null; 
 		try {
-			String q = "SELECT c from Community c JOIN FETCH c.items WHERE c.id = :id";
+			String q = "SELECT c from Community c "
+					+ " JOIN FETCH c.items "
+					+ " WHERE c.id = :id";
 			community = em.createQuery(q, Community.class).setParameter("id", id).getResultList().get(0);
+			managedCom = em.find(Community.class, community.getId()); 
+			managedCom.getItems().size(); 
+			managedCom.getMembers().size();
+			managedCom.getRatings().size(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return community;
+		return managedCom;
 	}
 
 	@Override
 	public Community createCommunity(Community community, User owner) {
-		// try {
-		// em.persist(owner);
-		// community.setOwner(owner);
-		// em.persist(community);
-		// em.flush();
-		// }
-		// catch(Exception e) {
-		// e.printStackTrace();
-		// return null;
-		// }
 		Connection conn = null;
 		String sql;
 		String sql2;
@@ -123,14 +120,6 @@ public class CommunityDAOImpl implements CommunityDAO {
 	@Override
 	public Community deleteCommunity(int id) {
 		Community managed = em.find(Community.class, id);
-		// em.remove(managed);
-		// if (em.find(Community.class, id) == null) {
-		// System.out.println("true");
-		// return managed;
-		// }
-		// else {
-		// System.out.println("false");
-		// }
 		Connection conn = null;
 		String sql;
 		String sql2;
@@ -194,16 +183,41 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public List<Community> getAllCommunities() {
-		List<Community> communities = new ArrayList<>();
+		List<Community> communities = null; 
 		try {
-			String q = "SELECT c from Community c";
-			communities = em.createQuery(q, Community.class).getResultList();
+			String q = "SELECT DISTINCT c from Community c JOIN FETCH c.members WHERE c.id != 1";
+			communities = em.createQuery(q, Community.class).getResultList(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return communities;
 	}
-
+	@Override
+	public List<Community> getAllCommunitiesWithouUserCommunities(int userId) {
+		List<Community> communities = null; 
+		try {
+			String q = "SELECT DISTINCT c from Community c JOIN FETCH c.members WHERE c.id != 1";
+//			User u = em.find(User.class, userId); 
+//			int count = 0; 
+//			for (Community c : u.getCommunities()) {
+//				if(count == u.getCommunities().size() -1 ) {
+//					q+=" )";
+//					System.out.println(q);
+//					break;
+//				}
+//				else
+//				{
+//					q += " AND c.id != " + c.getId();
+//					count++;
+//					System.out.println(q);
+//				}
+//			}
+			communities = em.createQuery(q, Community.class).getResultList(); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return communities;
+	}
 	@Override
 	public List<Item> getItembyDescription(String descrip, User user, int groupId) {
 		Connection conn = null;
@@ -529,5 +543,48 @@ public class CommunityDAOImpl implements CommunityDAO {
 		String query = "SELECT c FROM Category c";
 		List<Category> categories = em.createQuery(query, Category.class).getResultList();
 		return categories;
+	}
+	@Override
+	public User addUsertoCommunity(User user1, int cid) {
+		Connection conn = null;
+		String sql;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			sql = "INSERT INTO user_community (user_id,community_id) VALUES(?,?)";
+			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			st.setInt(1, user1.getId());
+			st.setInt(2, cid);
+			st.executeUpdate();
+
+			ResultSet keys = st.getGeneratedKeys();
+			int id = 0;
+			if (keys.next()) {
+				id = keys.getInt(1);
+			}
+			conn.commit();
+			List<Community> communities = user1.getCommunities();
+			CommunityDAO Cdao = new CommunityDAOImpl();
+			Community c = Cdao.getCommunity(cid);
+			communities.add(c);
+			user1.setCommunities(communities);
+
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
+		}
+		return user1;
 	}
 }

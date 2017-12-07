@@ -21,4 +21,6 @@ public interface CommunityDAO {
 	List<Category> getCategories();
 	List<Item> getAllItemsInCommunity(int groupId);
 	List<Item> getAllItemsInCommunityByRange(int groupId, int min , int max);
+	User addUsertoCommunity(User user1, int cid);
+	List<Community> getAllCommunitiesWithouUserCommunities(int userId);
 }

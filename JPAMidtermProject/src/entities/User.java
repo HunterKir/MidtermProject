@@ -65,6 +65,8 @@ public class User {
 	private int itemsSold; 
 	@Transient
 	private double overallRating;  
+	@Transient
+	private int ownedCommunitiesSize; 
 	
 	@Column(name="profile_views")
 	private int profileViews;
@@ -185,7 +187,6 @@ public class User {
 		for (UserRating r : ratings) {
 			total += r.getRating(); 
 		}
-		
 		overallRating = total / ratings.size(); 
 		return overallRating;
 	}
@@ -205,6 +206,13 @@ public class User {
 			}
 		}
 		return count;
+	}
+	public int getOwnedCommunitiesSize() {
+		this.ownedCommunitiesSize=0; 
+		for (Community c : this.ownedCommunities) {
+			this.ownedCommunitiesSize++;
+		}
+		return this.ownedCommunitiesSize; 
 	}
 	
 	public int getItemsSold() {

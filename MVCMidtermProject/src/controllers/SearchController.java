@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import data.CommunityDAO;
 import data.ItemDAO;
 import data.UserDAO;
+import entities.Community;
 import entities.Item;
 import entities.User;
 
@@ -52,6 +53,10 @@ public class SearchController {
 				}
 				mv.addObject("userList", userList);
 				break;
+			case "group": 
+				List<Community> groupList = cDAO.getAllCommunitiesWithouUserCommunities(user.getId()); 
+				mv.addObject("groupList", groupList); 
+				return mv;
 		}
 		return mv; 
 	}

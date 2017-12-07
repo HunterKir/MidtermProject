@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -42,6 +42,11 @@ public class Community {
 	
 	@OneToMany(mappedBy="community",cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<UserRating> ratings;
+	
+	@Transient
+	private int size; 
+	@Transient 
+	private double overallGroupRating; 
 	
 	public List<User> getMembers() {
 		return members;
@@ -93,6 +98,28 @@ public class Community {
 	
 	public List<UserRating> getRatings() {
 		return ratings;
+	}
+	public int getSize() {
+		this.size = 0; 
+		for (User u : getMembers()) {
+			size++; 
+		}
+		return size;
+	}
+	
+	public double getOverallGroupRating() {
+		this.overallGroupRating = 0; 
+		int count= 0; 
+		
+		for (UserRating r : this.ratings) {
+			this.overallGroupRating += r.getRating();
+			count++; 
+		}
+		return overallGroupRating / count;
+	}
+
+	public void setOverallGroupRating(double overallGroupRating) {
+		this.overallGroupRating = overallGroupRating;
 	}
 
 	@Override

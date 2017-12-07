@@ -1,11 +1,7 @@
 package controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.CommunityDAO;
@@ -82,7 +78,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(path="viewGroup.do")
-	public ModelAndView goToGroupPage(int id) {
+	public ModelAndView goToGroupPage(@RequestParam("groupId") int id) {
 		ModelAndView mv = new ModelAndView();
 		Community c = comDAO.getCommunity(id);
 		mv.addObject("group", c);
@@ -94,6 +90,14 @@ public class CommunityController {
 		mv.addObject("categories", comDAO.getCategories()); 
 		mv.setViewName("views/grouphome.jsp");
 		return mv;
+	}
+	@RequestMapping(path="groupView.do", method=RequestMethod.GET)
+	public ModelAndView viewGroup(@RequestParam("groupId") int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("views/groupView.jsp");
+		Community c= comDAO.getCommunity(id); 
+		mv.addObject("group", c); 
+		return mv; 
 	}
 	
 	@RequestMapping(path="updateGroup.do")
@@ -109,6 +113,15 @@ public class CommunityController {
 		ModelAndView mv = new ModelAndView();
 		comDAO.deleteCommunity(cid);
 		mv.setViewName("redirect:login.do");
+		return mv;
+	}
+	
+	@RequestMapping(path="userJoinGroup.do")
+	public ModelAndView userJoinGroup(@RequestParam("groupId") int groupId, @RequestParam("userId") int userId) {
+		ModelAndView mv = new ModelAndView(); 
+		mv.setViewName("viewGroup.do?groupId="+groupId);
+		User user = userDAO.getUser(userId);
+		comDAO.addUsertoCommunity(user, groupId);
 		return mv;
 	}
 }
