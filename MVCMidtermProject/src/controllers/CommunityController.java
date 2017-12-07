@@ -77,7 +77,6 @@ public class CommunityController {
 		mv.setViewName("redirect:getPosts.do");
 		return mv;
 	}
-	
 	@RequestMapping(path="viewGroup.do")
 	public ModelAndView goToGroupPage(@RequestParam("groupId") int id) {
 		ModelAndView mv = new ModelAndView();

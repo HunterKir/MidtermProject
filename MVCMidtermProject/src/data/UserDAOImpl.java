@@ -45,7 +45,6 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User createUser(User user) {
-
 //		em.persist(user);
 //		em.flush();
 		Connection conn = null;

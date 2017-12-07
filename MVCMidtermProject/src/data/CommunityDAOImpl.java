@@ -1,5 +1,7 @@
 package data;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -33,22 +35,16 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public Community getCommunity(int id) {
-		Community community = null;
-		Community managedCom = null; 
+		Community c = new Community();
 		try {
-			String q = "SELECT c from Community c "
-					+ " JOIN FETCH c.items "
-					+ " WHERE c.id = :id";
-			community = em.createQuery(q, Community.class).setParameter("id", id).getResultList().get(0);
-			managedCom = em.find(Community.class, community.getId()); 
-			managedCom.getItems().size(); 
-			managedCom.getMembers().size();
-			managedCom.getRatings().size(); 
+			c = em.find(Community.class, id);
+			c.getItems().size();
+			c.getMembers().size();
+			c.getRatings().size();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return managedCom;
+		return c;
 	}
 
 	@Override
@@ -183,41 +179,73 @@ public class CommunityDAOImpl implements CommunityDAO {
 
 	@Override
 	public List<Community> getAllCommunities() {
-		List<Community> communities = null; 
+		List<Community> communities = null;
 		try {
 			String q = "SELECT DISTINCT c from Community c JOIN FETCH c.members WHERE c.id != 1";
-			communities = em.createQuery(q, Community.class).getResultList(); 
+			communities = em.createQuery(q, Community.class).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return communities;
 	}
+
 	@Override
 	public List<Community> getAllCommunitiesWithouUserCommunities(int userId) {
-		List<Community> communities = null; 
+		List<Community> communities = new ArrayList<>();
+		Connection conn = null;
 		try {
-			String q = "SELECT DISTINCT c from Community c JOIN FETCH c.members WHERE c.id != 1";
-//			User u = em.find(User.class, userId); 
-//			int count = 0; 
-//			for (Community c : u.getCommunities()) {
-//				if(count == u.getCommunities().size() -1 ) {
-//					q+=" )";
-//					System.out.println(q);
-//					break;
-//				}
-//				else
-//				{
-//					q += " AND c.id != " + c.getId();
-//					count++;
-//					System.out.println(q);
-//				}
-//			}
-			communities = em.createQuery(q, Community.class).getResultList(); 
-		} catch (Exception e) {
-			e.printStackTrace();
+			conn = DriverManager.getConnection(url, this.user, pass);
+			conn.setAutoCommit(false); // Start transaction
+			String q = "SELECT DISTINCT c.id, c.name, c.owner_id, c.description FROM community c "
+					+ " JOIN user_community uc ON uc.community_id = c.id" + " WHERE ( uc.community_id != 1 ";
+			User u = em.find(User.class, userId);
+
+			int count = 1;
+			for (Community c : u.getCommunities()) {
+				if (count == u.getCommunities().size()) {
+					q += " AND uc.community_id !=" + c.getId() + " )";
+					System.out.println(q);
+					break;
+				} else {
+					q += " AND uc.community_id != " + c.getId();
+					count++;
+					System.out.println(q);
+				}
+			}
+
+			PreparedStatement st = conn.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
+
+			ResultSet rs = st.executeQuery();
+			Community c;
+			while (rs.next()) {
+				if (rs.getInt(1) == 1) {
+					continue;
+				} else {
+					c = em.find(Community.class, rs.getInt(1));
+					c.getMembers().size();
+					communities.add(c);
+
+				}
+			}
+		} catch (SQLException e) {
+			// Something went wrong.
+			System.err.println("Error during inserts.");
+			// e.printStackTrace();
+			System.err.println("SQL Error: " + e.getErrorCode() + ": " + e.getMessage());
+			System.err.println("SQL State: " + e.getSQLState());
+			// Need to rollback, which also throws SQLException.
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					System.err.println("Error rolling back.");
+					e1.printStackTrace();
+				}
+			}
 		}
 		return communities;
 	}
+
 	@Override
 	public List<Item> getItembyDescription(String descrip, User user, int groupId) {
 		Connection conn = null;
@@ -284,6 +312,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 		}
 		return itemList;
 	}
+
 	@Override
 	public List<Item> getAllItemsInCommunity(int groupId) {
 		Connection conn = null;
@@ -295,7 +324,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 			sql = "SELECT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title, "
 					+ " i.community_id, i.active, i.sold FROM item i " + " JOIN community c ON c.id = i.community_id"
 					+ " 	WHERE c.id = ? ORDER BY i.post_time DESC";
-			
+
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, groupId);
 			ResultSet rs = st.executeQuery();
@@ -329,7 +358,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 				}
 			}
 			conn.commit(); // Commit the transaction
-			
+
 		} catch (SQLException e) {
 			// Something went wrong.
 			System.err.println("Error during inserts.");
@@ -348,6 +377,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 		}
 		return itemList;
 	}
+
 	@Override
 	public List<Item> getAllItemsInCommunityByRange(int groupId, int min, int max) {
 		Connection conn = null;
@@ -357,16 +387,15 @@ public class CommunityDAOImpl implements CommunityDAO {
 			conn = DriverManager.getConnection(url, this.user, pass);
 			conn.setAutoCommit(false); // Start transaction
 			sql = "SELECT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title,"
-					+ " i.community_id, i.active, i.sold FROM item i"
-                    + " JOIN community c ON c.id = i.community_id"
+					+ " i.community_id, i.active, i.sold FROM item i" + " JOIN community c ON c.id = i.community_id"
 					+ " WHERE c.id = ? AND i.price >= ? AND i.price <= ? ORDER BY i.price";
-			
+
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			
+
 			st.setInt(1, groupId);
-			st.setInt(2,  min);
-			st.setInt(3,  max);
-			
+			st.setInt(2, min);
+			st.setInt(3, max);
+
 			ResultSet rs = st.executeQuery();
 			Item i;
 			while (rs.next()) {
@@ -398,7 +427,7 @@ public class CommunityDAOImpl implements CommunityDAO {
 				}
 			}
 			conn.commit(); // Commit the transaction
-			
+
 		} catch (SQLException e) {
 			// Something went wrong.
 			System.err.println("Error during inserts.");
@@ -474,49 +503,48 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public List<Item> getItembyCatID(int catId, int groupId) {
 		Connection conn = null;
 		String sql;
-		List<Item> itemList = new ArrayList<>(); 
+		List<Item> itemList = new ArrayList<>();
 		try {
 			conn = DriverManager.getConnection(url, this.user, pass);
 			conn.setAutoCommit(false); // Start transaction
-			sql = "SELECT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title, " + 
-					"					i.community_id, i.active, i.sold FROM item i " + 
-					"					JOIN community c ON c.id = i.community_id " + 
-					"					WHERE i.category_id = ? AND i.community_id = ? ORDER BY i.post_time DESC" ;
-			
+			sql = "SELECT i.id, i.user_id, i.content, i.post_time, i.category_id, i.price, i.title, "
+					+ "					i.community_id, i.active, i.sold FROM item i "
+					+ "					JOIN community c ON c.id = i.community_id "
+					+ "					WHERE i.category_id = ? AND i.community_id = ? ORDER BY i.post_time DESC";
+
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, catId);
-			st.setInt(2,  groupId);
+			st.setInt(2, groupId);
 			ResultSet rs = st.executeQuery();
-			Item i; 
-			while(rs.next()) {
-				if(rs.getBoolean(9) == true) {
-					i = new Item(); 
+			Item i;
+			while (rs.next()) {
+				if (rs.getBoolean(9) == true) {
+					i = new Item();
 					int id = rs.getInt(1);
-					i.setId(id); 
-					User itemUser = em.find(User.class, rs.getInt(2)); 
+					i.setId(id);
+					User itemUser = em.find(User.class, rs.getInt(2));
 					i.setUser(itemUser);
-					String content = rs.getString(3); 
+					String content = rs.getString(3);
 					i.setContent(content);
-					LocalDateTime time = rs.getTimestamp(4).toLocalDateTime(); 
+					LocalDateTime time = rs.getTimestamp(4).toLocalDateTime();
 					i.setPostTime(time);
-					Category itemCategory = em.find(Category.class, rs.getInt(5)); 
+					Category itemCategory = em.find(Category.class, rs.getInt(5));
 					i.setCategory(itemCategory);
-					double price = rs.getDouble(6); 
+					double price = rs.getDouble(6);
 					i.setPrice(price);
-					String title = rs.getString(7); 
+					String title = rs.getString(7);
 					i.setTitle(title);
-					Community community = em.find(Community.class, rs.getInt(8)); 
+					Community community = em.find(Community.class, rs.getInt(8));
 					i.setCommunity(community);
-					boolean active = rs.getBoolean(9); 
+					boolean active = rs.getBoolean(9);
 					i.setActive(active);
 					boolean sold = rs.getBoolean(10);
-					i.setSold(sold);	
-					itemList.add(i); 
-				}
-				else {
+					i.setSold(sold);
+					itemList.add(i);
+				} else {
 					continue;
 				}
- 
+
 			}
 			conn.commit(); // Commit the transaction
 
@@ -538,12 +566,14 @@ public class CommunityDAOImpl implements CommunityDAO {
 		}
 		return itemList;
 	}
+
 	@Override
 	public List<Category> getCategories() {
 		String query = "SELECT c FROM Category c";
 		List<Category> categories = em.createQuery(query, Category.class).getResultList();
 		return categories;
 	}
+
 	@Override
 	public User addUsertoCommunity(User user1, int cid) {
 		Connection conn = null;
@@ -552,10 +582,17 @@ public class CommunityDAOImpl implements CommunityDAO {
 			conn = DriverManager.getConnection(url, user, pass);
 			conn.setAutoCommit(false); // Start transaction
 			sql = "INSERT INTO user_community (user_id,community_id) VALUES(?,?)";
+			String SQL2 = "insert into user_rating (community_id, user_id, rating) VALUES(?, ? 5)"; 
 			PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			st.setInt(1, user1.getId());
 			st.setInt(2, cid);
 			st.executeUpdate();
+			
+			PreparedStatement st2 = conn.prepareStatement(SQL2, Statement.RETURN_GENERATED_KEYS); 
+			st2.setInt(1,  cid);
+			st2.setInt(2, user1.getId());
+			st.executeUpdate();
+			
 
 			ResultSet keys = st.getGeneratedKeys();
 			int id = 0;
