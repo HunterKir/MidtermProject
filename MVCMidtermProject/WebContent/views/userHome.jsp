@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -20,9 +21,42 @@
                 <h2 class="lead"><a  data-toggle="tooltip" data-placement="top" title="See what your profile looks like to others" href="viewProfile.do?userId=${activeUser.id}">@${activeUser.username}</a></h2>
                 </div>
                     <div class="row">
-                        <form>
+                        <%-- <form>
                             <input class="btn btn-primary ml-4 m-1" type="submit" value="edit profile"/>
-                        </form>
+                        </form> --%>
+                        <button type="button" class="btn btn-primary m-1 ml-4" data-toggle="modal" data-target="#updateProfile">
+                            edit profile
+                       </button>
+                       <div class="modal fade" id="updateProfile" tabindex="-1" role="dialog" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                 <div class="modal-content">
+                                      <div class="modal-header">
+                                           <h5 class="modal-title" id="updateProfileModalLabel">Your Profile</h5>
+                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                           </button>
+                                      </div>
+                                      <form:form class="" action="updateUser.do" method="post" modelAttribute="user">
+                                      <div class="modal-body">
+                                          <form:input class="form-control" path="firstName" placeholder="first name" pattern="^[a-zA-Z]{1,}$" oninvalid="setCustomValidity('Name must not contain symbols and must be at least 1 character long.')"
+                                          onchange="try{setCustomValidity('')}catch(e){}"></form:input>
+                                          <form:input class="form-control" path="lastName" placeholder="last name" pattern="^[a-zA-Z]{1,}$" oninvalid="setCustomValidity('Name must not contain symbols and must be at least 1 character long.')"
+                                          onchange="try{setCustomValidity('')}catch(e){}"></form:input>
+                                          <form:input class="form-control" path="username" placeholder="username" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Username must not contain symbols and must be at least 5 characters long.')"
+                                          onchange="try{setCustomValidity('')}catch(e){}"></form:input>
+                                          <form:password class="form-control" path="password" placeholder="new password" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Password must not contain symbols and must be at least 5 characters long.')"
+                                          onchange="try{setCustomValidity('')}catch(e){}"></form:password>
+                                          <p style="color: black;">${usernameError}</p>
+                                          <input type="hidden" name="id" value="${activeUser.id}">
+                                      </div>
+                                      <div class="modal-footer">
+                                               <input class="btn btn-primary" type="submit" value="Save Changes"/>
+                                          </form:form>
+                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                      </div>
+                                 </div>
+                            </div>
+                       </div>
                     </div>
                 <div class="col bg-white rounded">
                         <div class="row justify-content-between">
@@ -150,4 +184,11 @@
     </div>
 </body>
 <%@ include file="SharedViews/Layout_Scripts.jsp"%>
+<c:if test="${usernameError != null}">
+     <script type="text/javascript">
+     $(window).on('load',function(){
+          $('#updateProfile').modal('show');
+     });
+     </script>
+</c:if>
 </html>
