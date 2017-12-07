@@ -8,7 +8,7 @@ public class HomeController{
 	
 	@RequestMapping("home.do")
 	public String home() {
-		return "views/home.jsp"; 
+		return "views/home.html"; 
 	}
 
 }
