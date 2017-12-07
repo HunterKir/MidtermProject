@@ -315,7 +315,7 @@
                 </c:forEach>
             </div>
             <div class="col-sm-2">
-                <a href="viewGroup.do?id=${item.community.id}">Go
+                <a href="viewGroup.do?groupId=${item.community.id}">Go
                     back to ${item.community.name} home.</a>
             </div>
         </div>
