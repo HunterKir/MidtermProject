@@ -124,7 +124,7 @@ public class ItemController {
 	public ModelAndView removeItem(int iid, int cid) {
 		ModelAndView mv = new ModelAndView();
 		dao.changeActiveStatus(iid);
-		mv.setViewName("redirect:viewGroup.do?id=" + cid);
+		mv.setViewName("redirect:viewGroup.do?groupId=" + cid);
 		return mv;
 	}
 	
@@ -176,7 +176,7 @@ public class ItemController {
 	public ModelAndView soldItem(int iid, int cid) {
 		ModelAndView mv = new ModelAndView();
 		dao.changeSoldStatus(iid);
-		mv.setViewName("redirect:viewGroup.do?id=" + cid);
+		mv.setViewName("redirect:viewGroup.do?groupId=" + cid);
 		return mv;
 	}
 }

@@ -69,7 +69,7 @@ public class SearchController {
 		
 		User user = (User) session.getAttribute("activeUser");
 		ModelAndView mv = new ModelAndView(); 
-		mv.setViewName("viewGroup.do?id=" + groupId);
+		mv.setViewName("viewGroup.do?groupId=" + groupId);
 		
 		if(kw.equals("")) {
 			List<Item> itemList = cDAO.getAllItemsInCommunity(groupId) ; 
@@ -106,7 +106,7 @@ public class SearchController {
 			, @RequestParam("groupId") int groupId
 			, @RequestParam("catType") String catType) {
 		ModelAndView mv = new ModelAndView(); 
-		mv.setViewName("viewGroup.do?id=" + groupId);
+		mv.setViewName("viewGroup.do?groupId=" + groupId);
 		List<Item> itemList = cDAO.getItembyCatID(categoryId, groupId); 
 		mv.addObject("searchItemsList", itemList); 
 		
@@ -124,7 +124,7 @@ public class SearchController {
 	@RequestMapping(path="resetSearch.do", method=RequestMethod.GET)
 	public ModelAndView resetSearch(@RequestParam("groupId") int groupId) {
 		ModelAndView mv = new ModelAndView(); 
-		mv.setViewName("viewGroup.do?id="+ groupId);
+		mv.setViewName("viewGroup.do?groupId="+ groupId);
 		mv.addObject("groupItemsList", cDAO.getAllItemsInCommunity(groupId)); 
 		return mv; 
 	}
@@ -134,7 +134,7 @@ public class SearchController {
 			, @RequestParam("max") int max) {
 		
 		ModelAndView mv = new ModelAndView(); 
-		mv.setViewName("viewGroup.do?id="+ groupId);
+		mv.setViewName("viewGroup.do?groupId="+ groupId);
 		
 		if(min > max) {
 			min = 0; 
