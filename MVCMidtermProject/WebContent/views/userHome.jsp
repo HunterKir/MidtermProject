@@ -44,8 +44,8 @@
                                           onchange="try{setCustomValidity('')}catch(e){}"></form:input>
                                           <form:input class="form-control" path="username" placeholder="username" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Username must not contain symbols and must be at least 5 characters long.')"
                                           onchange="try{setCustomValidity('')}catch(e){}"></form:input>
-                                          <form:password class="form-control" path="password" placeholder="new password" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Password must not contain symbols and must be at least 5 characters long.')"
-                                          onchange="try{setCustomValidity('')}catch(e){}"></form:password>
+                                          <form:input class="form-control" id="userPassword" path="password" placeholder="new password" pattern="^[a-zA-Z0-9]{5,}$" oninvalid="setCustomValidity('Password must not contain symbols and must be at least 5 characters long.')"
+                                          onchange="try{setCustomValidity('')}catch(e){}"></form:input>
                                           <p style="color: black;">${usernameError}</p>
                                           <input type="hidden" name="id" value="${activeUser.id}">
                                       </div>

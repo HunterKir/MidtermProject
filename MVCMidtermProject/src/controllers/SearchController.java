@@ -30,7 +30,8 @@ public class SearchController {
 	@RequestMapping(path="search.do", method=RequestMethod.GET)
 	public ModelAndView search(@RequestParam("search") String kw, @RequestParam("searchSelect") String searchSelect ,HttpSession session) {
 		User user = (User) session.getAttribute("activeUser");
-		ModelAndView mv = new ModelAndView(); 
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("user", user);
 		mv.setViewName("views/userHome.jsp");
 		switch(searchSelect) {
 			
