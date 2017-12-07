@@ -204,12 +204,10 @@ public class CommunityDAOImpl implements CommunityDAO {
 			for (Community c : u.getCommunities()) {
 				if (count == u.getCommunities().size()) {
 					q += " AND uc.community_id !=" + c.getId() + " )";
-					System.out.println(q);
 					break;
 				} else {
 					q += " AND uc.community_id != " + c.getId();
 					count++;
-					System.out.println(q);
 				}
 			}
 
