@@ -20,7 +20,7 @@ Easy to use
  - Organized around groups and categories
  - Variety of Search and Filtering functions
 
- technologies used:
+ Technologies used:
  - Jave SE 8
  - Gradle for build automation
  - Spring framework
@@ -32,3 +32,18 @@ Easy to use
 
 Database schema:
 ![DB schema](https://i.imgur.com/7nvDZpN.png)
+
+Stretch Goals:
+- Payment System Integration
+- Notifications & Direct Messages
+- Modify rating system
+- Watchlist for items you are interested in purchasing.   
+- Allow Users to remove themselves from the group and from the global view.  
+- Private Groups
+- Advertising
+- Allow Image and Image Storage
+
+Work we would have done differently
+- Work more hours
+- Not had changed the groupId on the <code> viewGroup.do?</code>
+-
