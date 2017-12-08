@@ -45,5 +45,15 @@ Stretch Goals:
 
 Work we would have done differently
 - Work more hours
-- Not had changed the groupId on the <code> viewGroup.do?</code>
+- Not had changed the groupId on the <code> viewGroup.do?</code> method
+- Could of had a background video, but, the videos were not suitable.
+
+Things we like:
+- Everything works as intended for the first Sprint
+- Room to grow the site
+
+Things we don't like:
+- Lack of color on the front-end
+- Log out bug (does not consistently log out)
+- Did not implement a way for users remove themselves from a group
 -
