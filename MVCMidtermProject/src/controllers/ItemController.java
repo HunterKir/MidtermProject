@@ -42,8 +42,17 @@ public class ItemController {
 	private PostDAO pDAO; 
 	
 	@RequestMapping(path="newItem.do", method=RequestMethod.GET)
-	public ModelAndView goToNewItemForm(int id) {
+	public ModelAndView goToNewItemForm(int id
+			, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		ItemForm i = new ItemForm();
 		int num = comDAO.getCommunity(id).getId();
 		List<Category> cats = comDAO.getCategories();
@@ -87,9 +96,18 @@ public class ItemController {
 	@RequestMapping(path="newPost.do", method=RequestMethod.POST)
 	public ModelAndView createNewItem(@RequestParam("ownerId") int ownerId,
 			@RequestParam("itemId") int itemId, 
-			@RequestParam("content")String content ) {
-		
+			@RequestParam("content")String content, 
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView(); 
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		Post post = new Post(); 
 		post.setContent(content);
 		post.setItem(dao.getItem(itemId));
@@ -102,8 +120,18 @@ public class ItemController {
 	}
 	@RequestMapping(path="showUpdateArea.do", method=RequestMethod.GET)
 	public ModelAndView goToUpdatePost(@RequestParam("postId") int postId,
-			@RequestParam("itemId") int itemId) {
+			@RequestParam("itemId") int itemId,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView(); 
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("getPosts.do?id="+ itemId);
 		Post editPost = new Post(); 
 		mv.addObject("editPost", editPost); 
@@ -111,7 +139,8 @@ public class ItemController {
 	}
 	@RequestMapping(path="updatePost.do", method=RequestMethod.POST)
 	public ModelAndView updateNewItem(@RequestParam("postId") int postId,
-			@RequestParam("itemId") int itemId, @RequestParam("postContent")String content) {
+			@RequestParam("itemId") int itemId, @RequestParam("postContent")String content
+			, HttpSession sesssion) {
 		ModelAndView mv = new ModelAndView(); 
 		mv.setViewName("getPosts.do?id="+ itemId);
 		Post post = pDAO.getPost(postId); 
@@ -121,16 +150,36 @@ public class ItemController {
 	}
 	
 	@RequestMapping(path="removeItem.do")
-	public ModelAndView removeItem(int iid, int cid) {
+	public ModelAndView removeItem(int iid, int cid
+			, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		dao.changeActiveStatus(iid);
 		mv.setViewName("redirect:viewGroup.do?groupId=" + cid);
 		return mv;
 	}
 	
 	@RequestMapping(path="updateItem.do", method=RequestMethod.GET)
-	public ModelAndView goToUpdateItem(int id) {
+	public ModelAndView goToUpdateItem(int id, 
+			HttpSession session ) {
 		ModelAndView mv = new ModelAndView();
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		Item i = dao.getItem(id);
 		mv.addObject("item", i);
 		mv.setViewName("views/itemform.jsp");
@@ -138,8 +187,19 @@ public class ItemController {
 	}
 	
 	@RequestMapping(path="updateItem.do", method=RequestMethod.POST)
-	public ModelAndView updateItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model) {
+	public ModelAndView updateItem(@Valid @ModelAttribute("item") Item item, Errors errors, 
+			Model model, 
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		if (errors.hasErrors()) {
 			mv.setViewName("views/itemform.jsp");
 			return mv;
@@ -149,8 +209,21 @@ public class ItemController {
 		return mv;
 	}
 	@RequestMapping(path="updateItemInModal.do", method=RequestMethod.POST)
-	public ModelAndView updateInModalItem(@Valid @ModelAttribute("item") Item item, Errors errors, Model model, int uid, int cid) {
+	public ModelAndView updateInModalItem(@Valid @ModelAttribute("item") Item item,
+			Errors errors, Model model,
+			int uid,
+			int cid,
+			HttpSession session ) {
 		ModelAndView mv = new ModelAndView();
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		// this breaks things for some reason
 //		if (errors.hasErrors()) {
 //			mv.setViewName("redirect:getPosts.do?id=" + item.getId());
@@ -164,8 +237,18 @@ public class ItemController {
 	}
 	@RequestMapping(path="deletePost.do", method=RequestMethod.POST)
 	public ModelAndView delteItem(@RequestParam("postId")int postId,
-			@RequestParam("itemId") int itemId) {
-		ModelAndView mv = new ModelAndView(); 
+			@RequestParam("itemId") int itemId,
+			HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("redirect: getPosts.do?id=" + itemId);
 		Post post = pDAO.getPost(postId); 
 		pDAO.deletePost(post); 
@@ -173,8 +256,18 @@ public class ItemController {
 	}
 	
 	@RequestMapping(path="soldItem.do")
-	public ModelAndView soldItem(int iid, int cid) {
+	public ModelAndView soldItem(int iid, int cid,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		dao.changeSoldStatus(iid);
 		mv.setViewName("redirect:viewGroup.do?groupId=" + cid);
 		return mv;

@@ -32,6 +32,13 @@ public class SearchController {
 	public ModelAndView search(@RequestParam("search") String kw, @RequestParam("searchSelect") String searchSelect ,HttpSession session) {
 		User user = (User) session.getAttribute("activeUser");
 		ModelAndView mv = new ModelAndView();
+		
+		//Send loggedout user away
+		if(user == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.addObject("user", user);
 		mv.setViewName("views/userHome.jsp");
 		switch(searchSelect) {
@@ -69,6 +76,13 @@ public class SearchController {
 		
 		User user = (User) session.getAttribute("activeUser");
 		ModelAndView mv = new ModelAndView(); 
+				
+		//Send loggedout user away
+		if(user == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("viewGroup.do?groupId=" + groupId);
 		
 		if(kw.equals("")) {
@@ -104,8 +118,19 @@ public class SearchController {
 	@RequestMapping(path="searchByCategory.do", method=RequestMethod.GET)
 	public ModelAndView searchByCategory(@RequestParam("catId") int categoryId
 			, @RequestParam("groupId") int groupId
-			, @RequestParam("catType") String catType) {
+			, @RequestParam("catType") String catType
+			, HttpSession session) {
+		
 		ModelAndView mv = new ModelAndView(); 
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("viewGroup.do?groupId=" + groupId);
 		List<Item> itemList = cDAO.getItembyCatID(categoryId, groupId); 
 		mv.addObject("searchItemsList", itemList); 
@@ -122,8 +147,18 @@ public class SearchController {
 		}
 	}
 	@RequestMapping(path="resetSearch.do", method=RequestMethod.GET)
-	public ModelAndView resetSearch(@RequestParam("groupId") int groupId) {
+	public ModelAndView resetSearch(@RequestParam("groupId") int groupId
+			, HttpSession session) {
 		ModelAndView mv = new ModelAndView(); 
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("viewGroup.do?groupId="+ groupId);
 		mv.addObject("groupItemsList", cDAO.getAllItemsInCommunity(groupId)); 
 		return mv; 
@@ -131,9 +166,19 @@ public class SearchController {
 	@RequestMapping(path="searchByRange.do", method=RequestMethod.GET)
 	public ModelAndView searchByRange(@RequestParam("groupId") int groupId
 			, @RequestParam("min") int min
-			, @RequestParam("max") int max) {
+			, @RequestParam("max") int max
+			, HttpSession session) {
 		
 		ModelAndView mv = new ModelAndView(); 
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("viewGroup.do?groupId="+ groupId);
 		
 		if(min > max) {

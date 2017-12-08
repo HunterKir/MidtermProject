@@ -66,7 +66,7 @@
                                                 rows="5"
                                                 path="description" />
                                             <input type="hidden"
-                                                name="cid"
+                                                name="groupId"
                                                 value="${group.id}">
                                         </div>
                                         <div class="modal-footer">
@@ -160,7 +160,7 @@
                                         <input
                                             class="btn btn-primary ml-2 m-1"
                                             type="submit" value="Delete" />
-                                        <input type="hidden" name="cid"
+                                        <input type="hidden" name="groupId"
                                             value="${group.id}">
                                     </form>
                                     <button type="button"

@@ -122,8 +122,16 @@ public class UserController {
 		return mv;
 	}
 	@RequestMapping(path="viewProfile.do", method=RequestMethod.GET)
-	public ModelAndView viewProfile(@RequestParam("userId")int userId) {
+	public ModelAndView viewProfile(@RequestParam("userId")int userId, HttpSession session) {
 		ModelAndView mv = new ModelAndView(); 
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("views/viewProfile.jsp");
 		User viewedUser = dao.getUser(userId); 
 		viewedUser = dao.getLoadedUser(viewedUser.getUsername());
@@ -135,6 +143,15 @@ public class UserController {
 	public ModelAndView updateUser(@Valid User user, Errors errors, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		User currentUser = (User) session.getAttribute("activeUser");
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(currentUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		if (user.getId() > 0) {
 			if (currentUser.getUsername().equalsIgnoreCase(user.getUsername())) {
 				User updated = dao.updateUser(user.getId(), user);

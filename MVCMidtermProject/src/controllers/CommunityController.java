@@ -34,8 +34,17 @@ public class CommunityController {
 	private UserDAO userDAO;
 	
 	@RequestMapping(path="newGroup.do", method=RequestMethod.GET)
-	public ModelAndView goToNewGroup() {
+	public ModelAndView goToNewGroup(HttpSession session) {
 		ModelAndView mv = new ModelAndView(); 
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("views/newgroup.jsp");
 		Community comModel = new Community(); 
 		mv.addObject("comModel", comModel);
@@ -58,8 +67,17 @@ public class CommunityController {
 	}
 	
 	@RequestMapping(path="getPosts.do")
-	public ModelAndView goToPostPage(int id) {
+	public ModelAndView goToPostPage(int id, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}  
+		
 		Item item = itemDAO.getItem(id);
 		Post newPost = new Post();
 		mv.setViewName("views/posts.jsp");
@@ -78,8 +96,17 @@ public class CommunityController {
 		return mv;
 	}
 	@RequestMapping(path="viewGroup.do")
-	public ModelAndView goToGroupPage(@RequestParam("groupId") int id) {
+	public ModelAndView goToGroupPage(@RequestParam("groupId") int id, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		Community c = comDAO.getCommunity(id);
 		mv.addObject("group", c);
 		
@@ -92,34 +119,57 @@ public class CommunityController {
 		return mv;
 	}
 	
-//	@RequestMapping(path="groupView.do", method=RequestMethod.GET)
-//	public ModelAndView viewGroup(@RequestParam("groupId") int id) {
-//		ModelAndView mv = new ModelAndView();
-//		mv.setViewName("views/groupView.jsp");
-//		Community c= comDAO.getCommunity(id); 
-//		mv.addObject("group", c); 
-//		return mv; 
-//	}
-	
 	@RequestMapping(path="updateGroup.do")
-	public ModelAndView updateGroup(@Valid @ModelAttribute("group") Community community, Errors errors, int cid) {
+	public ModelAndView updateGroup(@Valid @ModelAttribute("group") Community community,
+			Errors errors, @RequestParam("groupId") int groupId,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		comDAO.updateCommunityName(cid, community);
-		mv.setViewName("redirect:viewGroup.do?id=" + cid);
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
+		comDAO.updateCommunityName(groupId, community);
+		mv.setViewName("redirect:viewGroup.do?groupId=" + groupId);
 		return mv;
 	}
 	
 	@RequestMapping(path="deleteGroup.do")
-	public ModelAndView deleteGroup(int cid) {
+	public ModelAndView deleteGroup(int groupId, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		comDAO.deleteCommunity(cid);
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
+		
+		comDAO.deleteCommunity(groupId);
 		mv.setViewName("redirect:login.do");
 		return mv;
 	}
 	
 	@RequestMapping(path="userJoinGroup.do")
-	public ModelAndView userJoinGroup(@RequestParam("groupId") int groupId, @RequestParam("userId") int userId) {
+	public ModelAndView userJoinGroup(@RequestParam("groupId") int groupId,
+			@RequestParam("userId") int userId,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView(); 
+		
+		User activeUser = (User) session.getAttribute("activeUser");
+		
+		//Send loggedout user away
+		if(activeUser == null) {
+			mv.setViewName("redirect: views/home.html");
+			return mv; 
+		}
+		
 		mv.setViewName("viewGroup.do?groupId="+groupId);
 		User user = userDAO.getUser(userId);
 		comDAO.addUsertoCommunity(user, groupId);
