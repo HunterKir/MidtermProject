@@ -203,7 +203,7 @@
             </div>
         </div>
         <div class="row col-sm-8 ml-2">
-            <form class="container bg-light" action="groupSearch.do"
+            <form class="container bg-light rounded" action="groupSearch.do"
                 method="GET" class="form-inline my-2 my-lg-0">
                 <input type="hidden" name="groupId" value="${group.id}" />
                 <select class="mt-2" name="searchSelect">

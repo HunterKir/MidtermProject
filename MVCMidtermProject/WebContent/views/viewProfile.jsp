@@ -25,47 +25,52 @@
                     <h4>Overall rating: ${viewedUser.overallRating}</h4>
                 </div>
                 <div class="col rounded">
-                    <p class="lead">
-                        Items for sale:
+                    <div class="row justify-content-between">
+                        <p class="lead">Items for sale:</p>
                         <button type="button"
                             class="btn btn-danger ml-5">
                             <span class="badge badge-light">${viewedUser.totalItems}</span>
                         </button>
-                    </p>
+                    </div>
                 </div>
                 <div class="col  rounded mt-1">
-                    <p class="lead">
-                        Items sold:
+                    <div class="row justify-content-between">
+                        <p class="lead">Items sold:</p>
                         <button type="button"
                             class="btn btn-danger ml-5">
                             <span class="badge badge-light">${viewedUser.itemsSold}</span>
                         </button>
-                    </p>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-8 m-1">
-            <div class="row">
-                <c:forEach var="item" items="${viewedUser.itemsPosted}">
-                <c:if test="${item.active == true }">
-                    <div class="card m-1 bg-light"style="width: 20rem;">
-   <!--                      <img class="card-img-top" src="..."
+                <div class="row">
+                    <c:forEach var="item"
+                        items="${viewedUser.itemsPosted}">
+                        <c:if test="${item.active == true }">
+                            <div class="card m-1 bg-light"
+                                style="width: 20rem;">
+                                <!--                      <img class="card-img-top" src="..."
                             alt="Card image cap"> -->
-                        <div class="card-body">
-                            <h4 class="card-title">${item.title }</h4>
-                            <p class="card-text">
-                                Date Posted:
-                                <javatime:format
-                                    value="${item.postTime}" style="MS" />
-                                <br> Price:
-                                <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber>
-                            </p>
-                            <a href="getPosts.do?id=${item.id}"
-                                class="btn btn-primary">See item </a>
-                        </div>
-                    </div>
-                </c:if>
-                </c:forEach>
-            </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">${item.title }</h4>
+                                    <p class="card-text">
+                                        Date Posted:
+                                        <javatime:format
+                                            value="${item.postTime}"
+                                            style="MS" />
+                                        <br> Price:
+                                        <fmt:formatNumber
+                                            type="currency">${item.price}</fmt:formatNumber>
+                                    </p>
+                                    <a href="getPosts.do?id=${item.id}"
+                                        class="btn btn-primary">See
+                                        item </a>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
             </div>
         </div>
     </div>

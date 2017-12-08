@@ -276,6 +276,7 @@
             </div>
         </div>
     </div>
+    <hr>
     </div>
 </body>
 <%@ include file="SharedViews/Layout_Scripts.jsp"%>

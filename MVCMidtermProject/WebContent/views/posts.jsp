@@ -315,6 +315,7 @@
                     back to ${item.community.name} home.</a>
             </div>
     </div>
+    <hr>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
