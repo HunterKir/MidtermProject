@@ -108,14 +108,15 @@ public class Community {
 	}
 	
 	public double getOverallGroupRating() {
-		this.overallGroupRating = 0; 
+		double total = 0; 
 		int count= 0; 
 		
 		for (UserRating r : this.ratings) {
-			this.overallGroupRating += r.getRating();
+			total += r.getRating();
 			count++; 
 		}
-		return overallGroupRating / count;
+		overallGroupRating = total / count; 
+		return overallGroupRating;
 	}
 
 	public void setOverallGroupRating(double overallGroupRating) {
