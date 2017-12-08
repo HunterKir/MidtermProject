@@ -56,4 +56,3 @@ Things we don't like:
 - Lack of color on the front-end
 - Log out bug (does not consistently log out)
 - Did not implement a way for users remove themselves from a group
--
