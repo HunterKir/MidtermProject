@@ -196,19 +196,29 @@ public class CommunityDAOImpl implements CommunityDAO {
 		try {
 			conn = DriverManager.getConnection(url, this.user, pass);
 			conn.setAutoCommit(false); // Start transaction
-			String q = "SELECT DISTINCT c.id, c.name, c.owner_id, c.description FROM community c "
-					+ " JOIN user_community uc ON uc.community_id = c.id" + " WHERE ( uc.community_id != 1 ";
 			User u = em.find(User.class, userId);
-
-			int count = 1;
-			for (Community c : u.getCommunities()) {
-				if (count == u.getCommunities().size()) {
-					q += " AND uc.community_id !=" + c.getId() + " )";
-					break;
-				} else {
-					q += " AND uc.community_id != " + c.getId();
-					count++;
+			String q; 
+			if(u.getCommunities().size() == 0) {
+				q = " SELECT DISTINCT c.id, c.name, c.owner_id, c.description"
+						+ " FROM community c "
+						+ " JOIN user_community uc ON uc.community_id = c.id "
+						+ " WHERE uc.community_id != 1 "; 
+			}
+			else
+			{
+				 q = "SELECT DISTINCT c.id, c.name, c.owner_id, c.description FROM community c "
+						+ " JOIN user_community uc ON uc.community_id = c.id" + " WHERE ( uc.community_id != 1 ";
+				int count = 1;
+				for (Community c : u.getCommunities()) {
+					if (count == u.getCommunities().size()) {
+						q += " AND uc.community_id !=" + c.getId() + " )";
+						break;
+					} else {
+						q += " AND uc.community_id != " + c.getId();
+						count++;
+					}
 				}
+				
 			}
 
 			PreparedStatement st = conn.prepareStatement(q, Statement.RETURN_GENERATED_KEYS);
