@@ -12,18 +12,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
     content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-    crossorigin="anonymous">
+<%@ include file="SharedViews/Layout_CssFiles.jsp"%>
 </head>
-<body class="full-height bg-light">
+<body class="bg-white">
     <%@ include file="SharedViews/Layout_Navbar.jsp"%>
-    <div class="container-fluid">
+    <div class="container mt-2">
         <div class="row">
-            <div class="col-sm mr-3 mt-2 bg-white p-2 rounded">
+            <div class="col-sm bg-light p-2 rounded">
                 <div class="alert alert-primary mt-1 text-dark">
                     <h1>${group.name}</h1>
                     <h2 class="lead">Users in group: ${groupSize}</h2>
@@ -177,16 +172,39 @@
                     </div>
             </div>
             </c:if>
-            <ul class="list-group">
-                <c:forEach var="member" items="${groupUsers}">
-                    <li class="list-group-item"><a
-                        href="viewProfile.do?userId=${member.id}">${member.username }</a></li>
-                </c:forEach>
-            </ul>
+            <div class="col-sm mt-2">
+                <a class="btn btn-primary"
+                    href="newItem.do?id=${group.id}">Want to post a
+                    new item? Go.</a>
+                <div class="row col-sm mt-2">
+                    <form action="searchByRange.do" method="GET">
+                        <input type="hidden" name="groupId"
+                            value="${group.id}" />
+                        <p class="lead">Filter items by price range</p>
+                        <label> Set minimum price</label> <input
+                            class="col rounded" name="min" type="number"
+                            min="0" required /> <label> Set
+                            maximum price</label> <input class=" col rounded"
+                            name="max" type="number" min="0"
+                            max="9999999" required /> <input
+                            class="btn btn-primary mt-1" type="submit"
+                            value="get items" />
+                    </form>
+                </div>
+            </div>
+            <div>
+                <h4 class="lead mt-2">Users in group</h4>
+                <ul class="list-group">
+                    <c:forEach var="member" items="${groupUsers}">
+                        <li class="list-group-item"><a
+                            href="viewProfile.do?userId=${member.id}">${member.username }</a></li>
+                    </c:forEach>
+                </ul>
+            </div>
         </div>
-        <div class="row col-sm-8 mt-2">
-            <form class="container" action="groupSearch.do" method="GET"
-                class="form-inline my-2 my-lg-0">
+        <div class="row col-sm-8 ml-2">
+            <form class="container bg-light" action="groupSearch.do"
+                method="GET" class="form-inline my-2 my-lg-0">
                 <input type="hidden" name="groupId" value="${group.id}" />
                 <select class="mt-2" name="searchSelect">
                     <option value="items">Search items</option>
@@ -194,12 +212,12 @@
                 </select><input class="form-control col mt-3" type="search"
                     placeholder="Search" aria-label="Search"
                     name="search">
-                <div class="row">
+                <div class="row p-2">
                     <button class="btn btn-outline-danger mt-3 ml-3"
                         type="submit">Search</button>
                     <div class="dropdown mt-3 ml-1">
                         <button
-                            class="btn btn-secondary dropdown-toggle"
+                            class="btn btn-outline-secondary dropdown-toggle"
                             type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">Filter by
@@ -219,11 +237,21 @@
                             search</a>
                     </div>
                 </div>
-            </form>
-            <div class="row justify-content-center ml-2">
+                <c:if test="${not empty kwError}">
+                    <div class="alert alert-danger p-2">${kwError}</div>
+                </c:if>
+                <c:if test="${not empty searchUsersList}">
+                    <ul class="list-group">
+                        <c:forEach var="user" items="${searchUsersList}">
+                            <li class="list-group-item"><a href="viewProfile.do?userId=${user.id}">${user.username }</a></li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+            <div class="row col">
                 <c:if test="${ not empty searchItemsList}">
                     <c:forEach var="item" items="${searchItemsList}">
-                        <div class="card m-1" style="width: 20rem;">
+                        <div class="card bg-white m-1"
+                            style="width: 20rem;">
                             <!--   <img class="card-img-top" src="..."
                                 alt="Card image cap"> -->
                             <div class="card-body">
@@ -237,8 +265,8 @@
                                     <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber>
                                 </p>
                                 <a href="getPosts.do?id=${item.id}"
-                                    class="btn btn-primary">See item
-                                </a>
+                                    class="btn btn-outline-danger">See
+                                    item </a>
                             </div>
                         </div>
                     </c:forEach>
@@ -262,56 +290,18 @@
                                             type="currency">${item.price}</fmt:formatNumber>
                                     </p>
                                     <a href="getPosts.do?id=${item.id}"
-                                        class="btn btn-primary">See
+                                        class="btn btn-outline-danger">See
                                         item </a>
                                 </div>
                             </div>
                         </c:if>
                     </c:forEach>
                 </c:if>
-                <c:if test="${not empty searchUsersList}">
-                    <ul class="list-group">
-                        <c:forEach var="user" items="${searchUsersList}">
-                            <li class="list-group-item">${user.username }</li>
-                        </c:forEach>
-                    </ul>
-                </c:if>
-                <c:if test="${not empty kwError}">
-                    <div class="alert alert-danger p-2">${kwError}</div>
-                </c:if>
-            </div>
-        </div>
-        <div class="col-sm mt-2">
-            <a class="btn btn-primary" href="newItem.do?id=${group.id}">Want
-                to post a new item? Go.</a>
-            <div class="row col-sm mt-2">
-                <form action="searchByRange.do" method="GET">
-                    <input type="hidden" name="groupId"
-                        value="${group.id}" />
-                    <p class="lead">Filter items by price range</p>
-                    <label> Set minimum price</label> <input
-                        class="col rounded" name="min" type="number"
-                        min="0" required /> <label> Set maximum
-                        price</label> <input class=" col rounded" name="max"
-                        type="number" min="0" max="9999999" required />
-                    <input class="btn btn-primary mt-1" type="submit"
-                        value="get items" />
-                </form>
+            </form>
             </div>
         </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-        crossorigin="anonymous"></script>
-    <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-        crossorigin="anonymous"></script>
 </body>
+<%@ include file="SharedViews/Layout_Scripts.jsp"%>
+
 </html>

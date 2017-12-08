@@ -11,11 +11,11 @@
 <title>${activeUser.username}</title>
 <%@ include file="SharedViews/Layout_CssFiles.jsp"%>
 </head>
-<body class="bg-light">
+<body class="bg-white">
     <%@ include file="SharedViews/Layout_Navbar.jsp"%>
-    <div class="container-fluid mt-4">
+    <div class="container-sm-8 m-4">
         <div class="row">
-            <div class="col-sm-3 bg-white rounded m-1">
+            <div class="col-sm-3 bg-light rounded ml-2 p-3">
                 <div class="alert alert-primary mt-1">
                     <h1 class="text-dark">${activeUser.firstName}
                         ${activeUser.lastName}</h1>
@@ -27,9 +27,6 @@
                     <h4>Overall Rating: ${activeUser.overallRating}</h4>
                 </div>
                 <div class="row">
-                    <%-- <form>
-                            <input class="btn btn-primary ml-4 m-1" type="submit" value="edit profile"/>
-                        </form> --%>
                     <button type="button"
                         class="btn btn-primary m-1 ml-4"
                         data-toggle="modal" data-target="#updateProfile">
@@ -91,6 +88,7 @@
                                         <input class="btn btn-primary"
                                             type="submit"
                                             value="Save Changes" />
+                                            
                                 </form:form>
                                 <button type="button"
                                     class="btn btn-secondary"
@@ -100,7 +98,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col bg-white rounded">
+            <div class="col rounded">
                 <div class="row justify-content-between">
                     <p class="lead">Items for sale:</p>
                     <button type="button" class="btn btn-danger ml-5">
@@ -108,7 +106,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col bg-white rounded mt-1">
+            <div class="col  rounded mt-1">
                 <div class="row justify-content-between">
                     <p class="lead">Items sold:</p>
                     <button type="button" class="btn btn-danger ml-5">
@@ -126,7 +124,7 @@
                           </button>
                      </div>
                 </div> -->
-            <div class="col bg-white rounded mt-1">
+            <div class="col rounded mt-1">
                 <div class="row justify-content-between">
                     <p class="lead">Communities created:</p>
                     <button type="button" class="btn btn-danger ml-3">
@@ -136,10 +134,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm bg-white  m-1">
+        <!--End of Grid space 1  -->
+
+        <!-- Begin grid space 2 -->
+
+        <div class="col-sm bg-light ml-2 mr-2 rounded">
             <form action="search.do" method="GET"
                 class="form-inline my-2 my-lg-0">
-                <select class="mt-2" name="searchSelect">
+                <select class="mt-2 mr-1" name="searchSelect">
                     <option value="items">Search items</option>
                     <option value="people">Search people</option>
                     <option value="group">View all groups</option>
@@ -148,10 +150,10 @@
                     name="search">
                 <button class="btn btn-outline-danger mt-3 ml-1"
                     type="submit">Search</button>
+                <c:if test="${not empty kwError}">
+                    <p class="alert alert-danger col-sm-12 mt-1">${kwError}</p>
+                </c:if>
             </form>
-            <c:if test="${not empty kwError}">
-                <p class="alert alert-danger">${kwError}</p>
-            </c:if>
             <c:if test="${not empty itemsList}">
                 <ul class="list-group mt-2">
                     <c:forEach var="item" items="${itemsList}">
@@ -207,9 +209,9 @@
                                         <p>${group.size}</p>
                                     </div>
                                     <div class="modal-footer">
-                                         <a class="btn btn-primary"
-                                              href="userJoinGroup.do?groupId=${group.id}&userId=${activeUser.id}">Join
-                                              group</a>
+                                        <a class="btn btn-primary"
+                                            href="userJoinGroup.do?groupId=${group.id}&userId=${activeUser.id}">Join
+                                            group</a>
                                         <button type="button"
                                             class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
@@ -221,8 +223,11 @@
                 </ul>
             </c:if>
         </div>
-        <div class="col-sm fixed">
-            <a href="newGroup.do" class="btn btn-danger col"> Want
+
+        <!-- Begin grid space 3 -->
+
+        <div class="col-sm-3 mt-1">
+            <a href="newGroup.do" class="btn btn-danger col mb-1"> Want
                 to create a group? Go! </a>
             <div id="accordion" role="tablist">
                 <c:forEach var="group" items="${activeUser.communities}">
@@ -230,7 +235,8 @@
                         <div class="card-header" role="tab"
                             id="headingOne">
                             <h5 class="mb-0">
-                                <a href="viewGroup.do?groupId=${group.id}">Home:
+                                <a
+                                    href="viewGroup.do?groupId=${group.id}">Home:
                                 </a><a data-toggle="collapse"
                                     href="#${group.id }"
                                     aria-expanded="true"

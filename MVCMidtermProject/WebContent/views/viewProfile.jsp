@@ -11,11 +11,11 @@
 <title>${viewedUser.username}</title>
 <%@ include file="SharedViews/Layout_CssFiles.jsp"%>
 </head>
-<body class="bg-light">
+<body class="bg-white">
     <%@ include file="SharedViews/Layout_Navbar.jsp"%>
-    <div class="container-fluid mt-4 ">
+    <div class="container mt-4 ">
         <div class="row">
-            <div class="col-sm-3 m-1 bg-white">
+            <div class="col-sm-3 rounded bg-light p-2">
                 <div class="alert alert-primary mt-1">
                     <h1 class="text-dark">${viewedUser.firstName}
                         ${viewedUser.lastName}</h1>
@@ -47,7 +47,7 @@
             <div class="row">
                 <c:forEach var="item" items="${viewedUser.itemsPosted}">
                 <c:if test="${item.active == true }">
-                    <div class="card m-1" style="width: 20rem;">
+                    <div class="card m-1 bg-light"style="width: 20rem;">
    <!--                      <img class="card-img-top" src="..."
                             alt="Card image cap"> -->
                         <div class="card-body">

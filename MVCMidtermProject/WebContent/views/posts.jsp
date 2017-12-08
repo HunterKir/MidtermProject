@@ -12,20 +12,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
     content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-    crossorigin="anonymous">
-<link rel="stylesheet" href="views/css/master.css">
+    <%@ include file="SharedViews/Layout_CssFiles.jsp"%>
 </head>
-<body class="bg-light">
+<body class="bg-white">
     <%@ include file="SharedViews/Layout_Navbar.jsp"%>
-    <div class="container-fluid">
+    <div class="container">
         <div class="container">
             <div class="row">
-                <div class="bg-white col-sm-3 mt-2 mr-5 rounded"
+                <div class="bg-light col-sm-3 mt-2 mr-5 rounded"
                     id="sellerProfile">
                     <div class="alert alert-primary">
                         <h1 class="text-dark">${item.user.firstName}
@@ -34,17 +28,18 @@
                             <a
                                 href="viewProfile.do?userId=${item.user.id}">@${item.user.username}</a>
                         </h2>
+                        <!-- Flag not the right user -->
                         <h4>Overall rating: ${activeUser.overallRating }</h4>
                     </div>
                 </div>
                 <div class="col-sm-8 mt-2 p-2 rounded bg-light">
-                    <div class="bg-white rounded pl-4">
+                    <div class="text-dark rounded pl-4">
                         <h1>${item.title}</h1>
-                        <h3>
+                        <h5 class="lead">
                             Asking price:
                             <fmt:formatNumber type="currency">${item.price}</fmt:formatNumber>
-                        </h3>
-                        <h4>${item.content}</h4>
+                        </h5>
+                        <p>${item.content}</p>
                         <c:if
                             test="${activeUser.id == item.user.id || activeUser.admin == true}">
                             <div class="row ml-2">
@@ -233,7 +228,7 @@
                     </div>
                     </c:if>
                 </div>
-                <div class="bg-white pl-4 pr-4">
+                <div class="bg-light pl-4 pr-4">
                     <c:if test="${item.active == true}">
                         <form action="newPost.do" method="POST">
                             <input type="hidden" name="ownerId"
@@ -314,11 +309,11 @@
                     </ul>
                 </c:forEach>
             </div>
-            <div class="col-sm-2">
-                <a href="viewGroup.do?groupId=${item.community.id}">Go
+        </div>
+            <div class="col">
+                <a class="btn btn-outline-danger"href="viewGroup.do?groupId=${item.community.id}">Go
                     back to ${item.community.name} home.</a>
             </div>
-        </div>
     </div>
     </div>
     <!-- Optional JavaScript -->
