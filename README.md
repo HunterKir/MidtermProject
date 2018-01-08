@@ -1,6 +1,6 @@
 # Midterm project AKA (Cloud Harbor)
 ## Authors: Airik Leon, Hunter Kiritsis, and Alex Perez
-A Marketplace Web Application
+A Marketplace Web Application at http://18.216.163.200:8080/MVCMidtermProject/
 ### Date December 8th 2017
 Website home page
 ![Website home page](https://i.imgur.com/I2InKD1.png)
